@@ -92,6 +92,15 @@
 #define AFSK_IN_Get()               ((PORTB >> 4) & 0x1U)
 #define AFSK_IN_PIN                  GPIO_PIN_RB4
 
+/*** Macros for LED_GREENn pin ***/
+#define LED_GREENn_Set()               (LATBSET = (1U<<1))
+#define LED_GREENn_Clear()             (LATBCLR = (1U<<1))
+#define LED_GREENn_Toggle()            (LATBINV= (1U<<1))
+#define LED_GREENn_OutputEnable()      (TRISBCLR = (1U<<1))
+#define LED_GREENn_InputEnable()       (TRISBSET = (1U<<1))
+#define LED_GREENn_Get()               ((PORTB >> 1) & 0x1U)
+#define LED_GREENn_PIN                  GPIO_PIN_RB1
+
 /*** Macros for LED_BLUEn pin ***/
 #define LED_BLUEn_Set()               (LATBSET = (1U<<0))
 #define LED_BLUEn_Clear()             (LATBCLR = (1U<<0))
