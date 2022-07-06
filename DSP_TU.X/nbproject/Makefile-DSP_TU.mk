@@ -57,17 +57,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=../src/config/DSP_TU/peripheral/adchs/plib_adchs.c ../src/config/DSP_TU/peripheral/clk/plib_clk.c ../src/config/DSP_TU/peripheral/evic/plib_evic.c ../src/config/DSP_TU/peripheral/gpio/plib_gpio.c ../src/config/DSP_TU/peripheral/ocmp/plib_ocmp1.c ../src/config/DSP_TU/peripheral/tmr/plib_tmr2.c ../src/config/DSP_TU/peripheral/uart/plib_uart2.c ../src/config/DSP_TU/stdio/xc32_monitor.c ../src/config/DSP_TU/initialization.c ../src/config/DSP_TU/interrupts.c ../src/config/DSP_TU/exceptions.c ../src/main.c ../src/PwmAudioOut.c ../src/biquad.c ../src/dds.c
+SOURCEFILES_QUOTED_IF_SPACED=../src/config/DSP_TU/peripheral/adchs/plib_adchs.c ../src/config/DSP_TU/peripheral/clk/plib_clk.c ../src/config/DSP_TU/peripheral/evic/plib_evic.c ../src/config/DSP_TU/peripheral/gpio/plib_gpio.c ../src/config/DSP_TU/peripheral/ocmp/plib_ocmp1.c ../src/config/DSP_TU/peripheral/tmr/plib_tmr2.c ../src/config/DSP_TU/peripheral/uart/plib_uart2.c ../src/config/DSP_TU/stdio/xc32_monitor.c ../src/config/DSP_TU/initialization.c ../src/config/DSP_TU/interrupts.c ../src/config/DSP_TU/exceptions.c ../src/main.c ../src/PwmAudioOut.c ../src/biquad.c ../src/dds.c ../src/DynamicThreshold.c ../src/agc.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/1736525323/plib_adchs.o ${OBJECTDIR}/_ext/2093422612/plib_clk.o ${OBJECTDIR}/_ext/471522303/plib_evic.o ${OBJECTDIR}/_ext/471468475/plib_gpio.o ${OBJECTDIR}/_ext/471242515/plib_ocmp1.o ${OBJECTDIR}/_ext/2093406237/plib_tmr2.o ${OBJECTDIR}/_ext/471065532/plib_uart2.o ${OBJECTDIR}/_ext/2030120972/xc32_monitor.o ${OBJECTDIR}/_ext/1044038098/initialization.o ${OBJECTDIR}/_ext/1044038098/interrupts.o ${OBJECTDIR}/_ext/1044038098/exceptions.o ${OBJECTDIR}/_ext/1360937237/main.o ${OBJECTDIR}/_ext/1360937237/PwmAudioOut.o ${OBJECTDIR}/_ext/1360937237/biquad.o ${OBJECTDIR}/_ext/1360937237/dds.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/1736525323/plib_adchs.o.d ${OBJECTDIR}/_ext/2093422612/plib_clk.o.d ${OBJECTDIR}/_ext/471522303/plib_evic.o.d ${OBJECTDIR}/_ext/471468475/plib_gpio.o.d ${OBJECTDIR}/_ext/471242515/plib_ocmp1.o.d ${OBJECTDIR}/_ext/2093406237/plib_tmr2.o.d ${OBJECTDIR}/_ext/471065532/plib_uart2.o.d ${OBJECTDIR}/_ext/2030120972/xc32_monitor.o.d ${OBJECTDIR}/_ext/1044038098/initialization.o.d ${OBJECTDIR}/_ext/1044038098/interrupts.o.d ${OBJECTDIR}/_ext/1044038098/exceptions.o.d ${OBJECTDIR}/_ext/1360937237/main.o.d ${OBJECTDIR}/_ext/1360937237/PwmAudioOut.o.d ${OBJECTDIR}/_ext/1360937237/biquad.o.d ${OBJECTDIR}/_ext/1360937237/dds.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/1736525323/plib_adchs.o ${OBJECTDIR}/_ext/2093422612/plib_clk.o ${OBJECTDIR}/_ext/471522303/plib_evic.o ${OBJECTDIR}/_ext/471468475/plib_gpio.o ${OBJECTDIR}/_ext/471242515/plib_ocmp1.o ${OBJECTDIR}/_ext/2093406237/plib_tmr2.o ${OBJECTDIR}/_ext/471065532/plib_uart2.o ${OBJECTDIR}/_ext/2030120972/xc32_monitor.o ${OBJECTDIR}/_ext/1044038098/initialization.o ${OBJECTDIR}/_ext/1044038098/interrupts.o ${OBJECTDIR}/_ext/1044038098/exceptions.o ${OBJECTDIR}/_ext/1360937237/main.o ${OBJECTDIR}/_ext/1360937237/PwmAudioOut.o ${OBJECTDIR}/_ext/1360937237/biquad.o ${OBJECTDIR}/_ext/1360937237/dds.o ${OBJECTDIR}/_ext/1360937237/DynamicThreshold.o ${OBJECTDIR}/_ext/1360937237/agc.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/1736525323/plib_adchs.o.d ${OBJECTDIR}/_ext/2093422612/plib_clk.o.d ${OBJECTDIR}/_ext/471522303/plib_evic.o.d ${OBJECTDIR}/_ext/471468475/plib_gpio.o.d ${OBJECTDIR}/_ext/471242515/plib_ocmp1.o.d ${OBJECTDIR}/_ext/2093406237/plib_tmr2.o.d ${OBJECTDIR}/_ext/471065532/plib_uart2.o.d ${OBJECTDIR}/_ext/2030120972/xc32_monitor.o.d ${OBJECTDIR}/_ext/1044038098/initialization.o.d ${OBJECTDIR}/_ext/1044038098/interrupts.o.d ${OBJECTDIR}/_ext/1044038098/exceptions.o.d ${OBJECTDIR}/_ext/1360937237/main.o.d ${OBJECTDIR}/_ext/1360937237/PwmAudioOut.o.d ${OBJECTDIR}/_ext/1360937237/biquad.o.d ${OBJECTDIR}/_ext/1360937237/dds.o.d ${OBJECTDIR}/_ext/1360937237/DynamicThreshold.o.d ${OBJECTDIR}/_ext/1360937237/agc.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/_ext/1736525323/plib_adchs.o ${OBJECTDIR}/_ext/2093422612/plib_clk.o ${OBJECTDIR}/_ext/471522303/plib_evic.o ${OBJECTDIR}/_ext/471468475/plib_gpio.o ${OBJECTDIR}/_ext/471242515/plib_ocmp1.o ${OBJECTDIR}/_ext/2093406237/plib_tmr2.o ${OBJECTDIR}/_ext/471065532/plib_uart2.o ${OBJECTDIR}/_ext/2030120972/xc32_monitor.o ${OBJECTDIR}/_ext/1044038098/initialization.o ${OBJECTDIR}/_ext/1044038098/interrupts.o ${OBJECTDIR}/_ext/1044038098/exceptions.o ${OBJECTDIR}/_ext/1360937237/main.o ${OBJECTDIR}/_ext/1360937237/PwmAudioOut.o ${OBJECTDIR}/_ext/1360937237/biquad.o ${OBJECTDIR}/_ext/1360937237/dds.o
+OBJECTFILES=${OBJECTDIR}/_ext/1736525323/plib_adchs.o ${OBJECTDIR}/_ext/2093422612/plib_clk.o ${OBJECTDIR}/_ext/471522303/plib_evic.o ${OBJECTDIR}/_ext/471468475/plib_gpio.o ${OBJECTDIR}/_ext/471242515/plib_ocmp1.o ${OBJECTDIR}/_ext/2093406237/plib_tmr2.o ${OBJECTDIR}/_ext/471065532/plib_uart2.o ${OBJECTDIR}/_ext/2030120972/xc32_monitor.o ${OBJECTDIR}/_ext/1044038098/initialization.o ${OBJECTDIR}/_ext/1044038098/interrupts.o ${OBJECTDIR}/_ext/1044038098/exceptions.o ${OBJECTDIR}/_ext/1360937237/main.o ${OBJECTDIR}/_ext/1360937237/PwmAudioOut.o ${OBJECTDIR}/_ext/1360937237/biquad.o ${OBJECTDIR}/_ext/1360937237/dds.o ${OBJECTDIR}/_ext/1360937237/DynamicThreshold.o ${OBJECTDIR}/_ext/1360937237/agc.o
 
 # Source Files
-SOURCEFILES=../src/config/DSP_TU/peripheral/adchs/plib_adchs.c ../src/config/DSP_TU/peripheral/clk/plib_clk.c ../src/config/DSP_TU/peripheral/evic/plib_evic.c ../src/config/DSP_TU/peripheral/gpio/plib_gpio.c ../src/config/DSP_TU/peripheral/ocmp/plib_ocmp1.c ../src/config/DSP_TU/peripheral/tmr/plib_tmr2.c ../src/config/DSP_TU/peripheral/uart/plib_uart2.c ../src/config/DSP_TU/stdio/xc32_monitor.c ../src/config/DSP_TU/initialization.c ../src/config/DSP_TU/interrupts.c ../src/config/DSP_TU/exceptions.c ../src/main.c ../src/PwmAudioOut.c ../src/biquad.c ../src/dds.c
+SOURCEFILES=../src/config/DSP_TU/peripheral/adchs/plib_adchs.c ../src/config/DSP_TU/peripheral/clk/plib_clk.c ../src/config/DSP_TU/peripheral/evic/plib_evic.c ../src/config/DSP_TU/peripheral/gpio/plib_gpio.c ../src/config/DSP_TU/peripheral/ocmp/plib_ocmp1.c ../src/config/DSP_TU/peripheral/tmr/plib_tmr2.c ../src/config/DSP_TU/peripheral/uart/plib_uart2.c ../src/config/DSP_TU/stdio/xc32_monitor.c ../src/config/DSP_TU/initialization.c ../src/config/DSP_TU/interrupts.c ../src/config/DSP_TU/exceptions.c ../src/main.c ../src/PwmAudioOut.c ../src/biquad.c ../src/dds.c ../src/DynamicThreshold.c ../src/agc.c
 
 
 
@@ -197,6 +197,18 @@ ${OBJECTDIR}/_ext/1360937237/dds.o: ../src/dds.c  .generated_files/flags/DSP_TU/
 	@${RM} ${OBJECTDIR}/_ext/1360937237/dds.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -O1 -I"../src" -I"../src/config/DSP_TU" -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360937237/dds.o.d" -o ${OBJECTDIR}/_ext/1360937237/dds.o ../src/dds.c    -DXPRJ_DSP_TU=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
 	
+${OBJECTDIR}/_ext/1360937237/DynamicThreshold.o: ../src/DynamicThreshold.c  .generated_files/flags/DSP_TU/48d5a8e9734e60fb282546131d7ae3eaa9e95c8a .generated_files/flags/DSP_TU/81bc5fc5a660e0b86762e654f4f91d7af1decfb7
+	@${MKDIR} "${OBJECTDIR}/_ext/1360937237" 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/DynamicThreshold.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/DynamicThreshold.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -O1 -I"../src" -I"../src/config/DSP_TU" -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360937237/DynamicThreshold.o.d" -o ${OBJECTDIR}/_ext/1360937237/DynamicThreshold.o ../src/DynamicThreshold.c    -DXPRJ_DSP_TU=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	
+${OBJECTDIR}/_ext/1360937237/agc.o: ../src/agc.c  .generated_files/flags/DSP_TU/5e53cde96eac93ffdd7ef6b169347d2f4a101fcd .generated_files/flags/DSP_TU/81bc5fc5a660e0b86762e654f4f91d7af1decfb7
+	@${MKDIR} "${OBJECTDIR}/_ext/1360937237" 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/agc.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/agc.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -O1 -I"../src" -I"../src/config/DSP_TU" -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360937237/agc.o.d" -o ${OBJECTDIR}/_ext/1360937237/agc.o ../src/agc.c    -DXPRJ_DSP_TU=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	
 else
 ${OBJECTDIR}/_ext/1736525323/plib_adchs.o: ../src/config/DSP_TU/peripheral/adchs/plib_adchs.c  .generated_files/flags/DSP_TU/f223abd6693cd8298c13cc9f209773d6b824726a .generated_files/flags/DSP_TU/81bc5fc5a660e0b86762e654f4f91d7af1decfb7
 	@${MKDIR} "${OBJECTDIR}/_ext/1736525323" 
@@ -287,6 +299,18 @@ ${OBJECTDIR}/_ext/1360937237/dds.o: ../src/dds.c  .generated_files/flags/DSP_TU/
 	@${RM} ${OBJECTDIR}/_ext/1360937237/dds.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1360937237/dds.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -O1 -I"../src" -I"../src/config/DSP_TU" -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360937237/dds.o.d" -o ${OBJECTDIR}/_ext/1360937237/dds.o ../src/dds.c    -DXPRJ_DSP_TU=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	
+${OBJECTDIR}/_ext/1360937237/DynamicThreshold.o: ../src/DynamicThreshold.c  .generated_files/flags/DSP_TU/fff7c5299b5017a8aecfe9bec67e80bccff9f424 .generated_files/flags/DSP_TU/81bc5fc5a660e0b86762e654f4f91d7af1decfb7
+	@${MKDIR} "${OBJECTDIR}/_ext/1360937237" 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/DynamicThreshold.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/DynamicThreshold.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -O1 -I"../src" -I"../src/config/DSP_TU" -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360937237/DynamicThreshold.o.d" -o ${OBJECTDIR}/_ext/1360937237/DynamicThreshold.o ../src/DynamicThreshold.c    -DXPRJ_DSP_TU=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	
+${OBJECTDIR}/_ext/1360937237/agc.o: ../src/agc.c  .generated_files/flags/DSP_TU/e210d3cfcb0960bfeaaa0757b449837573e25579 .generated_files/flags/DSP_TU/81bc5fc5a660e0b86762e654f4f91d7af1decfb7
+	@${MKDIR} "${OBJECTDIR}/_ext/1360937237" 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/agc.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1360937237/agc.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -O1 -I"../src" -I"../src/config/DSP_TU" -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360937237/agc.o.d" -o ${OBJECTDIR}/_ext/1360937237/agc.o ../src/agc.c    -DXPRJ_DSP_TU=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
 	
 endif
 

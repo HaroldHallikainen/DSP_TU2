@@ -12,7 +12,8 @@ build/DSP_TU/debug/_ext/1360937237/main.o: ../src/main.c \
  ../src/config/DSP_TU/peripheral/evic/plib_evic.h \
  ../src/config/DSP_TU/peripheral/ocmp/plib_ocmp1.h \
  ../src/config/DSP_TU/peripheral/ocmp/plib_ocmp_common.h \
- ../src/PwmAudioOut.h ../src/dds.h ../src/biquad.h
+ ../src/PwmAudioOut.h ../src/dds.h ../src/biquad.h \
+ ../src/DynamicThreshold.h ../src/agc.h ../src/main.h
 
 ../src/config/DSP_TU/definitions.h:
 
@@ -47,3 +48,9 @@ build/DSP_TU/debug/_ext/1360937237/main.o: ../src/main.c \
 ../src/dds.h:
 
 ../src/biquad.h:
+
+../src/DynamicThreshold.h:
+
+../src/agc.h:
+
+../src/main.h:

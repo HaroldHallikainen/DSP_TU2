@@ -43,6 +43,8 @@
       <itemPath>../src/biquad.h</itemPath>
       <itemPath>../src/dds.h</itemPath>
       <itemPath>../src/main.h</itemPath>
+      <itemPath>../src/DynamicThreshold.h</itemPath>
+      <itemPath>../src/agc.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -93,6 +95,8 @@
       <itemPath>../src/PwmAudioOut.c</itemPath>
       <itemPath>../src/biquad.c</itemPath>
       <itemPath>../src/dds.c</itemPath>
+      <itemPath>../src/DynamicThreshold.c</itemPath>
+      <itemPath>../src/agc.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -363,6 +367,7 @@
         <property key="ToolFirmwareOption.UseLatestFirmware" value="true"/>
         <property key="debugoptions.debug-startup" value="Use system settings"/>
         <property key="debugoptions.reset-behaviour" value="Use system settings"/>
+        <property key="firmware.download.all" value="false"/>
         <property key="lastid" value=""/>
         <property key="memories.configurationmemory" value="true"/>
         <property key="memories.dataflash" value="true"/>

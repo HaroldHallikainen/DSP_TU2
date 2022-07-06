@@ -8,7 +8,9 @@
 #ifndef MAIN_H
 #define	MAIN_H
 
-//extern volatile int NextCycle;   // Set when timer2 times out
+#define TRUE 1
+#define FALSE 0
+
 extern volatile uint16_t Timer2TimeoutCounter;
 
 
