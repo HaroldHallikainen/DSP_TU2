@@ -163,6 +163,7 @@ bool UART2_SerialSetup( UART_SERIAL_SETUP *setup, uint32_t srcClkFreq )
 {
     bool status = false;
     uint32_t baud;
+    uint32_t status_ctrl;
     uint8_t brgh = 1;
     int32_t uxbrg = 0;
 
@@ -196,7 +197,10 @@ bool UART2_SerialSetup( UART_SERIAL_SETUP *setup, uint32_t srcClkFreq )
             return status;
         }
 
-        /* Turn OFF UART2 */
+        /* Turn OFF UART2. Save UTXEN, URXEN and UTXBRK bits as these are cleared upon disabling UART */
+
+        status_ctrl = U2STA & (_U2STA_UTXEN_MASK | _U2STA_URXEN_MASK | _U2STA_UTXBRK_MASK);
+
         U2MODECLR = _U2MODE_ON_MASK;
 
         if(setup->dataWidth == UART_DATA_9_BIT)
@@ -228,6 +232,9 @@ bool UART2_SerialSetup( UART_SERIAL_SETUP *setup, uint32_t srcClkFreq )
         }
 
         U2MODESET = _U2MODE_ON_MASK;
+
+        /* Restore UTXEN, URXEN and UTXBRK bits. */
+        U2STASET = status_ctrl;
 
         status = true;
     }
@@ -597,15 +604,15 @@ size_t UART2_WriteBufferSizeGet(void)
 }
 
 bool UART2_TransmitComplete( void )
-{    
+{
     if((U2STA & _U2STA_TRMT_MASK))
     {
         return true;
     }
-	else
-	{
-		return false;
-	}
+    else
+    {
+        return false;
+    }
 }
 
 bool UART2_WriteNotificationEnable(bool isEnabled, bool isPersistent)

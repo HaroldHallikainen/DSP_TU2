@@ -11,7 +11,7 @@
 #define TRUE 1
 #define FALSE 0
 
-extern volatile uint16_t Timer2TimeoutCounter;
+extern volatile int16_t Timer2TimeoutCounter;
 
 
 #ifdef	__cplusplus

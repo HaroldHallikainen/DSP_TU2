@@ -24,6 +24,12 @@
               <itemPath>../src/config/DSP_TU/peripheral/ocmp/plib_ocmp_common.h</itemPath>
               <itemPath>../src/config/DSP_TU/peripheral/ocmp/plib_ocmp1.h</itemPath>
             </logicalFolder>
+            <logicalFolder name="f8" displayName="spi" projectFiles="true">
+              <logicalFolder name="f1" displayName="spi_master" projectFiles="true">
+                <itemPath>../src/config/DSP_TU/peripheral/spi/spi_master/plib_spi_master_common.h</itemPath>
+                <itemPath>../src/config/DSP_TU/peripheral/spi/spi_master/plib_spi1_master.h</itemPath>
+              </logicalFolder>
+            </logicalFolder>
             <logicalFolder name="f3" displayName="tmr" projectFiles="true">
               <itemPath>../src/config/DSP_TU/peripheral/tmr/plib_tmr_common.h</itemPath>
               <itemPath>../src/config/DSP_TU/peripheral/tmr/plib_tmr2.h</itemPath>
@@ -45,6 +51,9 @@
       <itemPath>../src/main.h</itemPath>
       <itemPath>../src/DynamicThreshold.h</itemPath>
       <itemPath>../src/agc.h</itemPath>
+      <itemPath>../src/fifo16.h</itemPath>
+      <itemPath>../src/display.h</itemPath>
+      <itemPath>../src/xyScope.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -76,6 +85,11 @@
             <logicalFolder name="f7" displayName="ocmp" projectFiles="true">
               <itemPath>../src/config/DSP_TU/peripheral/ocmp/plib_ocmp1.c</itemPath>
             </logicalFolder>
+            <logicalFolder name="f8" displayName="spi" projectFiles="true">
+              <logicalFolder name="f1" displayName="spi_master" projectFiles="true">
+                <itemPath>../src/config/DSP_TU/peripheral/spi/spi_master/plib_spi1_master.c</itemPath>
+              </logicalFolder>
+            </logicalFolder>
             <logicalFolder name="f3" displayName="tmr" projectFiles="true">
               <itemPath>../src/config/DSP_TU/peripheral/tmr/plib_tmr2.c</itemPath>
             </logicalFolder>
@@ -97,6 +111,9 @@
       <itemPath>../src/dds.c</itemPath>
       <itemPath>../src/DynamicThreshold.c</itemPath>
       <itemPath>../src/agc.c</itemPath>
+      <itemPath>../src/fifo16.c</itemPath>
+      <itemPath>../src/display.c</itemPath>
+      <itemPath>../src/xyScope.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -109,6 +126,7 @@
         <itemPath>../src/config/DSP_TU/DSP_TU.mhc/ocmp1.yml</itemPath>
         <itemPath>../src/config/DSP_TU/DSP_TU.mhc/project.yml</itemPath>
         <itemPath>../src/config/DSP_TU/DSP_TU.mhc/settings.yml</itemPath>
+        <itemPath>../src/config/DSP_TU/DSP_TU.mhc/spi1.yml</itemPath>
         <itemPath>../src/config/DSP_TU/DSP_TU.mhc/tmr2.yml</itemPath>
         <itemPath>../src/config/DSP_TU/DSP_TU.mhc/uart2.yml</itemPath>
       </logicalFolder>
@@ -175,7 +193,7 @@
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
         <property key="make-warnings-into-errors" value="true"/>
-        <property key="optimization-level" value="-O1"/>
+        <property key="optimization-level" value="-O2"/>
         <property key="place-data-into-section" value="false"/>
         <property key="post-instruction-scheduling" value="default"/>
         <property key="pre-instruction-scheduling" value="default"/>
@@ -236,7 +254,7 @@
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-cross-reference-file" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
-        <property key="heap-size" value="1024"/>
+        <property key="heap-size" value="200000"/>
         <property key="input-libraries" value=""/>
         <property key="kseg-length" value=""/>
         <property key="kseg-origin" value=""/>
@@ -367,7 +385,6 @@
         <property key="ToolFirmwareOption.UseLatestFirmware" value="true"/>
         <property key="debugoptions.debug-startup" value="Use system settings"/>
         <property key="debugoptions.reset-behaviour" value="Use system settings"/>
-        <property key="firmware.download.all" value="false"/>
         <property key="lastid" value=""/>
         <property key="memories.configurationmemory" value="true"/>
         <property key="memories.dataflash" value="true"/>
@@ -426,6 +443,7 @@
         <property key="UART2" value="true"/>
         <property key="debugoptions.debug-startup" value="Use system settings"/>
         <property key="debugoptions.reset-behaviour" value="Use system settings"/>
+        <property key="firmware.download.all" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="lastid" value=""/>
         <property key="memories.aux" value="false"/>

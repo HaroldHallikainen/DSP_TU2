@@ -110,6 +110,41 @@
 #define LED_BLUEn_Get()               ((PORTB >> 0) & 0x1U)
 #define LED_BLUEn_PIN                  GPIO_PIN_RB0
 
+/*** Macros for DisplayDataCmdn pin ***/
+#define DisplayDataCmdn_Set()               (LATASET = (1U<<9))
+#define DisplayDataCmdn_Clear()             (LATACLR = (1U<<9))
+#define DisplayDataCmdn_Toggle()            (LATAINV= (1U<<9))
+#define DisplayDataCmdn_OutputEnable()      (TRISACLR = (1U<<9))
+#define DisplayDataCmdn_InputEnable()       (TRISASET = (1U<<9))
+#define DisplayDataCmdn_Get()               ((PORTA >> 9) & 0x1U)
+#define DisplayDataCmdn_PIN                  GPIO_PIN_RA9
+
+/*** Macros for DisplayResetn pin ***/
+#define DisplayResetn_Set()               (LATFSET = (1U<<13))
+#define DisplayResetn_Clear()             (LATFCLR = (1U<<13))
+#define DisplayResetn_Toggle()            (LATFINV= (1U<<13))
+#define DisplayResetn_OutputEnable()      (TRISFCLR = (1U<<13))
+#define DisplayResetn_InputEnable()       (TRISFSET = (1U<<13))
+#define DisplayResetn_Get()               ((PORTF >> 13) & 0x1U)
+#define DisplayResetn_PIN                  GPIO_PIN_RF13
+
+/*** Macros for DisplayCsn pin ***/
+#define DisplayCsn_Set()               (LATDSET = (1U<<10))
+#define DisplayCsn_Clear()             (LATDCLR = (1U<<10))
+#define DisplayCsn_Toggle()            (LATDINV= (1U<<10))
+#define DisplayCsn_OutputEnable()      (TRISDCLR = (1U<<10))
+#define DisplayCsn_InputEnable()       (TRISDSET = (1U<<10))
+#define DisplayCsn_Get()               ((PORTD >> 10) & 0x1U)
+#define DisplayCsn_PIN                  GPIO_PIN_RD10
+
+/*** Macros for DisplaySpiClk pin ***/
+#define DisplaySpiClk_Get()               ((PORTD >> 1) & 0x1U)
+#define DisplaySpiClk_PIN                  GPIO_PIN_RD1
+
+/*** Macros for DisplaySpiMosi pin ***/
+#define DisplaySpiMosi_Get()               ((PORTD >> 3) & 0x1U)
+#define DisplaySpiMosi_PIN                  GPIO_PIN_RD3
+
 /*** Macros for LOOP_KEY_OUT pin ***/
 #define LOOP_KEY_OUT_Set()               (LATDSET = (1U<<4))
 #define LOOP_KEY_OUT_Clear()             (LATDCLR = (1U<<4))

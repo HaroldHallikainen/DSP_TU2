@@ -120,7 +120,8 @@ void TIMER_2_InterruptHandler (void)
     uint32_t status  = 0U;
     status = IFS0bits.T2IF;
     IFS0CLR = _IFS0_T2IF_MASK;
-    if(Timer2TimeoutCounter!=0) Timer2TimeoutCounter--;
+    //if(Timer2TimeoutCounter!=0) 
+        Timer2TimeoutCounter--;
     if((tmr2Obj.callback_fn != NULL))
     {
         tmr2Obj.callback_fn(status, tmr2Obj.context);
