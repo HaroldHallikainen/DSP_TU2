@@ -54,6 +54,8 @@
       <itemPath>../src/fifo16.h</itemPath>
       <itemPath>../src/display.h</itemPath>
       <itemPath>../src/xyScope.h</itemPath>
+      <itemPath>../src/AfskGen.h</itemPath>
+      <itemPath>../src/BaudotUart.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -114,6 +116,8 @@
       <itemPath>../src/fifo16.c</itemPath>
       <itemPath>../src/display.c</itemPath>
       <itemPath>../src/xyScope.c</itemPath>
+      <itemPath>../src/AfskGen.c</itemPath>
+      <itemPath>../src/BaudotUart.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -385,6 +389,7 @@
         <property key="ToolFirmwareOption.UseLatestFirmware" value="true"/>
         <property key="debugoptions.debug-startup" value="Use system settings"/>
         <property key="debugoptions.reset-behaviour" value="Use system settings"/>
+        <property key="firmware.download.all" value="false"/>
         <property key="lastid" value=""/>
         <property key="memories.configurationmemory" value="true"/>
         <property key="memories.dataflash" value="true"/>

@@ -4,22 +4,23 @@
 
 #include <math.h>
 #include "biquad.h"
+#include "main.h"   // typedef smp_type
 
-double gain=1.0;        // What to multiply the input sample by
-double MaxGain=50.0 ;    // Make no larger than this
-double TargetLevel=0.5; // Aim for this
+smp_type gain=1.0;        // What to multiply the input sample by
+smp_type MaxGain=200.0;// 50.0 ;    // Make no larger than this
+smp_type TargetLevel=0.5; // Aim for this
 
-double AgcLpfF=1.0;     // Average level over 1 second
+smp_type AgcLpfF=1.0;     // Average level over 1 second
 biquad *AgcLpf;    
 
 void AgcInit(void){
   AgcLpf=BiQuad_new(LPF, 0.0, AgcLpfF, 8000.0, 0.707 );    
 }
 
-double agc(double sample){
+smp_type agc(smp_type sample){
 // Pass in a sample and get a sample out normalized to TargetLevel.    
-double level;
-level=fabs(sample);            // full wave rectified sample
+smp_type level;
+level=(smp_type)fabs((double)sample);            // full wave rectified sample
 level=BiQuad(level, AgcLpf);  // Filtered fw rect.
 if(level==0.0) level=TargetLevel;   // Avoid divide by zero
 gain=TargetLevel/level; 

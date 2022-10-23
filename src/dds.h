@@ -8,8 +8,10 @@
 #ifndef DDS_H
 #define	DDS_H
 
-double DdsNextSample(void); // Return the next sample (-1.0 to +1.0))
-void DdsFreqSet(double freq); // Set DdsRadiansPerSample so there is less math in DdsNextSample
+#include "main.h" // has typedef for smp_type
+
+smp_type DdsNextSample(void); // Return the next sample (-1.0 to +1.0))
+void DdsFreqSet(smp_type freq); // Set DdsRadiansPerSample so there is less math in DdsNextSample
 
 
 #ifdef	__cplusplus

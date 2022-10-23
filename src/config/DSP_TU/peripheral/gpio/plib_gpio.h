@@ -128,6 +128,24 @@
 #define DisplayResetn_Get()               ((PORTF >> 13) & 0x1U)
 #define DisplayResetn_PIN                  GPIO_PIN_RF13
 
+/*** Macros for LOOP_SAMPLE_IN pin ***/
+#define LOOP_SAMPLE_IN_Set()               (LATDSET = (1U<<14))
+#define LOOP_SAMPLE_IN_Clear()             (LATDCLR = (1U<<14))
+#define LOOP_SAMPLE_IN_Toggle()            (LATDINV= (1U<<14))
+#define LOOP_SAMPLE_IN_OutputEnable()      (TRISDCLR = (1U<<14))
+#define LOOP_SAMPLE_IN_InputEnable()       (TRISDSET = (1U<<14))
+#define LOOP_SAMPLE_IN_Get()               ((PORTD >> 14) & 0x1U)
+#define LOOP_SAMPLE_IN_PIN                  GPIO_PIN_RD14
+
+/*** Macros for AFSK_OUT_ENn pin ***/
+#define AFSK_OUT_ENn_Set()               (LATDSET = (1U<<15))
+#define AFSK_OUT_ENn_Clear()             (LATDCLR = (1U<<15))
+#define AFSK_OUT_ENn_Toggle()            (LATDINV= (1U<<15))
+#define AFSK_OUT_ENn_OutputEnable()      (TRISDCLR = (1U<<15))
+#define AFSK_OUT_ENn_InputEnable()       (TRISDSET = (1U<<15))
+#define AFSK_OUT_ENn_Get()               ((PORTD >> 15) & 0x1U)
+#define AFSK_OUT_ENn_PIN                  GPIO_PIN_RD15
+
 /*** Macros for DisplayCsn pin ***/
 #define DisplayCsn_Set()               (LATDSET = (1U<<10))
 #define DisplayCsn_Clear()             (LATDCLR = (1U<<10))
@@ -153,6 +171,15 @@
 #define LOOP_KEY_OUT_InputEnable()       (TRISDSET = (1U<<4))
 #define LOOP_KEY_OUT_Get()               ((PORTD >> 4) & 0x1U)
 #define LOOP_KEY_OUT_PIN                  GPIO_PIN_RD4
+
+/*** Macros for PTTn pin ***/
+#define PTTn_Set()               (LATDSET = (1U<<5))
+#define PTTn_Clear()             (LATDCLR = (1U<<5))
+#define PTTn_Toggle()            (LATDINV= (1U<<5))
+#define PTTn_OutputEnable()      (TRISDCLR = (1U<<5))
+#define PTTn_InputEnable()       (TRISDSET = (1U<<5))
+#define PTTn_Get()               ((PORTD >> 5) & 0x1U)
+#define PTTn_PIN                  GPIO_PIN_RD5
 
 
 // *****************************************************************************

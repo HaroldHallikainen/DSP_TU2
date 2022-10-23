@@ -5,27 +5,34 @@
         <group>
             <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU/firmware/src/config/DSP_TU/definitions.h</file>
             <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU/firmware/src/config/DSP_TU/exceptions.c</file>
+            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU/firmware/src/AfskGen.h</file>
+            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU/firmware/src/config/DSP_TU/peripheral/adchs/plib_adchs.c</file>
+            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU/firmware/src/main.h</file>
+            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU/firmware/src/config/DSP_TU/initialization.c</file>
+            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU/firmware/src/config/DSP_TU/peripheral/spi/spi_master/plib_spi_master_common.h</file>
+            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU/firmware/src/config/DSP_TU/peripheral/gpio/plib_gpio.h</file>
+            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU/firmware/src/BaudotUart.h</file>
+            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU/firmware/src/main.c</file>
+            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU/firmware/src/config/DSP_TU/interrupts.c</file>
+            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU/firmware/src/fifo16.c</file>
+            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU/firmware/src/agc.c</file>
+            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU/firmware/src/PwmAudioOut.c</file>
+            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU/firmware/src/BaudotUart.c</file>
+            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU/firmware/src/fifo16.h</file>
+            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU/firmware/src/config/DSP_TU/peripheral/uart/plib_uart2.c</file>
+            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU/firmware/src/AfskGen.c</file>
             <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU/firmware/src/biquad.c</file>
             <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU/firmware/src/xyScope.c</file>
             <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU/firmware/DSP_TU.X/nbproject/Makefile-DSP_TU.mk</file>
             <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU/firmware/src/config/DSP_TU/peripheral/tmr/plib_tmr2.c</file>
-            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU/firmware/src/config/DSP_TU/peripheral/adchs/plib_adchs.c</file>
             <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU/firmware/src/config/DSP_TU/peripheral/ocmp/plib_ocmp1.c</file>
             <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU/firmware/src/config/DSP_TU/peripheral/spi/spi_master/plib_spi1_master.c</file>
-            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU/firmware/src/config/DSP_TU/initialization.c</file>
-            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU/firmware/src/config/DSP_TU/peripheral/spi/spi_master/plib_spi_master_common.h</file>
-            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU/firmware/src/config/DSP_TU/peripheral/gpio/plib_gpio.h</file>
-            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU/firmware/src/main.c</file>
-            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU/firmware/src/config/DSP_TU/interrupts.c</file>
-            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU/firmware/src/fifo16.c</file>
             <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU/firmware/src/config/DSP_TU/peripheral/spi/spi_master/plib_spi1_master.h</file>
             <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU/firmware/src/config/DSP_TU/device.h</file>
             <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU/firmware/src/xyScope.h</file>
             <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU/firmware/src/display.c</file>
-            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU/firmware/src/PwmAudioOut.c</file>
             <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU/firmware/src/display.h</file>
-            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU/firmware/src/fifo16.h</file>
-            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU/firmware/src/config/DSP_TU/peripheral/uart/plib_uart2.c</file>
+            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU/firmware/src/dds.c</file>
         </group>
     </open-files>
 </project-private>

@@ -13,7 +13,8 @@ build/DSP_TU/debug/_ext/1360937237/PwmAudioOut.o: ../src/PwmAudioOut.c \
  ../src/config/DSP_TU/peripheral/ocmp/plib_ocmp1.h \
  ../src/config/DSP_TU/peripheral/ocmp/plib_ocmp_common.h \
  ../src/config/DSP_TU/peripheral/spi/spi_master/plib_spi1_master.h \
- ../src/config/DSP_TU/peripheral/spi/spi_master/plib_spi_master_common.h
+ ../src/config/DSP_TU/peripheral/spi/spi_master/plib_spi_master_common.h \
+ ../src/main.h
 
 ../src/config/DSP_TU/definitions.h:
 
@@ -46,3 +47,5 @@ build/DSP_TU/debug/_ext/1360937237/PwmAudioOut.o: ../src/PwmAudioOut.c \
 ../src/config/DSP_TU/peripheral/spi/spi_master/plib_spi1_master.h:
 
 ../src/config/DSP_TU/peripheral/spi/spi_master/plib_spi_master_common.h:
+
+../src/main.h:

@@ -14,8 +14,9 @@ build/DSP_TU/production/_ext/1360937237/main.o: ../src/main.c \
  ../src/config/DSP_TU/peripheral/ocmp/plib_ocmp_common.h \
  ../src/config/DSP_TU/peripheral/spi/spi_master/plib_spi1_master.h \
  ../src/config/DSP_TU/peripheral/spi/spi_master/plib_spi_master_common.h \
- ../src/PwmAudioOut.h ../src/dds.h ../src/biquad.h \
- ../src/DynamicThreshold.h ../src/agc.h ../src/main.h
+ ../src/PwmAudioOut.h ../src/main.h ../src/dds.h ../src/biquad.h \
+ ../src/DynamicThreshold.h ../src/agc.h ../src/display.h ../src/xyScope.h \
+ ../src/AfskGen.h ../src/BaudotUart.h
 
 ../src/config/DSP_TU/definitions.h:
 
@@ -51,6 +52,8 @@ build/DSP_TU/production/_ext/1360937237/main.o: ../src/main.c \
 
 ../src/PwmAudioOut.h:
 
+../src/main.h:
+
 ../src/dds.h:
 
 ../src/biquad.h:
@@ -59,4 +62,10 @@ build/DSP_TU/production/_ext/1360937237/main.o: ../src/main.c \
 
 ../src/agc.h:
 
-../src/main.h:
+../src/display.h:
+
+../src/xyScope.h:
+
+../src/AfskGen.h:
+
+../src/BaudotUart.h:

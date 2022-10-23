@@ -14,7 +14,7 @@ build/DSP_TU/debug/_ext/1360937237/xyScope.o: ../src/xyScope.c \
  ../src/config/DSP_TU/peripheral/ocmp/plib_ocmp_common.h \
  ../src/config/DSP_TU/peripheral/spi/spi_master/plib_spi1_master.h \
  ../src/config/DSP_TU/peripheral/spi/spi_master/plib_spi_master_common.h \
- ../src/display.h
+ ../src/display.h ../src/main.h
 
 ../src/config/DSP_TU/definitions.h:
 
@@ -49,3 +49,5 @@ build/DSP_TU/debug/_ext/1360937237/xyScope.o: ../src/xyScope.c \
 ../src/config/DSP_TU/peripheral/spi/spi_master/plib_spi_master_common.h:
 
 ../src/display.h:
+
+../src/main.h:

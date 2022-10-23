@@ -13,6 +13,13 @@
 
 extern volatile int16_t Timer2TimeoutCounter;
 
+typedef double smp_type; // Results in 11.5% CPU usage
+//typedef float smp_type;     // Results in 10.5% CPU usage
+extern smp_type MarkFreq;
+extern smp_type SpaceFreq;
+
+
+
 
 #ifdef	__cplusplus
 extern "C" {
