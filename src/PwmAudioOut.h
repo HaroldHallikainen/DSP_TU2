@@ -1,0 +1,26 @@
+/* 
+ * File:   PwmAudio.h
+ * Author: Harold_Win7
+ *
+ * Created on February 9, 2022, 9:28 PM
+ */
+
+#ifndef PWMAUDIO_H
+#define	PWMAUDIO_H
+
+#include "main.h"// typedef for smp_type
+
+void AudioPwmSet(smp_type sample); // Pass in audio sample as -1.0 to +1.0 to set duty cycle to 0% to 100%
+
+#ifdef	__cplusplus
+extern "C" {
+#endif
+
+
+
+
+#ifdef	__cplusplus
+}
+#endif
+
+#endif	/* PWMAUDIO_H */

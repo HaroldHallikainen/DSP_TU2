@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/config/DSP_TU2/interrupts.c</file>
+            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/config/DSP_TU2/peripheral/ocmp/plib_ocmp_common.h</file>
+            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/BaudotUart.c</file>
+            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/PollSwitchesLeds.h</file>
+            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/config/DSP_TU2/peripheral/spi/spi_master/plib_spi1_master.c</file>
+            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/PollEncoder.h</file>
+            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/PwmAudioOut.c</file>
+            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/config/DSP_TU2/exceptions.c</file>
+            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/PollSwitchesLeds.c</file>
+            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/main.h</file>
+            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/config/DSP_TU2/peripheral/tmr/plib_tmr2.c</file>
+            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/AfskGen.c</file>
+            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/PollEncoder.c</file>
+            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/display.c</file>
+            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/biquad.c</file>
+            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/main.c</file>
+            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/DSP_TU2.X/nbproject/Makefile-DSP_TU2.mk</file>
+            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/fifo16.c</file>
+        </group>
+    </open-files>
+</project-private>
