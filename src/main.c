@@ -195,7 +195,7 @@ int main ( void ){
  //       #ifdef UseUartDebug
  //         if(0==DebugCounter--){       // output debug data  // To output every 1 ms, run this every 8 samples
  //           sprintf(StringBuf,"%E\r\n",DiscrimOut);
- //           UART2_Write((uint8_t*)StringBuf,strlen(StringBuf));   // Cast to uint_8. Sprintf outputs int8 while UART2_Write takes uint8
+ //           UART1_Write((uint8_t*)StringBuf,strlen(StringBuf));   // Cast to uint_8. Sprintf outputs int8 while UART2_Write takes uint8
  //           DebugCounter=16;              // Come back in 16 samples (2 ms)
  //         }
  //       #endif
@@ -210,7 +210,7 @@ int main ( void ){
       if(FpPollCounter<1){      // Time to poll front panel switches, LEDs, etc.
           PollSwitchesLeds();   // Go poll the switches and LEDs.
           PollEncoder();        // Poll the quadrature encoder updating EncoderCount
-          FpPollCounter+=1000;  // Poll every 8 ms. No debounce required
+          FpPollCounter+=10;  // Each pass is 125us. Come back in 1.25ms
       }
       IDLEn_Clear();      // Exiting DSP code, so make RE7 low so we can see how much time spent there.  
       /* Maintain state machines of all polled MPLAB Harmony modules. */
