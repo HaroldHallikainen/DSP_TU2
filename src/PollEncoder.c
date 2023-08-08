@@ -3,26 +3,40 @@
 // Based on encoder rotation, increments or decrements EncoderCount.
 
 #include "PollEncoder.h"
+#include "ByteToBinary.h"  // for degug
+#include <stdbool.h>                    // Defines true
+
 
 int32_t EncoderCount=0;
 
+
 void PollEncoder(void){
-  static uint8_t state=0x0f;
-  state|=0b11;      // set the 2 lsb
-  if(0==QAn_Get()) state&=0b1110;   // If QAn low, clear the lsb of state
-  if(0==QBn_Get()) state&=0b1101;   // If QBn low, clear b1 of state
-  state&=0x0f;                      // Mask to lower 4 bits.
-  // 2 low bits hold current encoder. Next 2 hold old encoder
-  sprintf(StringBuf,"0x%x, %d\r\n",state,EncoderCount);
-  UART2_Write((uint8_t*)StringBuf,strlen(StringBuf));   // Cast to uint_8. Sprintf outputs int8 while UART2_Write takes uint8
-  switch(state){
-    case 0b1110:          // A and B were high, A is now low and B still high 
-      EncoderCount++;
+  // Get current and previous encoder bits and look for specific patterns
+  // indicating clockwise or counterclockwise rotation. Discard all other
+  // values, most likely due to contact bounce.
+  
+  static uint32_t OldNew=0x0f;  // 2 lsb are current BnAn. Nest 2 bits are previous value  
+  OldNew=OldNew<<2;                  // Shift old
+  OldNew&=0b1100;             // Clear to 2 lsb
+  if(1==QAn_Get()) OldNew|=1; // If A high, set the lsb
+  if(1==QBn_Get()) OldNew|=2; // If B high, set the D1
+  switch(OldNew){
+    case 0b1011:         // A was low, now both high
+      EncoderCount--;   // Moving counterclockwise, decrease count
       break;
-    case 0b1100:          // A and B were high, both now low
-        EncoderCount--;
-        break;
-    default: break; // Do nothing        
+    case 0b0111:        // B was low, now both high
+      EncoderCount++;   // Moving clockwise, increase count
+    default:            // Glitch or other error, do nothing
+      break;
   }
-  state<<=2;    // Shift state left 2 putting old encoder in higher bits
+  // Debug
+#if 1
+  static int32_t OldEncoderCount=0;   // Here for debut
+  if(OldEncoderCount!=EncoderCount){
+    OldEncoderCount=EncoderCount;
+    sprintf(StringBuf,"%d\r\n", EncoderCount);
+    UART1_Write((uint8_t*)StringBuf,strlen(StringBuf));   // Cast to uint_8. Sprintf outputs int8 while UAR12_Write takes uint8
+  }// End debug
+#endif   
 }
+

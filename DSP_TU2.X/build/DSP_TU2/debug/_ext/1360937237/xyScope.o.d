@@ -2,7 +2,7 @@ build/DSP_TU2/debug/_ext/1360937237/xyScope.o: ../src/xyScope.c \
  ../src/config/DSP_TU2/definitions.h \
  ../src/config/DSP_TU2/peripheral/adchs/plib_adchs.h \
  ../src/config/DSP_TU2/peripheral/adchs/plib_adchs_common.h \
- ../src/config/DSP_TU2/peripheral/uart/plib_uart2.h \
+ ../src/config/DSP_TU2/peripheral/uart/plib_uart1.h \
  ../src/config/DSP_TU2/device.h \
  ../src/config/DSP_TU2/toolchain_specifics.h \
  ../src/config/DSP_TU2/peripheral/uart/plib_uart_common.h \
@@ -25,7 +25,7 @@ build/DSP_TU2/debug/_ext/1360937237/xyScope.o: ../src/xyScope.c \
 
 ../src/config/DSP_TU2/peripheral/adchs/plib_adchs_common.h:
 
-../src/config/DSP_TU2/peripheral/uart/plib_uart2.h:
+../src/config/DSP_TU2/peripheral/uart/plib_uart1.h:
 
 ../src/config/DSP_TU2/device.h:
 

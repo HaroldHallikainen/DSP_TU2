@@ -38,7 +38,7 @@
  * b4..0    - Blue
  */
 
-#define DisplayFifoSize 3000
+#define DisplayFifoSize 1024 //3000
 
 union DisplayWord{
     uint16_t word;

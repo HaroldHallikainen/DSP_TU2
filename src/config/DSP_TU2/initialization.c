@@ -180,7 +180,7 @@ void SYS_Initialize ( void* data )
 
     ADCHS_Initialize();
 
-	UART2_Initialize();
+	UART1_Initialize();
 
     TMR2_Initialize();
 

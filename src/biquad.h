@@ -30,6 +30,10 @@ extern biquad *BiQuad_new(const int type, smp_type dbGain, /* gain of filter */
                           const smp_type srate,            /* sampling rate */
                           const smp_type Q);       /* filter Q . Was bandwidth in octaves */
 
+extern void BiQuad_modify(biquad* const b, const int type, const smp_type dbGain, const smp_type freq,
+		   const smp_type srate, const smp_type Q);
+
+
 /* filter types */
 enum FILT_TYPE {
     LPF, /* low pass filter */

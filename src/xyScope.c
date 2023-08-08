@@ -7,7 +7,7 @@
 #include "main.h"                   // typedef for smp_type
 
 void xyScope(smp_type x, smp_type y){
-#define OldArraySize 1024
+#define OldArraySize 256 // 512 //1024
     static uint8_t oldX[OldArraySize]={0};
     static uint8_t oldY[OldArraySize]={0};
     static uint16_t OldIndex=1;     // Circular buffer where we make oldes black and newest white

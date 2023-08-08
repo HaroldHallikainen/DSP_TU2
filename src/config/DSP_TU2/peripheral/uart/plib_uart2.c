@@ -496,7 +496,7 @@ static void UART2_WriteNotificationSend(void)
 {
     uint32_t nFreeWrBufferCount;
 
-    if (uart2Obj.isWrNotificationEnabled == true)
+   if (uart2Obj.isWrNotificationEnabled == true)
     {
         nFreeWrBufferCount = UART2_WriteFreeBufferCountGet();
 

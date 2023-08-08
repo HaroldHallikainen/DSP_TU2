@@ -39,6 +39,8 @@
 #include "BaudotUart.h"
 #include "PollSwitchesLeds.h"           // Go poll the front panel
 #include "PollEncoder.h"                // Poll the quadrature encoder
+#include "UserConfig.h"                 // Tone frequencies, etc.
+#include "filters.h"                    // Set up filters and modify based on button presses
 
 static void MyTimer2Isr(uint32_t intCause, uintptr_t context);
 
@@ -56,7 +58,7 @@ uint16_t AdcSample;         // Raw sample from ADC. Converted to AdcSamplef for 
 smp_type samplef, TestSamplef, MarkSample, SpaceSample, MarkDemodOut, SpaceDemodOut, DiscrimOut, DdsOut, Threshold;  // These were originally in main but seemed to get corrupted
 smp_type MarkFreq=2125.0;
 smp_type SpaceFreq=2295.0;
-#define NumBpf 2            // How many cascaded BPFs for mark or space 
+// #define NumBpf 2            // How many cascaded BPFs for mark or space 
 smp_type BpfQ=18.0;           // Q of individual BPF stage - See https://w6iwi.org/rtty/CascadedBpf.html for overall Q and BW.
 smp_type LpfF=50.0;           // Data LPF cutoff frequency - Envelope detection filter
 smp_type InputBpfF = 2208.365;     // sqrt Fh*fl
@@ -79,11 +81,11 @@ int Shift=170;          // Sets mark and space frequencies
 #endif
 
 int main ( void ){
-    biquad *MarkFilter[NumBpf]; // Audio BPF for mark (array of pointers for cascaded filters)
-    biquad *SpaceFilter[NumBpf]; // Audio BPF for space
-    biquad *MarkDataFilter;     // Mark LPF after absolute value "full wave rectification" 
-    biquad *SpaceDataFilter;
-    biquad *InputBpf;
+//    biquad *MarkFilter[NumBpf]; // Audio BPF for mark (array of pointers for cascaded filters)
+//    biquad *SpaceFilter[NumBpf]; // Audio BPF for space
+//    biquad *MarkDataFilter;     // Mark LPF after absolute value "full wave rectification" 
+//    biquad *SpaceDataFilter;
+//    biquad *InputBpf;
 
     int n;
     int MarkHoldTimer=0;        // How long 'til we mark hold
@@ -93,32 +95,34 @@ int main ( void ){
     TMR2_Start();               // Timer for 80 kHz PWM output
     OCMP1_Enable();             // PWM generator for audio   
     DynamicThresholdInit();     // Set up LPF used in dynamic threshold
-    switch(Shift){
-      case 850:
-        MarkFreq=2.0e3-425.0;   // For 850 Hz shift, center at 2 kHz
-        SpaceFreq=2.0e3+425.0;
-        break;
-      case 851:                 // 850 Hz reverse
-        SpaceFreq=2.0e3-425.0;   // For 850 Hz shift, center at 2 kHz
-        MarkFreq=2.0e3+425.0;
-        break;
-       case 170:
-      default:
-        MarkFreq=2125.0;
-        SpaceFreq=2295.0;
-        break;
-    }
+    LoadDefaultConfig();        // Load default user config (tone freuqncies, etc.))
+    FiltersInit();
+//    switch(Shift){
+//      case 850:
+//        MarkFreq=2.0e3-425.0;   // For 850 Hz shift, center at 2 kHz
+//        SpaceFreq=2.0e3+425.0;
+//        break;
+//      case 851:                 // 850 Hz reverse
+//        SpaceFreq=2.0e3-425.0;   // For 850 Hz shift, center at 2 kHz
+//        MarkFreq=2.0e3+425.0;
+//        break;
+//       case 170:
+//      default:
+//        MarkFreq=2125.0;
+//        SpaceFreq=2295.0;
+//        break;
+//0    }
     AgcInit();                  // Set up automatic gain control
     DisplayInit();         // Initialize display and related fifo
     AudioPwmSet(0.0);           // Initialize PWM to 50% duty cycle representing 0.0.
     ADCHS_ChannelConversionStart(2); // Start a first ADC conversion
-    for(n=0;n<NumBpf;n++){      // Initialize tone BPFs (array of pointers). 8000.0 is audio sample rate.
-      MarkFilter[n] = BiQuad_new(BPF, 0.0, MarkFreq, 8000.0, BpfQ);    
-      SpaceFilter[n] = BiQuad_new(BPF, 0.0, SpaceFreq, 8000.0, BpfQ);
-    }  
-    MarkDataFilter=BiQuad_new(LPF, 0.0, LpfF, 8000.0, 0.707 ); // After rectification data LPF
-    SpaceDataFilter=BiQuad_new(LPF, 0.0, LpfF, 8000.0, 0.707 );
-    InputBpf=BiQuad_new(BPF,0.0,(smp_type)sqrt((double)(MarkFreq*SpaceFreq)), 8000.0, InputBpfQ);
+//    for(n=0;n<NumBpf;n++){      // Initialize tone BPFs (array of pointers). 8000.0 is audio sample rate.
+//      MarkFilter[n] = BiQuad_new(BPF, 0.0, MarkFreq, 8000.0, BpfQ);    
+//      SpaceFilter[n] = BiQuad_new(BPF, 0.0, SpaceFreq, 8000.0, BpfQ);
+//    }  
+//    MarkDataFilter=BiQuad_new(LPF, 0.0, LpfF, 8000.0, 0.707 ); // After rectification data LPF
+//    SpaceDataFilter=BiQuad_new(LPF, 0.0, LpfF, 8000.0, 0.707 );
+//    InputBpf=BiQuad_new(BPF,0.0,(smp_type)sqrt((double)(MarkFreq*SpaceFreq)), 8000.0, InputBpfQ);
     AfskGenInit();      // Initialize a low pass filter between loop current sample and DDS.
     DisplayClear();
     while ( true ){
@@ -209,6 +213,7 @@ int main ( void ){
       DisplayPoll();            // If something in display fifo, send it
       if(FpPollCounter<1){      // Time to poll front panel switches, LEDs, etc.
           PollSwitchesLeds();   // Go poll the switches and LEDs.
+          PollShiftMarkHi();    // Change filters if shift or MarkHi changed
           PollEncoder();        // Poll the quadrature encoder updating EncoderCount
           FpPollCounter+=10;  // Each pass is 125us. Come back in 1.25ms
       }

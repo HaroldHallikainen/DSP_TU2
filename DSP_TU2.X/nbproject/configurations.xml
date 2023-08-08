@@ -38,7 +38,7 @@
             </logicalFolder>
             <logicalFolder name="f2" displayName="uart" projectFiles="true">
               <itemPath>../src/config/DSP_TU2/peripheral/uart/plib_uart_common.h</itemPath>
-              <itemPath>../src/config/DSP_TU2/peripheral/uart/plib_uart2.h</itemPath>
+              <itemPath>../src/config/DSP_TU2/peripheral/uart/plib_uart1.h</itemPath>
             </logicalFolder>
           </logicalFolder>
           <itemPath>../src/config/DSP_TU2/device.h</itemPath>
@@ -60,6 +60,9 @@
       <itemPath>../src/xyScope.h</itemPath>
       <itemPath>../src/PollSwitchesLeds.h</itemPath>
       <itemPath>../src/PollEncoder.h</itemPath>
+      <itemPath>../src/ByteToBinary.h</itemPath>
+      <itemPath>../src/UserConfig.h</itemPath>
+      <itemPath>../src/filters.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -102,7 +105,7 @@
               <itemPath>../src/config/DSP_TU2/peripheral/tmr/plib_tmr2.c</itemPath>
             </logicalFolder>
             <logicalFolder name="f2" displayName="uart" projectFiles="true">
-              <itemPath>../src/config/DSP_TU2/peripheral/uart/plib_uart2.c</itemPath>
+              <itemPath>../src/config/DSP_TU2/peripheral/uart/plib_uart1.c</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="f2" displayName="stdio" projectFiles="true">
@@ -126,6 +129,8 @@
       <itemPath>../src/xyScope.c</itemPath>
       <itemPath>../src/PollSwitchesLeds.c</itemPath>
       <itemPath>../src/PollEncoder.c</itemPath>
+      <itemPath>../src/UserConfig.c</itemPath>
+      <itemPath>../src/filters.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -142,7 +147,7 @@
         <itemPath>../src/config/DSP_TU2/DSP_TU2.mhc/spi2.yml</itemPath>
         <itemPath>../src/config/DSP_TU2/DSP_TU2.mhc/spi3.yml</itemPath>
         <itemPath>../src/config/DSP_TU2/DSP_TU2.mhc/tmr2.yml</itemPath>
-        <itemPath>../src/config/DSP_TU2/DSP_TU2.mhc/uart2.yml</itemPath>
+        <itemPath>../src/config/DSP_TU2/DSP_TU2.mhc/uart1.yml</itemPath>
       </logicalFolder>
       <itemPath>Makefile</itemPath>
       <itemPath>../src/config/DSP_TU2/harmony-manifest-success.yml</itemPath>
@@ -207,7 +212,7 @@
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
         <property key="make-warnings-into-errors" value="true"/>
-        <property key="optimization-level" value="-O1"/>
+        <property key="optimization-level" value=""/>
         <property key="place-data-into-section" value="false"/>
         <property key="post-instruction-scheduling" value="default"/>
         <property key="pre-instruction-scheduling" value="default"/>
@@ -268,7 +273,7 @@
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-cross-reference-file" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
-        <property key="heap-size" value="10000"/>
+        <property key="heap-size" value="3000"/>
         <property key="input-libraries" value=""/>
         <property key="kseg-length" value=""/>
         <property key="kseg-origin" value=""/>

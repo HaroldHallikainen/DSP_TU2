@@ -2,7 +2,7 @@ build/DSP_TU2/production/_ext/1360937237/main.o: ../src/main.c \
  ../src/config/DSP_TU2/definitions.h \
  ../src/config/DSP_TU2/peripheral/adchs/plib_adchs.h \
  ../src/config/DSP_TU2/peripheral/adchs/plib_adchs_common.h \
- ../src/config/DSP_TU2/peripheral/uart/plib_uart2.h \
+ ../src/config/DSP_TU2/peripheral/uart/plib_uart1.h \
  ../src/config/DSP_TU2/device.h \
  ../src/config/DSP_TU2/toolchain_specifics.h \
  ../src/config/DSP_TU2/peripheral/uart/plib_uart_common.h \
@@ -20,7 +20,7 @@ build/DSP_TU2/production/_ext/1360937237/main.o: ../src/main.c \
  ../src/PwmAudioOut.h ../src/main.h ../src/dds.h ../src/biquad.h \
  ../src/DynamicThreshold.h ../src/agc.h ../src/display.h ../src/xyScope.h \
  ../src/AfskGen.h ../src/BaudotUart.h ../src/PollSwitchesLeds.h \
- ../src/PollEncoder.h
+ ../src/PollEncoder.h ../src/UserConfig.h ../src/filters.h
 
 ../src/config/DSP_TU2/definitions.h:
 
@@ -28,7 +28,7 @@ build/DSP_TU2/production/_ext/1360937237/main.o: ../src/main.c \
 
 ../src/config/DSP_TU2/peripheral/adchs/plib_adchs_common.h:
 
-../src/config/DSP_TU2/peripheral/uart/plib_uart2.h:
+../src/config/DSP_TU2/peripheral/uart/plib_uart1.h:
 
 ../src/config/DSP_TU2/device.h:
 
@@ -81,3 +81,7 @@ build/DSP_TU2/production/_ext/1360937237/main.o: ../src/main.c \
 ../src/PollSwitchesLeds.h:
 
 ../src/PollEncoder.h:
+
+../src/UserConfig.h:
+
+../src/filters.h:
