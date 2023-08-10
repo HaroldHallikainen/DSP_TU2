@@ -12,7 +12,12 @@ const UserConfig_t UserConfigDefault={
   .WideShiftHz=850.0,
   .BaudRate=45.45,                  // Used to determine filter bandwidth and in software uart
   .AutostartShutdownSeconds=30.0,
-  .KosDropSeconds=5.0              // Drop transmitter 5 seconds after last character
+  .KosDropSeconds=5.0,              // Drop transmitter 5 seconds after last character
+  .AgcTargetLevel=0.7,               // AGC adjusts to this level
+  .AgcLpfF=1.0,
+  .UseInputBpf=0,
+  .UseLimiter=0,
+  .UseAgc=1
 };
 
 

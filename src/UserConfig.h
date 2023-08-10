@@ -12,7 +12,12 @@ typedef struct{
   double WideShiftHz;              // How many Hz shift (typically 850)
   double BaudRate;                 // Used to calculate tone filter bw and data filter cutoff
   double AutostartShutdownSeconds; // How many seconda after loss of mark to shut down motor
-  double KosDropSeconds;            // How many seconds after last character to drop transmitter          
+  double KosDropSeconds;            // How many seconds after last character to drop transmitter  
+  double AgcTargetLevel;            // Desired AGC output level
+  double AgcLpfF;                   // Cutoff frequency in AGC control.
+  int UseInputBpf;                  // True if we want to use input bpf
+  int UseLimiter;                   // True if we want to use the limiter
+  int UseAgc;                       // True if we want to use the AGC
 } UserConfig_t;
 
 void LoadDefaultConfig(void);       // Load default user config (tone frequencies, etc.)

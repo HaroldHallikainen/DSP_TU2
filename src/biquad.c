@@ -45,122 +45,17 @@ smp_type BiQuad(const smp_type sample, biquad* const b)
   return result;
 }
 
-
-#if 0
 /* sets up a BiQuad Filter */
 /* Note that dbGain is only used when the type is LSH or HSH */
 biquad *BiQuad_new(const int type, const smp_type dbGain, const smp_type freq,
 		   const smp_type srate, const smp_type Q)
 {
-  biquad *b;
-  smp_type A, omega, sn, cs, alpha, beta;
-  smp_type a0, a1, a2, b0, b1, b2;
+  biquad *b;          // Create pointer to biquad
 
-  b = malloc(sizeof(biquad));
-  if (b == NULL)
+  b = malloc(sizeof(biquad)); // allocate RAM for biquad
+  if (b == NULL)              // Get out if malloc fails
     return NULL;
-
-  /* setup variables */
-  A = pow(10, dbGain /40);
-  omega = 2 * M_PI * freq /srate;
-  sn = sin(omega);
-  cs = cos(omega);
-  // alpha = sn * sinh(M_LN2 /2 * bandwidth * omega /sn);
-  alpha = sn / (2*Q); // From https://github.com/hosackm/BiquadFilter/blob/master/Biquad.c
-  beta = sqrt(A + A);
-
-  switch (type) {
-  case LPF:
-    b0 = (1 - cs) /2;
-    b1 = 1 - cs;
-    b2 = (1 - cs) /2;
-    a0 = 1 + alpha;
-    a1 = -2 * cs;
-    a2 = 1 - alpha;
-    break;
-  case HPF:
-    b0 = (1 + cs) /2;
-    b1 = -(1 + cs);
-    b2 = (1 + cs) /2;
-    a0 = 1 + alpha;
-    a1 = -2 * cs;
-    a2 = 1 - alpha;
-    break;
-  case BPF:
-    b0 = alpha;
-    b1 = 0;
-    b2 = -alpha;
-    a0 = 1 + alpha;
-    a1 = -2 * cs;
-    a2 = 1 - alpha;
-    break;
-  case NOTCH:
-    b0 = 1;
-    b1 = -2 * cs;
-    b2 = 1;
-    a0 = 1 + alpha;
-    a1 = -2 * cs;
-    a2 = 1 - alpha;
-    break;
-  case PEQ:
-    b0 = 1 + (alpha * A);
-    b1 = -2 * cs;
-    b2 = 1 - (alpha * A);
-    a0 = 1 + (alpha /A);
-    a1 = -2 * cs;
-    a2 = 1 - (alpha /A);
-    break;
-  case LSH:
-    b0 = A * ((A + 1) - (A - 1) * cs + beta * sn);
-    b1 = 2 * A * ((A - 1) - (A + 1) * cs);
-    b2 = A * ((A + 1) - (A - 1) * cs - beta * sn);
-    a0 = (A + 1) + (A - 1) * cs + beta * sn;
-    a1 = -2 * ((A - 1) + (A + 1) * cs);
-    a2 = (A + 1) + (A - 1) * cs - beta * sn;
-    break;
-  case HSH:
-    b0 = A * ((A + 1) + (A - 1) * cs + beta * sn);
-    b1 = -2 * A * ((A - 1) + (A + 1) * cs);
-    b2 = A * ((A + 1) + (A - 1) * cs - beta * sn);
-    a0 = (A + 1) - (A - 1) * cs + beta * sn;
-    a1 = 2 * ((A - 1) - (A + 1) * cs);
-    a2 = (A + 1) - (A - 1) * cs - beta * sn;
-    break;
-  default:
-    free(b);
-    return NULL;
-  }
-
-  /* precompute the coefficients */
-  b->a0 = b0 /a0;
-  b->a1 = b1 /a0;
-  b->a2 = b2 /a0;
-  b->a3 = a1 /a0;
-  b->a4 = a2 /a0;
-
-  /* zero initial samples */
-  b->x1 = b->x2 = 0;
-  b->y1 = b->y2 = 0;
-
-  return b;
-}
-
-#endif
-
-
-/* sets up a BiQuad Filter */
-/* Note that dbGain is only used when the type is LSH or HSH */
-biquad *BiQuad_new(const int type, const smp_type dbGain, const smp_type freq,
-		   const smp_type srate, const smp_type Q)
-{
-  biquad *b;
-  //smp_type A, omega, sn, cs, alpha, beta;
-  // smp_type a0, a1, a2, b0, b1, b2;
-
-  b = malloc(sizeof(biquad));
-  if (b == NULL)
-    return NULL;
-  BiQuad_modify(b, type, dbGain, freq, srate, Q);
+  BiQuad_modify(b, type, dbGain, freq, srate, Q); // Go set up biquad b
    /* zero initial samples */
   b->x1 = b->x2 = 0;
   b->y1 = b->y2 = 0;
@@ -169,17 +64,12 @@ biquad *BiQuad_new(const int type, const smp_type dbGain, const smp_type freq,
 
 /* Modifies an existing BiQuad filter. */
 /* Note that dbGain is only used when the type is LSH or HSH */
+// Pointer to biquad struct is first parameter.
 void BiQuad_modify(biquad* const b, const int type, const smp_type dbGain, const smp_type freq,
 		   const smp_type srate, const smp_type Q)
 {
-  // biquad *b;
   smp_type A, omega, sn, cs, alpha, beta;
   smp_type a0, a1, a2, b0, b1, b2;
-
-  // b = malloc(sizeof(biquad));
-  // if (b == NULL)
-  //   return NULL;
-
   /* setup variables */
   A = pow(10, dbGain /40);
   omega = 2 * M_PI * freq /srate;
@@ -246,9 +136,6 @@ void BiQuad_modify(biquad* const b, const int type, const smp_type dbGain, const
     a1 = 2 * ((A - 1) - (A + 1) * cs);
     a2 = (A + 1) - (A - 1) * cs - beta * sn;
     break;
-  // default:
-   // free(b);
-   // return NULL;
   }
 
   /* precompute the coefficients */
@@ -258,10 +145,5 @@ void BiQuad_modify(biquad* const b, const int type, const smp_type dbGain, const
   b->a3 = a1 /a0;
   b->a4 = a2 /a0;
 
-  /* zero initial samples */
-//  b->x1 = b->x2 = 0;
-//  b->y1 = b->y2 = 0;
-
-//  return b;
 }
 

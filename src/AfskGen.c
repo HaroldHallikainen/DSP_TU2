@@ -8,6 +8,7 @@
 #include "biquad.h"                     // biquad filters. Includes typedef for smp_type
 #include "AfskGen.h"  
 #include "definitions.h"                // SYS function prototypes like peripheral library
+#include "filters.h"                    // Mark and space frequencies specified here
 
 
 
