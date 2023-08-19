@@ -41,6 +41,7 @@
 #include "PollEncoder.h"                // Poll the quadrature encoder
 #include "UserConfig.h"                 // Tone frequencies, etc.
 #include "filters.h"                    // Set up filters and modify based on button presses
+#include "AutostartKos.h"               // Handle autostart and KOS
 
 static void MyTimer2Isr(uint32_t intCause, uintptr_t context);
 
@@ -55,7 +56,6 @@ volatile int16_t Timer2TimeoutCounter=0; // Derive 8 kHz from timer 2 80 kHz - D
 int16_t FpPollCounter=0;                // Decrements at 8 kHz telling us when to poll switches and LEDs.
 // Audio samples at various stages
 uint16_t AdcSample;         // Raw sample from ADC. Converted to AdcSamplef for calculations.
-smp_type MarkHoldThresh=0.1;    // Minimum discriminator level to reset mark hold timer.
 smp_type samplef, TestSamplef, MarkSample, SpaceSample, MarkDemodOut, SpaceDemodOut, DiscrimOut, DdsOut, Threshold;  // These were originally in main but seemed to get corrupted
 // What drives the audio output. Usually dds (AFSK tone), but others for debug.  
 enum {NONE,ADC, AGC, INPUT_BPF, LIMITER, MARK_FILTER_OUT, SPACE_FILTER_OUT, MARK_DEMOD_OUT, SPACE_DEMOD_OUT, DISCRIM, DDS, THRESHOLD, DISCRIM_LESS_THRESHOLD} AudioOut=DDS;
@@ -91,7 +91,8 @@ int main ( void ){
   DisplayClear();
   while ( true ){
     if(Timer2TimeoutCounter<1){        // We have timed out 10 times, so it has been 125 us
-      IDLEn_Set();                  // CPU not idle, so set RE7 so we can time it  
+      IDLEn_Set();                  // CPU not idle, so set RE7 so we can time it 
+      // CLRWDT;                     // Clear the watchdog timer
       FpPollCounter--;                // Decrement at 8 kHz so we can poll front panel now and then
       Timer2TimeoutCounter+=10;    // come back in 125 us. PWM frequency is 80 kHz, so change every 10 cycles
       AdcSample=ADCHS_ChannelResultGet(2);      // Get sample as uint16_t
@@ -125,23 +126,24 @@ int main ( void ){
       if(AudioOut==SPACE_FILTER_OUT) TestSamplef=SpaceSample;
       MarkDemodOut=BiQuad(fabs(MarkSample), MarkDataFilter);  // Envelope detected and filtered mark
       SpaceDemodOut=BiQuad(fabs(SpaceSample), SpaceDataFilter);    // Same for space
+      Threshold=DynamicThresholdGet(MarkDemodOut, SpaceDemodOut);
       if(AudioOut==MARK_DEMOD_OUT) TestSamplef=MarkDemodOut;
       if(AudioOut==SPACE_DEMOD_OUT) TestSamplef=SpaceDemodOut;
              // DiscrimOut is difference between LPF of full wave rectified of mark and space BPFs
       DiscrimOut=MarkDemodOut-SpaceDemodOut;
-      if(DiscrimOut>MarkHoldThresh){  // we have mark instead of space or noise
+      if(DiscrimOut-Threshold>UserConfig.MarkHoldThresh){  // we have mark instead of space or noise
         MarkHoldTimer=2400;         // Allow loop key for another 300ms. One character is 163ms long
       }else{
         if(MarkHoldTimer>0) MarkHoldTimer--;
-      }    
+      } 
       if(AudioOut==DISCRIM) TestSamplef=DiscrimOut;
-      Threshold=DynamicThresholdGet(MarkDemodOut, SpaceDemodOut);
       if(AudioOut==THRESHOLD) TestSamplef=Threshold;
       if(AudioOut==DISCRIM_LESS_THRESHOLD) TestSamplef=DiscrimOut-Threshold;
       if(TX_LED_Get()){     // Hold loop in mark during tx so only keyboard keys loop
         LOOP_KEY_Set();     // Loop switch on
         AFSK_OUT_EN_Set();  // Enable AFSK output
         PTT_Set();          // Close PTT relay
+        MarkHoldTimer=0;    // Go into mark hold when dropping out of transmit
       }else{                  // Not in tx, let received data key loop
         AFSK_OUT_EN_Clear();  // Disable AFSK output
         PTT_Clear();          // Release PTT relay                                        
@@ -154,7 +156,8 @@ int main ( void ){
         }else{
           LOOP_KEY_Set();     // Mark hold timed out, so hold mark
         }
-      }       // end else not in transmit  
+      }       // end else not in transmit 
+      AutostartKos(DiscrimOut);       // Handle autostart and Keyboard Operated Send only in mark
       if(AudioOut==DDS) TestSamplef=DdsOut;
       AudioPwmSet(TestSamplef);   // Output selected test signal
     } // endif Timer2TimeoutCounter

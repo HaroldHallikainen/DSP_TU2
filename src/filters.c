@@ -26,7 +26,7 @@ void FiltersInit(void){
   SpaceFreq = UserConfig.NarrowShiftCenterFreq + (UserConfig.NarrowShiftHz/2);  // Space half shift above center
   InputBpfFreq=sqrt(MarkFreq*SpaceFreq);     // Input BPF center freq
   InputBpfBW=2*UserConfig.NarrowShiftHz;
-  ToneFilterBW=1.5*UserConfig.BaudRate;     // arrived at experimentally so fundamental is not attenauted so
+  ToneFilterBW=UserConfig.ToneFilterBwBrMult*UserConfig.BaudRate;  // Tone filter wide enough for minimal attenuation of BR/2 sideband
                                             // demod signal reaches full amplitude at middle of bit time.
   MarkQ=MarkFreq/ToneFilterBW;              // Calculate Q for each filter. Could vary for wide shift
   SpaceQ=SpaceFreq/ToneFilterBW;

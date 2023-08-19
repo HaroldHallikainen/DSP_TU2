@@ -70,7 +70,7 @@ void GPIO_Initialize ( void )
     TRISCCLR = 0xe000U; /* Direction Control */
     CNPUCSET = 0x1000U; /* Pull-Up Enable */
     /* PORTD Initialization */
-    LATD = 0x0U; /* Initial Latch Value */
+    LATD = 0x400U; /* Initial Latch Value */
     TRISDCLR = 0x429U; /* Direction Control */
     CNPUDSET = 0x810U; /* Pull-Up Enable */
     /* PORTE Initialization */

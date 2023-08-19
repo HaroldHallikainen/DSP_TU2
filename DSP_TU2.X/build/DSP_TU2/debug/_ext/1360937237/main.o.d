@@ -20,7 +20,8 @@ build/DSP_TU2/debug/_ext/1360937237/main.o: ../src/main.c \
  ../src/PwmAudioOut.h ../src/main.h ../src/dds.h ../src/biquad.h \
  ../src/DynamicThreshold.h ../src/agc.h ../src/display.h ../src/xyScope.h \
  ../src/AfskGen.h ../src/BaudotUart.h ../src/PollSwitchesLeds.h \
- ../src/PollEncoder.h ../src/UserConfig.h ../src/filters.h
+ ../src/PollEncoder.h ../src/UserConfig.h ../src/filters.h \
+ ../src/AutostartKos.h
 
 ../src/config/DSP_TU2/definitions.h:
 
@@ -85,3 +86,5 @@ build/DSP_TU2/debug/_ext/1360937237/main.o: ../src/main.c \
 ../src/UserConfig.h:
 
 ../src/filters.h:
+
+../src/AutostartKos.h:

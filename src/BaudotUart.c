@@ -93,7 +93,7 @@ char BaudotUartRx(bool MS){
                   }    
                   break;
           }
-          // UART2_Write((uint8_t*)&result,1); // Send to uart for debug 
+          UART1_Write((uint8_t*)&result,1); // Send to uart for debug 
           state=0;          // Go back to waiting for start
           break;
         case 8:         // Got framing error. Wait here for mark

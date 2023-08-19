@@ -17,7 +17,8 @@ build/DSP_TU2/debug/_ext/1360937237/AfskGen.o: ../src/AfskGen.c \
  ../src/config/DSP_TU2/peripheral/ocmp/plib_ocmp1.h \
  ../src/config/DSP_TU2/peripheral/ocmp/plib_ocmp_common.h \
  ../src/config/DSP_TU2/peripheral/spi/spi_master/plib_spi2_master.h \
- ../src/config/DSP_TU2/peripheral/spi/spi_master/plib_spi1_master.h
+ ../src/config/DSP_TU2/peripheral/spi/spi_master/plib_spi1_master.h \
+ ../src/filters.h
 
 ../src/main.h:
 
@@ -62,3 +63,5 @@ build/DSP_TU2/debug/_ext/1360937237/AfskGen.o: ../src/AfskGen.c \
 ../src/config/DSP_TU2/peripheral/spi/spi_master/plib_spi2_master.h:
 
 ../src/config/DSP_TU2/peripheral/spi/spi_master/plib_spi1_master.h:
+
+../src/filters.h:
