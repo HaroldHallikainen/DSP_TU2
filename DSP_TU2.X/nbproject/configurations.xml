@@ -64,6 +64,7 @@
       <itemPath>../src/UserConfig.h</itemPath>
       <itemPath>../src/filters.h</itemPath>
       <itemPath>../src/AutostartKos.h</itemPath>
+      <itemPath>../src/ExtFlash.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -133,6 +134,7 @@
       <itemPath>../src/UserConfig.c</itemPath>
       <itemPath>../src/filters.c</itemPath>
       <itemPath>../src/AutostartKos.c</itemPath>
+      <itemPath>../src/ExtFlash.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

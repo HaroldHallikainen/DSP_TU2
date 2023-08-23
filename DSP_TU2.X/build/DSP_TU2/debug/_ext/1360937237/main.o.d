@@ -21,7 +21,7 @@ build/DSP_TU2/debug/_ext/1360937237/main.o: ../src/main.c \
  ../src/DynamicThreshold.h ../src/agc.h ../src/display.h ../src/xyScope.h \
  ../src/AfskGen.h ../src/BaudotUart.h ../src/PollSwitchesLeds.h \
  ../src/PollEncoder.h ../src/UserConfig.h ../src/filters.h \
- ../src/AutostartKos.h
+ ../src/AutostartKos.h ../src/ExtFlash.h
 
 ../src/config/DSP_TU2/definitions.h:
 
@@ -88,3 +88,5 @@ build/DSP_TU2/debug/_ext/1360937237/main.o: ../src/main.c \
 ../src/filters.h:
 
 ../src/AutostartKos.h:
+
+../src/ExtFlash.h:

@@ -8,7 +8,6 @@
             <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/AutostartKos.c</file>
             <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/config/DSP_TU2/peripheral/spi/spi_master/plib_spi1_master.c</file>
             <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/xyScope.c</file>
-            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/AutostartKos.h</file>
             <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/PollSwitchesLeds.c</file>
             <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/filters.c</file>
             <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/AfskGen.c</file>
@@ -18,6 +17,8 @@
             <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/DynamicThreshold.c</file>
             <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/main.c</file>
             <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/UserConfig.c</file>
+            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/ExtFlash.h</file>
+            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/ExtFlash.c</file>
             <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/fifo16.c</file>
         </group>
     </open-files>

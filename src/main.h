@@ -17,11 +17,14 @@ extern   char StringBuf[100];
 
 typedef double smp_type; // Results in 11.5% CPU usage
 //typedef float smp_type;     // Results in 10.5% CPU usage
-extern smp_type MarkFreq;
-extern smp_type SpaceFreq;
+extern double MarkFreq;
+extern double SpaceFreq;
 
 #define LoopSenseMark (0==LOOP_SENSE_Get()) // If loop mark, sense opto output low
 
+
+
+void PrintString(char *string);   // Send the string to UART1 to USB.
 
 
 

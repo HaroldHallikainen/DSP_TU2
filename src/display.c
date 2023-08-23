@@ -78,6 +78,9 @@ void DisplayCSN(void){
 
 void DisplayInit(void){
   DisplayFifo=Fifo16Create(DisplayFifoSize);    // Create a FIFO 16 bits wide
+  if(NULL==DisplayFifo){
+    PrintString("Insufficient heap for DisplayFifo\r\n");
+  }
   DISPLAY_CSn_Set();
   DisplayCSN();                      // Chip select high. Put in fifo
   Timer2TimeoutCounter=80;          // Counts down at 80 kHz, 12.5 us per click

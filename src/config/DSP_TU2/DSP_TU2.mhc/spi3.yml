@@ -12,12 +12,28 @@ children:
       - type: Dynamic
         attributes: {id: spi3, value: 'true'}
   - type: Integer
+    attributes: {id: SPI_BAUD_RATE}
+    children:
+    - type: Values
+      children:
+      - type: User
+        attributes: {value: '25000000'}
+  - type: Integer
     attributes: {id: SPI_BRG_VALUE}
     children:
     - type: Values
       children:
       - type: Dynamic
-        attributes: {id: spi3, value: '49'}
+        attributes: {id: spi3, value: '1'}
+  - type: Comment
+    attributes: {id: SPI_CLOCK_MODE_COMMENT}
+    children:
+    - type: Attributes
+      children:
+      - type: String
+        attributes: {id: text}
+        children:
+        - {type: Value, value: '***SPI Mode 0 is Selected***'}
   - type: Boolean
     attributes: {id: SPI_INTERRUPT_MODE}
     children:
@@ -26,6 +42,13 @@ children:
       - type: User
         attributes: {value: 'false'}
   - type: KeyValueSet
+    attributes: {id: SPI_SPICON_CLK_PH}
+    children:
+    - type: Values
+      children:
+      - type: User
+        attributes: {value: '0'}
+  - type: KeyValueSet
     attributes: {id: SPI_SPICON_MSSEN}
     children:
     - type: Values
@@ -33,4 +56,4 @@ children:
       - type: User
         attributes: {value: '1'}
 - type: ElementPosition
-  attributes: {x: '225', y: '422', id: spi3}
+  attributes: {x: '206', y: '277', id: spi3}

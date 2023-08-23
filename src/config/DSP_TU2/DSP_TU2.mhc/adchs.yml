@@ -358,4 +358,4 @@ children:
       - type: Dynamic
         attributes: {id: adchs, value: INT_SOURCE_ADC_DATA0}
 - type: ElementPosition
-  attributes: {x: '27', y: '231', id: adchs}
+  attributes: {x: '33', y: '155', id: adchs}

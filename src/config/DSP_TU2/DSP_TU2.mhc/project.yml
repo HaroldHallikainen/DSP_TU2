@@ -76,13 +76,13 @@ files:
   security: NON_SECURE
   type: SOURCE
   userChecksum: 00C5A35EAC4ED0F65934A8EF4A501312
-- generatedChecksum: DD9EB1344B5C3DF8D6624FCC06E09720
+- generatedChecksum: 08716FF7166065F986497EE9C6428E57
   logicalPath: config/DSP_TU2/peripheral/spi/spi_master
   name: plib_spi3_master.c
   physicalPath: peripheral/spi/spi_master
   security: NON_SECURE
   type: SOURCE
-  userChecksum: DD9EB1344B5C3DF8D6624FCC06E09720
+  userChecksum: 08716FF7166065F986497EE9C6428E57
 - generatedChecksum: CB7A5E17457F3268C31238F6CA69E413
   logicalPath: config/DSP_TU2/peripheral/tmr
   name: plib_tmr2.c
