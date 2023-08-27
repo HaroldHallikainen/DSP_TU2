@@ -65,6 +65,7 @@
       <itemPath>../src/filters.h</itemPath>
       <itemPath>../src/AutostartKos.h</itemPath>
       <itemPath>../src/ExtFlash.h</itemPath>
+      <itemPath>../src/CommandInterpreter.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -135,6 +136,7 @@
       <itemPath>../src/filters.c</itemPath>
       <itemPath>../src/AutostartKos.c</itemPath>
       <itemPath>../src/ExtFlash.c</itemPath>
+      <itemPath>../src/CommandInterpreter.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -277,7 +279,7 @@
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-cross-reference-file" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
-        <property key="heap-size" value="3000"/>
+        <property key="heap-size" value="7000"/>
         <property key="input-libraries" value=""/>
         <property key="kseg-length" value=""/>
         <property key="kseg-origin" value=""/>
@@ -407,7 +409,6 @@
         <property key="debugoptions.debug-startup" value="Use system settings"/>
         <property key="debugoptions.reset-behaviour" value="Use system settings"/>
         <property key="debugoptions.useswbreakpoints" value="false"/>
-        <property key="firmware.download.all" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="true"/>

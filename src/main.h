@@ -14,6 +14,8 @@
 extern volatile int16_t Timer2TimeoutCounter;
 extern int16_t FpPollCounter;                // Decrements at 8 kHz telling us when to poll switches and LEDs.
 extern   char StringBuf[100];
+typedef enum {CLI, modem} UartDest_t;   // Where to send UART1 data
+extern UartDest_t UartDest;
 
 typedef double smp_type; // Results in 11.5% CPU usage
 //typedef float smp_type;     // Results in 10.5% CPU usage
@@ -24,8 +26,9 @@ extern double SpaceFreq;
 
 
 
-void PrintString(char *string);   // Send the string to UART1 to USB.
-
+void PrintString(char *string);     // Send the string to UART1 to USB.
+void PrintChar(char data);          // Print a character
+ 
 
 
 #ifdef	__cplusplus

@@ -8,8 +8,9 @@
 #include "main.h" // typedef for smp_type
 
 void AgcInit(void); // Initialize the AGC (especially create the LPF)
-smp_type agc(smp_type sample); // Pass in a sample and get a sample out normalized to TargetLevel.    
+double agc(double sample); // Pass in a sample and get a sample out normalized to TargetLevel.    
 
+extern biquad *AgcLpf;    // Filter structure
 
 #endif 
 

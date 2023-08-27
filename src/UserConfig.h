@@ -28,6 +28,10 @@ typedef struct{
 } UserConfig_t;
 
 void LoadDefaultConfig(void);       // Load default user config (tone frequencies, etc.)
+void PrintSavedConfig(void);        // Print config saved to external flash starting at address 0.
+void SavePrintConfig(int print);     // Save or print current configuration. If print==1, print it. Otherwise save to flash
+void LoadSavedConfig(void);            // Run config in flash thru command inteprperer
+
 
 extern UserConfig_t UserConfig;     // User config to set tone frequencies, etc.
 

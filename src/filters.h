@@ -20,7 +20,7 @@ extern smp_type MarkFreq, SpaceFreq;
 
 void FiltersInit(void);      // Create and put initial settings in filters.
 void PollShiftMarkHi(void);  // See if we need to reload filters due to a change in shift or MarkHi
-
+void UpdateDemodFilters();   // Update all filters and Mark/Space frequencies used by DDS
 
 
 

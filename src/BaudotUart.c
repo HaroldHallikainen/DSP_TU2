@@ -1,6 +1,7 @@
 // BaudotUart
 
 #include "BaudotUart.h"
+#include "main.h"
 
 uint32_t CharCount=0;   // How many good start bits we got
 uint32_t BadStopBitCount=0; // How many bad stop bits we got
@@ -93,7 +94,9 @@ char BaudotUartRx(bool MS){
                   }    
                   break;
           }
-          UART1_Write((uint8_t*)&result,1); // Send to uart for debug 
+          if(UartDest==modem){          // Send received data to UART/USN
+            PrintChar(result);          // Print it
+          }  
           state=0;          // Go back to waiting for start
           break;
         case 8:         // Got framing error. Wait here for mark
@@ -103,3 +106,4 @@ char BaudotUartRx(bool MS){
   }
   return result;
 }
+

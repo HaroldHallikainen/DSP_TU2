@@ -43,14 +43,14 @@ uint16_t Fifo16Get(Fifo16_t *fifo){
 	// Get a word from the specified fifo. Returns 0 if nothing available
   uint16_t result;	
   if(fifo->BufFull){
-	  result=fifo->buffer[fifo->IndexOut++];	// return the character
-      fifo->IndexOut=fifo->IndexOut % fifo->FifoSize;
-	  fifo->BufFull--;						// subtract one from contents
-	  fifo->BufFree++;							// add one to how many are free
-	}else{													// fifo is empty
-	  result=0;   // give back nothing and change nothing
-	}
-	return(result);
+    result=fifo->buffer[fifo->IndexOut++];	// return the character
+    fifo->IndexOut=fifo->IndexOut % fifo->FifoSize;
+    fifo->BufFull--;						// subtract one from contents
+    fifo->BufFree++;							// add one to how many are free
+  }else{													// fifo is empty
+    result=0;   // give back nothing and change nothing
+  }
+  return(result);
 }		    	  	   
 
 void Fifo16Clear(Fifo16_t *fifo){

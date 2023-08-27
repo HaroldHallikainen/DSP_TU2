@@ -90,13 +90,13 @@ files:
   security: NON_SECURE
   type: SOURCE
   userChecksum: CB7A5E17457F3268C31238F6CA69E413
-- generatedChecksum: 24D89C7B5697F4326E8A820208D0F1CB
+- generatedChecksum: 52D75C0880EE53431E37027B08414AAC
   logicalPath: config/DSP_TU2/peripheral/uart
   name: plib_uart1.c
   physicalPath: peripheral/uart
   security: NON_SECURE
   type: SOURCE
-  userChecksum: 24D89C7B5697F4326E8A820208D0F1CB
+  userChecksum: 52D75C0880EE53431E37027B08414AAC
 - generatedChecksum: 71352EF41F6688AD8408E42970B50B66
   logicalPath: config/DSP_TU2/stdio
   name: xc32_monitor.c
