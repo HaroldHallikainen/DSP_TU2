@@ -24,6 +24,7 @@ typedef struct{
   int UseInputBpf;                  // True if we want to use input bpf
   int UseLimiter;                   // True if we want to use the limiter
   int UseAgc;                       // True if we want to use the AGC
+  int NoLoop;                       // Allows use of UART modem without a loop supply
   double AgcMaxGain;                // Maximum gain of AGC in V/V
 } UserConfig_t;
 

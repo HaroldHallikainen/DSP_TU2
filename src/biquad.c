@@ -24,11 +24,12 @@
  *
  */
 #include "biquad.h"
+#include "main.h" // access to PrintString
 
 /* Computes a BiQuad filter on a sample */
-smp_type BiQuad(const smp_type sample, biquad* const b)
+double BiQuad(const double sample, biquad* const b)
 {
-  smp_type result;
+  double result;
 
   /* compute result */
   result = b->a0 * sample + b->a1 * b->x1 + b->a2 * b->x2 -
@@ -47,14 +48,16 @@ smp_type BiQuad(const smp_type sample, biquad* const b)
 
 /* sets up a BiQuad Filter */
 /* Note that dbGain is only used when the type is LSH or HSH */
-biquad *BiQuad_new(const int type, const smp_type dbGain, const smp_type freq,
-		   const smp_type srate, const smp_type Q)
+biquad *BiQuad_new(const int type, const double dbGain, const double freq,
+		   const double srate, const double Q)
 {
   biquad *b;          // Create pointer to biquad
 
   b = malloc(sizeof(biquad)); // allocate RAM for biquad
-  if (b == NULL)              // Get out if malloc fails
+  if (b == NULL){              // Get out if malloc fails
+    PrintString("Insufficient heap space in BiQuad_new\r\n");
     return NULL;
+  }  
   BiQuad_modify(b, type, dbGain, freq, srate, Q); // Go set up biquad b
    /* zero initial samples */
   b->x1 = b->x2 = 0;
@@ -65,11 +68,11 @@ biquad *BiQuad_new(const int type, const smp_type dbGain, const smp_type freq,
 /* Modifies an existing BiQuad filter. */
 /* Note that dbGain is only used when the type is LSH or HSH */
 // Pointer to biquad struct is first parameter.
-void BiQuad_modify(biquad* const b, const int type, const smp_type dbGain, const smp_type freq,
-		   const smp_type srate, const smp_type Q)
+void BiQuad_modify(biquad* const b, const int type, const double dbGain, const double freq,
+		   const double srate, const double Q)
 {
-  smp_type A, omega, sn, cs, alpha, beta;
-  smp_type a0, a1, a2, b0, b1, b2;
+  double A, omega, sn, cs, alpha, beta;
+  double a0, a1, a2, b0, b1, b2;
   /* setup variables */
   A = pow(10, dbGain /40);
   omega = 2 * M_PI * freq /srate;

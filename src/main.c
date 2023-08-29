@@ -107,8 +107,12 @@ int main ( void ){
       Timer2TimeoutCounter+=10;    // come back in 125 us. PWM frequency is 80 kHz, so change every 10 cycles
       AdcSample=ADCHS_ChannelResultGet(2);      // Get sample as uint16_t
       samplef=(smp_type)(AdcSample-2048)/2048.0;   // Convert to smp_type with mid-scale=0.0
-      ADCHS_ChannelConversionStart(2);              // Start next ADC conversion                                               // endif ADC ready
-      AfskGen(LoopSenseMark);              // Adjust DDS frequency based on loop condition
+      ADCHS_ChannelConversionStart(2);              // Start next ADC conversion 
+      if(1==UserConfig.NoLoop){              // If NoLoop, ignore lack of loop current
+        AfskGen(BaudotUartTxOut);
+      }else{
+        AfskGen(LoopSenseMark && BaudotUartTxOut);     // Adjust DDS frequency based on loop condition and software uart
+      }  
       BaudotUartRx(LoopSenseMark);        // Send sensed loop condition (true is mark) to softwaree uart)
       TestSamplef=0.0;                // Output silence if nothing selected
       if(AudioOut==ADC) TestSamplef=samplef;
@@ -167,6 +171,8 @@ int main ( void ){
           LOOP_KEY_Set();     // Mark hold timed out, so hold mark
         }
       }       // end else not in transmit 
+      BaudotUartTx();     // UART data to baudot to BaudotUartTxOut. Run in both
+                          // tx and rx so KOS works.
       AutostartKos(DiscrimOut);       // Handle autostart and Keyboard Operated Send only in mark
       if(AudioOut==DDS) TestSamplef=DdsOut;
       AudioPwmSet(TestSamplef);   // Output selected test signal or DDS

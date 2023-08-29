@@ -25,7 +25,8 @@ const UserConfig_t UserConfigDefault={
   .UseInputBpf=0,
   .UseLimiter=0,
   .UseAgc=1,
-  .AgcMaxGain=100                  // Max gain of AGC in V/V          
+  .AgcMaxGain=100,                  // Max gain of AGC in V/V 
+  .NoLoop=0                        // Assume there is a loop supply
 };
 
 
@@ -56,7 +57,7 @@ void LoadSavedConfig(void){
 
     if(0xff!=data) CommandInterpreter(0,(char)data); // Send to stream 0 of command interpreter
   };
-  PrintString("\r\nSaved configuration loaded\r\n>"); 
+  PrintString("\r\nSaved configuration loaded\r\n"); 
 }
 
 
@@ -159,6 +160,13 @@ void SavePrintConfig(int print){
   }else{
     NextAddr=StreamProgramExtFlash(NextAddr,strlen(StringBuf),(uint8_t*)StringBuf); // Write to external flash and get next address
   }
+  sprintf(StringBuf,"NoLoop\t%d\r\n",UserConfig.NoLoop);
+  if(1==print){
+    PrintString(StringBuf);
+  }else{
+    NextAddr=StreamProgramExtFlash(NextAddr,strlen(StringBuf),(uint8_t*)StringBuf); // Write to external flash and get next address
+  }
+
 }
 
   

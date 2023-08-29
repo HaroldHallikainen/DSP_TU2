@@ -95,7 +95,7 @@ int ArgNum=0;                 // Argument number currently storing
           PrintString(HelpString);
           strcpy(StringBuf,"\r\n>");
           break;
-        case 0xb6d27f3:            // NarrowShiftCetnerFreq
+        case 0xb6d27f3:            // NarrowShiftCenterFreq
           if(2==ArgNum){            // There is a parameter
             UserConfig.NarrowShiftCenterFreq = atof(TokenArray[1]);
             UpdateDemodFilters();   // Update all filters and DDS M/S frequencies
@@ -264,43 +264,99 @@ int ArgNum=0;                 // Argument number currently storing
         case 0xfd4b1eeb:           // LoadSavedConfig
           LoadSavedConfig();
           break;
+        case 0xa317ca50:           //NoLoop - 
+          if(2==ArgNum){              // There is a parameter
+            UserConfig.NoLoop=atoi(TokenArray[1]);
+            strcpy(StringBuf,"\r\n>");
+          }else{
+            sprintf(StringBuf,"\r\n%d\r\n>",UserConfig.NoLoop);
+          }
+          break; 
       }
     }
   }
+
+/*
+         1         2         3         4         5         6         7         8
+12345678901234567890123456789012345678901234567890123456789012345678901234567890
+*/
+  
  
 char HelpString[]= "DSP TU Command Line Interface\r\n\n\
 Each command consists of a command string, and zero or more parameters.\r\n\
-Parameters are tab delimited, and the command is terminated with a carriage return.\r\n\
-Commands take effect immediately. They can be saved to be reloaded on the next power cycle.\r\n\
-If no parameter is given, the current value of the parameter is returned\r\n\
-If a command is not recognized, an error message is shown along with a hash of the command.\r\n\
-Commands ARE case sensitive! In the list below, the default value of each parameter is shown\r\n\
-along with a description of the command.\r\n\n\
-AgcLpfF                   1.0      Set the frequency of the AGC control loop low pass filter. A lower number makes the AGC respond more slowly\r\n\
-AgcMaxGain                100.0    The maximum gain the AGC will achieve with no input signal\r\n\
-AgcTargetLevel            0.5      The AGC adjusts its gain to yield this output level to the remainder of the demodulator\r\n\
-AutostartShutdownSeconds  30       Integer number of seconds after loss of mark tone when motor is shut down\r\n\
-AutostartThresh           0.3      Discriminator threshold (mark level minus space level) that will start motor. Too low a\r\n\
-                                   can give false starts on noise. Too high a level can keep the motor from starting on a weak signal.\r\n\
-BaudRate                  45.45    The transmit baud rate in bits per second. Used to set the speed of the Baudot UART and tone filter bandwidths.\r\n\
-KosDropSeconds            5        How many seconds after the last typed character until the transceiver is switched from transmit to receive.\r\n\
+Parameters are tab delimited, and the command is terminated with a carriage\r\n\
+return. Commands take effect immediately. They can be saved to be reloaded on\
+the next power cycle. If no parameter is given, the current value of the\r\n\
+parameter is returned. If a command is not recognized, an error message is shown\r\n\
+along with a hash of the command. Commands ARE case sensitive! In the list\r\n\
+below, the default value of each parameter is shown along with a description of\r\n\
+the command.\r\n\n\
+AgcLpfF                   1.0      Set the frequency of the AGC control loop low\r\n\
+                                   pass filter. A lower number makes the AGC\r\n\
+                                   respond more slowly\r\n\
+AgcMaxGain                100.0    The maximum gain the AGC will achieve with no\r\n\
+                                   input signal\r\n\
+AgcTargetLevel            0.5      The AGC adjusts its gain to yield this output\r\n\
+                                   level to the remainder of the demodulator\r\n\
+AutostartShutdownSeconds  30       Integer number of seconds after loss of mark\r\n\
+                                   tone when motor is shut down\r\n\
+AutostartThresh           0.3      Discriminator threshold (mark level minus\r\n\
+                                   space level) that will start motor. Too low a\r\n\
+                                   level can give false starts on noise. Too\r\n\
+                                   high a level can keep the motor from starting\r\n\
+                                   on a weak signal.\r\n\
+BaudRate                  45.45    The transmit baud rate in bits per second.\r\n\
+                                   Used to set the speed of the Baudot UART and\r\n\
+                                   tone filter bandwidths.\r\n\
+KosDropSeconds            5        How many seconds after the last typed\r\n\
+                                   character until the transceiver is switched\r\n\
+                                   from transmit to receive.\r\n\
 LoadDefaultConfig                  No parameters. Loads default configuration.\r\n\
-LoadSavedConfig                    No parameters. Loads the configuration saved to external flash.\r\n\
-MarkHoldThresh            0.2      Sustained discriminator levels below this threshold put the demodulator in mark to avoid printing on noise.\r\n\
-modem                              No parameters. Switches USB terminal to the Baudot UART to transmit and receive data. ESC returns to the command interpreter.\r\n\
-NarrowShiftCetnerFreq     2210.0   Mean of Mark and Space frequencies for tone filters and tone generator.\r\n\
-NarrowShiftHz             170.0    Difference between Mark and Space frequencies. System sets Mark frequency to Center-(Shift/2) and Space to\r\n\
-                                   Center+(Shift/2) unless MarkHi is enabled, reversing these tones.\r\n\
-PrintConfig                        No parameters. Prints the current system configuration.\r\n\
-PrintSavedConfig                   No parameters. Prints saved configuration\r\n\
-SaveConfig                         No parameters. Saves the current configuration to external flash to be loaded on next power up.\r\n\
-ToneFilterBwBrMult        2.0      The BaudRate is multiplied by this value to yield the bandwidth of the tone filters. This is set to the lowest\r\n\
-                                   value possible that results in full discriminator swing in 1/2 bit time\r\n\
-UseAgc                    1        1 enables the AGC, while 0 disables it. Users may choose to use the limiter instead of the AGC\r\n\
-UseInputBpf               0        1 enables the input bandpass filter; 0 disables it. The input BPF may be useful on narrow shift especially\r\n\
-                                   if the limiter is used to prevent other signals from taking over the limiter\r\n\
-UseLimiter                0        1 enables the limiter; 0 disables it. Users may choose to use the limiter (FM demodulation) or the AGC (AM\r\n\
-                                   demodulation).\r\n\
-WideShiftCenterFreq       2000.0   As described for NarrowShiftCenterFreq, this sets the Mark/Space center frequency when wide shift is selected.\r\n\
-WideShiftHz               850.0    As described for NarrowShiftHz, this sets the difference between the Mark and Space frequencies.\r\n\
+LoadSavedConfig                    No parameters. Loads the configuration saved\r\n\
+                                   to external flash.\r\n\
+MarkHoldThresh            0.2      Sustained discriminator levels below this\r\n\
+                                   threshold put the demodulator in mark to\r\n\
+                                   avoid printing on noise.\r\n\
+modem                              No parameters. Switches USB terminal to the\r\n\
+                                   Baudot UART to transmit and receive data. ESC\r\n\
+                                   returns to the command interpreter.\r\n\
+NarrowShiftCenterFreq     2210.0   Mean of Mark and Space frequencies for tone\r\n\
+                                   filters and tone generator.\r\n\
+NarrowShiftHz             170.0    Difference between Mark and Space\r\n\
+                                   frequencies. System sets Mark frequency to\r\n\
+                                   Center-(Shift/2) and Space to\r\n\
+                                   Center+(Shift/2) unless MarkHi is enabled,\r\n\
+                                   reversing these tones.\r\n\
+NoLoop                    0        Allows operation without a loop supply,\r\n\
+                                   instead using the software uart and USB.\r\n\
+                                   If NoLoop = 1, KOS and AFSK generation will\r\n\
+                                   ignore the lack of loop current.\r\n\
+PrintConfig                        No parameters. Prints the current system\r\n\
+                                   configuration.\r\n\
+PrintSavedConfig                   No parameters. Prints saved configuration.\r\n\
+SaveConfig                         No parameters. Saves the current\r\n\
+                                   configuration to external flash to be loaded\r\n\
+                                   on next power up.\r\n\
+ToneFilterBwBrMult        2.0      The BaudRate is multiplied by this value to\r\n\
+                                   yield the bandwidth of the tone filters. This\r\n\
+                                   is set to the lowest value possible that\r\n\
+                                   results in full discriminator swing in 1/2\r\n\
+                                   bit time\r\n\
+UseAgc                    1        1 enables the AGC, while 0 disables it. Users\r\n\
+                                   may choose to use the limiter instead of the\r\n\
+                                   AGC\r\n\
+UseInputBpf               0        1 enables the input bandpass filter; 0\r\n\
+                                   disables it. The input BPF may be useful on\r\n\
+                                   narrow shift especially if the limiter is\r\n\
+                                   used (instead of the AGC) to prevent other\r\n\
+                                   signals from taking over the limiter.\r\n\
+UseLimiter                0        1 enables the limiter; 0 disables it. Users\r\n\
+                                   may choose to use the limiter (FM\r\n\
+                                   demodulation) or the AGC (AM demodulation).\r\n\
+WideShiftCenterFreq       2000.0   As described for NarrowShiftCenterFreq, this\r\n\
+                                   sets the Mark/Space center frequency when\r\n\
+                                   wide shift is selected.\r\n\
+WideShiftHz               850.0    As described for NarrowShiftHz, this sets the\r\n\
+                                   difference between the Mark and Space\r\n\
+                                   frequencies.\r\n\
 ";

@@ -5,6 +5,8 @@
 #include <stdint.h>
 #include "UserConfig.h"
 #include "AutostartKos.h"
+#include "main.h"     // UartDest
+#include "BaudotUart.h"// Access to BaudotUartTxOut
 
 
 
@@ -55,7 +57,8 @@ void AutostartKos(double discrim){
   }
   if(1==KOS_LED_Get()){                // Keyboard operated send enabled
     if(1==TX_LED_Get()){              // We are transmitting
-      if(1==LOOP_SENSE_Get()){          // Space detected
+      if(((0==UserConfig.NoLoop) && (1==LOOP_SENSE_Get())) || (0==BaudotUartTxOut)){  // Space detected on loop or sw buart
+                                      // Ignore loop sense if NoLoop nonzero
         KosCounter=8000*UserConfig.KosDropSeconds;  // Reset counter to drop out later
       }else{                        // mark detected
         if(0==KosCounter){          // We timed out
@@ -71,8 +74,13 @@ void AutostartKos(double discrim){
         if(0!=KosLockout) KosLockout--; // Decrement if loop key is mark
       }  
       if(0==KosLockout){            // Loop not keyed by demod recently
-        if(1==LOOP_SENSE_Get()){  // Got a space  
+        if(0==UserConfig.NoLoop){   // Don't check for space on loop if NoLoop
+          if(1==LOOP_SENSE_Get()){  // Got a space  
             TX_LED_Set();         // Start transmitting
+          }
+        }  
+        if(0==BaudotUartTxOut){ // Start transmitting based on data from UART
+          TX_LED_Set();
         }
       }  
     }

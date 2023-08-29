@@ -18,7 +18,7 @@ build/DSP_TU2/production/_ext/1360937237/BaudotUart.o: \
  ../src/config/DSP_TU2/peripheral/ocmp/plib_ocmp_common.h \
  ../src/config/DSP_TU2/peripheral/spi/spi_master/plib_spi2_master.h \
  ../src/config/DSP_TU2/peripheral/spi/spi_master/plib_spi1_master.h \
- ../src/main.h
+ ../src/main.h ../src/UserConfig.h
 
 ../src/BaudotUart.h:
 
@@ -59,3 +59,5 @@ build/DSP_TU2/production/_ext/1360937237/BaudotUart.o: \
 ../src/config/DSP_TU2/peripheral/spi/spi_master/plib_spi1_master.h:
 
 ../src/main.h:
+
+../src/UserConfig.h:

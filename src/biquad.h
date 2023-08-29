@@ -19,19 +19,19 @@
 
 /* this holds the data required to update samples thru a filter */
 typedef struct {
-    smp_type a0, a1, a2, a3, a4;
-    smp_type x1, x2, y1, y2;
+    double a0, a1, a2, a3, a4;
+    double x1, x2, y1, y2;
 }
 biquad;
 
-extern smp_type BiQuad(const smp_type sample, biquad* const b);
-extern biquad *BiQuad_new(const int type, smp_type dbGain, /* gain of filter */
-                          const smp_type freq,             /* center frequency */
-                          const smp_type srate,            /* sampling rate */
-                          const smp_type Q);       /* filter Q . Was bandwidth in octaves */
+extern double BiQuad(const double sample, biquad* const b);
+extern biquad *BiQuad_new(const int type, double dbGain, /* gain of filter */
+                          const double freq,             /* center frequency */
+                          const double srate,            /* sampling rate */
+                          const double Q);       /* filter Q . Was bandwidth in octaves */
 
-extern void BiQuad_modify(biquad* const b, const int type, const smp_type dbGain, const smp_type freq,
-		   const smp_type srate, const smp_type Q);
+extern void BiQuad_modify(biquad* const b, const int type, const double dbGain, const double freq,
+		   const double srate, const double Q);
 
 
 /* filter types */

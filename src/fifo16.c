@@ -28,7 +28,8 @@ uint16_t Fifo16Put(Fifo16_t *fifo, uint16_t data){
 	uint16_t result;
 	// Put data in the specified fifo. Return 0 on success. Nonzero on error.
 	if(fifo->BufFree){						// we have room
-		fifo->buffer[fifo->IndexIn++]=data;     // save data 
+
+          fifo->buffer[fifo->IndexIn++]=data;     // save data 
         fifo->IndexIn=fifo->IndexIn % fifo->FifoSize;
 		fifo->BufFull++;						// add one to buffer contents
 		fifo->BufFree--;						// and subtract one from how many are free
@@ -46,6 +47,7 @@ uint16_t Fifo16Get(Fifo16_t *fifo){
     result=fifo->buffer[fifo->IndexOut++];	// return the character
     fifo->IndexOut=fifo->IndexOut % fifo->FifoSize;
     fifo->BufFull--;						// subtract one from contents
+
     fifo->BufFree++;							// add one to how many are free
   }else{													// fifo is empty
     result=0;   // give back nothing and change nothing

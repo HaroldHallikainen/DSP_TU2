@@ -17,11 +17,11 @@ biquad *SpaceFilter[NumBpf]; // Audio BPF for space
 biquad *MarkDataFilter;     // Mark LPF after absolute value "full wave rectification" 
 biquad *SpaceDataFilter;
 biquad *InputBpf;
-smp_type MarkFreq, SpaceFreq;
+double MarkFreq, SpaceFreq;
 
 void FiltersInit(void){
   int n;
-  smp_type ToneFilterBW, MarkQ, SpaceQ, MarkQn, SpaceQn, InputBpfBW, InputBpfFreq;
+  double ToneFilterBW, MarkQ, SpaceQ, MarkQn, SpaceQn, InputBpfBW, InputBpfFreq;
   MarkFreq = UserConfig.NarrowShiftCenterFreq - (UserConfig.NarrowShiftHz/2); // Mark half shift below center
   SpaceFreq = UserConfig.NarrowShiftCenterFreq + (UserConfig.NarrowShiftHz/2);  // Space half shift above center
   InputBpfFreq=sqrt(MarkFreq*SpaceFreq);     // Input BPF center freq
