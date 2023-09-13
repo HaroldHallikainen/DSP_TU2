@@ -3,25 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/config/DSP_TU2/interrupts.c</file>
-            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/CommandInterpreter.h</file>
-            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/config/DSP_TU2/peripheral/uart/plib_uart1.h</file>
-            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/BaudotUart.c</file>
-            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/CommandInterpreter.c</file>
-            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/config/DSP_TU2/peripheral/uart/plib_uart1.c</file>
-            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/config/DSP_TU2/peripheral/spi/spi_master/plib_spi1_master.c</file>
-            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/agc.h</file>
-            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/filters.h</file>
-            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/config/DSP_TU2/exceptions.c</file>
-            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/UserConfig.h</file>
-            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/main.h</file>
-            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/filters.c</file>
-            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/agc.c</file>
-            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/BaudotUart.h</file>
+            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/BootLoader.c</file>
+            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/DSP_TU2.X/disassembly/listing.disasm</file>
+            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/DSP_TU2.X/dist/DSP_TU2/debug/DSP_TU2.X.debug.map</file>
+            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/display.c</file>
+            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/BootLink_p32MZ0512EFE064.ld</file>
             <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/main.c</file>
-            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/UserConfig.c</file>
-            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/ExtFlash.c</file>
-            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/fifo16.c</file>
+            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/DSP_TU2.X/dist/DSP_TU2/production/DSP_TU2.X.production.map</file>
+            <file>file:/C:/Program%20Files/Microchip/MPLABX/v6.00/packs/Microchip/PIC32MZ-EF_DFP/1.3.58/xc32/startup/crt0.S</file>
         </group>
     </open-files>
 </project-private>
