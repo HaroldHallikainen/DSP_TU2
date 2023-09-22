@@ -21,7 +21,7 @@ void AutostartKos(double discrim){
   // the loop being keyed and it being sensed (probably mostly due to the opto isolator).
   static uint32_t AutostartCounter=8000;
   static uint32_t KosCounter=8000;
-  static uint32_t KosLockout=0;       // Ignore loop sensor for a period of time after loop keyer sends space
+  static uint32_t KosLockout=8000;       // Ignore loop sensor for a period of time after loop keyer sends space
   if(1==TX_LED_Get()){                // We're transmitting. Turn on motor and reload autostart counter
     MOTOR_LED_Set();                  // Front panel motor LED on
     AutostartCounter=8000*UserConfig.AutostartShutdownSeconds;

@@ -40,6 +40,9 @@
               <itemPath>../src/config/DSP_TU2/peripheral/uart/plib_uart_common.h</itemPath>
               <itemPath>../src/config/DSP_TU2/peripheral/uart/plib_uart1.h</itemPath>
             </logicalFolder>
+            <logicalFolder name="f9" displayName="wdt" projectFiles="true">
+              <itemPath>../src/config/DSP_TU2/peripheral/wdt/plib_wdt.h</itemPath>
+            </logicalFolder>
           </logicalFolder>
           <itemPath>../src/config/DSP_TU2/device.h</itemPath>
           <itemPath>../src/config/DSP_TU2/toolchain_specifics.h</itemPath>
@@ -72,9 +75,9 @@
                    projectFiles="true">
       <logicalFolder name="f1" displayName="config" projectFiles="true">
         <logicalFolder name="f1" displayName="DSP_TU2" projectFiles="true">
+          <itemPath>../src/config/DSP_TU2/p32MZ0512EFE064.ld</itemPath>
         </logicalFolder>
       </logicalFolder>
-      <itemPath>../src/BootLink_p32MZ0512EFE064.ld</itemPath>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
@@ -109,6 +112,9 @@
             </logicalFolder>
             <logicalFolder name="f2" displayName="uart" projectFiles="true">
               <itemPath>../src/config/DSP_TU2/peripheral/uart/plib_uart1.c</itemPath>
+            </logicalFolder>
+            <logicalFolder name="f9" displayName="wdt" projectFiles="true">
+              <itemPath>../src/config/DSP_TU2/peripheral/wdt/plib_wdt.c</itemPath>
             </logicalFolder>
           </logicalFolder>
           <logicalFolder name="f2" displayName="stdio" projectFiles="true">
@@ -278,9 +284,9 @@
         <property key="fill-flash-options-seq" value=""/>
         <property key="fill-flash-options-what" value="0"/>
         <property key="generate-16-bit-code" value="false"/>
-        <property key="generate-cross-reference-file" value="false"/>
+        <property key="generate-cross-reference-file" value="true"/>
         <property key="generate-micro-compressed-code" value="false"/>
-        <property key="heap-size" value="7000"/>
+        <property key="heap-size" value="10000"/>
         <property key="input-libraries" value=""/>
         <property key="kseg-length" value=""/>
         <property key="kseg-origin" value=""/>
@@ -292,7 +298,7 @@
         <property key="optimization-level" value=""/>
         <property key="preprocessor-macros" value=""/>
         <property key="remove-unused-sections" value="true"/>
-        <property key="report-memory-usage" value="false"/>
+        <property key="report-memory-usage" value="true"/>
         <property key="serial-length" value=""/>
         <property key="serial-origin" value=""/>
         <property key="stack-size" value=""/>

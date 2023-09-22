@@ -1,5 +1,8 @@
 /*--------------------------------------------------------------------------
  * Modified for bootload use. harold@w6iwi.org 9/10/23
+ * NOTE - This was intended to be a linker script for the bootloader 
+ * plus application, but that appears to be very difficult to do.
+ * It is, therefore, just the default linker script with added comments.
  *
  * MPLAB XC Compiler -  PIC32MZ0512EFE064 linker script
  * Build date : Aug 03 2020

@@ -97,6 +97,13 @@ files:
   security: NON_SECURE
   type: SOURCE
   userChecksum: 159891D7336058CF7CB9C39C7E2E8FDC
+- generatedChecksum: 421E0E3D113AC4742E1A755A321D08DF
+  logicalPath: config/DSP_TU2/peripheral/wdt
+  name: plib_wdt.c
+  physicalPath: peripheral/wdt
+  security: NON_SECURE
+  type: SOURCE
+  userChecksum: 421E0E3D113AC4742E1A755A321D08DF
 - generatedChecksum: 71352EF41F6688AD8408E42970B50B66
   logicalPath: config/DSP_TU2/stdio
   name: xc32_monitor.c
@@ -104,13 +111,13 @@ files:
   security: NON_SECURE
   type: SOURCE
   userChecksum: 71352EF41F6688AD8408E42970B50B66
-- generatedChecksum: 550AEB9BE2C8858FB5EFC95A1CA6A851
+- generatedChecksum: D0E60C33D6199E5232203D93C4E3A5FC
   logicalPath: config/DSP_TU2
   name: definitions.h
   physicalPath: ''
   security: NON_SECURE
   type: HEADER
-  userChecksum: 550AEB9BE2C8858FB5EFC95A1CA6A851
+  userChecksum: D0E60C33D6199E5232203D93C4E3A5FC
 - generatedChecksum: E189C26B2269F8DE46033CCD0621958D
   logicalPath: config/DSP_TU2
   name: device.h
@@ -230,6 +237,13 @@ files:
   security: NON_SECURE
   type: HEADER
   userChecksum: 91611515A95D92B82B7F4064C16D122B
+- generatedChecksum: 2AD7259D0E303CE06622D0F1A6BBEC13
+  logicalPath: config/DSP_TU2/peripheral/wdt
+  name: plib_wdt.h
+  physicalPath: peripheral/wdt
+  security: NON_SECURE
+  type: HEADER
+  userChecksum: 2AD7259D0E303CE06622D0F1A6BBEC13
 - generatedChecksum: CAC44960D20AEC03CF4B325A1CD2877C
   logicalPath: config/DSP_TU2
   name: toolchain_specifics.h

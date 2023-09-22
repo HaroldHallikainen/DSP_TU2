@@ -272,6 +272,46 @@ int ArgNum=0;                 // Argument number currently storing
             sprintf(StringBuf,"\r\n%d\r\n>",UserConfig.NoLoop);
           }
           break; 
+        case 0x65e89de4:          // WideShift
+          if(2==ArgNum){          // There is a parameter
+            if(atoi(TokenArray[1])==0){   // Narrow shift wanted
+              SHIFT_850_LED_Clear();      // Turn off the wide shift LED
+            }else{
+              SHIFT_850_LED_Set();        // Turn on the wide shift LED
+            }
+            UpdateDemodFilters();     // Update filters and DDS
+            strcpy(StringBuf,"\r\n>");
+          }else{                      // Read back
+            sprintf(StringBuf,"\r\n%d\r\n>",SHIFT_850_LED_Get());
+          }
+          break;
+        case 0x51afb444:        // Autostart
+          if(2==ArgNum){          // There is a parameter
+            if(atoi(TokenArray[1])==0){   // 
+              AUTOSTART_LED_Clear();      // Turn off the autostart LED
+            }else{
+              AUTOSTART_LED_Set();        // Turn on the autostart LED
+            }
+            strcpy(StringBuf,"\r\n>");
+          }else{                      // Read back
+            sprintf(StringBuf,"\r\n%d\r\n>",AUTOSTART_LED_Get());
+          }
+          break;
+        case 0x4b13c53:     // KOS
+           if(2==ArgNum){          // There is a parameter
+            if(atoi(TokenArray[1])==0){   // 
+              KOS_LED_Clear();      // Turn off the KOS LED
+            }else{
+              KOS_LED_Set();        // Turn on the KOS LED
+            }
+            strcpy(StringBuf,"\r\n>");
+          }else{                      // Read back
+            sprintf(StringBuf,"\r\n%d\r\n>",KOS_LED_Get());
+          }
+          break;  
+        case 0x539b49b4:    // Reset
+          while(1);         // Loop 'til WDT times out
+          break;
       }
     }
   }
@@ -298,6 +338,7 @@ AgcMaxGain                100.0    The maximum gain the AGC will achieve with no
                                    input signal\r\n\
 AgcTargetLevel            0.5      The AGC adjusts its gain to yield this output\r\n\
                                    level to the remainder of the demodulator\r\n\
+Autostart                 0        1 enables autostart. 0 disables autostart\r\n\
 AutostartShutdownSeconds  30       Integer number of seconds after loss of mark\r\n\
                                    tone when motor is shut down\r\n\
 AutostartThresh           0.3      Discriminator threshold (mark level minus\r\n\
@@ -308,6 +349,7 @@ AutostartThresh           0.3      Discriminator threshold (mark level minus\r\n
 BaudRate                  45.45    The transmit baud rate in bits per second.\r\n\
                                    Used to set the speed of the Baudot UART and\r\n\
                                    tone filter bandwidths.\r\n\
+KOS                       0        1 enables Keyboard Operated Send. 0 disables.\r\n\
 KosDropSeconds            5        How many seconds after the last typed\r\n\
                                    character until the transceiver is switched\r\n\
                                    from transmit to receive.\r\n\
@@ -334,6 +376,8 @@ NoLoop                    0        Allows operation without a loop supply,\r\n\
 PrintConfig                        No parameters. Prints the current system\r\n\
                                    configuration.\r\n\
 PrintSavedConfig                   No parameters. Prints saved configuration.\r\n\
+Reset                              No parameters. Loops until WDT times out\r\n\
+                                   (1.024 seconds), resetting system. \r\n\
 SaveConfig                         No parameters. Saves the current\r\n\
                                    configuration to external flash to be loaded\r\n\
                                    on next power up.\r\n\
@@ -353,6 +397,8 @@ UseInputBpf               0        1 enables the input bandpass filter; 0\r\n\
 UseLimiter                0        1 enables the limiter; 0 disables it. Users\r\n\
                                    may choose to use the limiter (FM\r\n\
                                    demodulation) or the AGC (AM demodulation).\r\n\
+WideShift                 0        1 selects wide shift (tyipcally 850 Hz). \r\n\
+                                   0 selects narrow shift (typically 170 Hz).)\r\n\
 WideShiftCenterFreq       2000.0   As described for NarrowShiftCenterFreq, this\r\n\
                                    sets the Mark/Space center frequency when\r\n\
                                    wide shift is selected.\r\n\

@@ -3,6 +3,7 @@
 #include "UserConfig.h"
 #include <string.h>
 #include <stdio.h>
+#include "definitions.h"                // SYS function prototypes
 #include "ExtFlash.h"
 #include "main.h"
 #include "CommandInterpreter.h"
@@ -161,6 +162,24 @@ void SavePrintConfig(int print){
     NextAddr=StreamProgramExtFlash(NextAddr,strlen(StringBuf),(uint8_t*)StringBuf); // Write to external flash and get next address
   }
   sprintf(StringBuf,"NoLoop\t%d\r\n",UserConfig.NoLoop);
+  if(1==print){
+    PrintString(StringBuf);
+  }else{
+    NextAddr=StreamProgramExtFlash(NextAddr,strlen(StringBuf),(uint8_t*)StringBuf); // Write to external flash and get next address
+  }
+  sprintf(StringBuf,"WideShift\t%d\r\n",SHIFT_850_LED_Get());
+  if(1==print){
+    PrintString(StringBuf);
+  }else{
+    NextAddr=StreamProgramExtFlash(NextAddr,strlen(StringBuf),(uint8_t*)StringBuf); // Write to external flash and get next address
+  }
+  sprintf(StringBuf,"Autostart\t%d\r\n",AUTOSTART_LED_Get());
+  if(1==print){
+    PrintString(StringBuf);
+  }else{
+    NextAddr=StreamProgramExtFlash(NextAddr,strlen(StringBuf),(uint8_t*)StringBuf); // Write to external flash and get next address
+  }
+  sprintf(StringBuf,"KOS\t%d\r\n",KOS_LED_Get());
   if(1==print){
     PrintString(StringBuf);
   }else{

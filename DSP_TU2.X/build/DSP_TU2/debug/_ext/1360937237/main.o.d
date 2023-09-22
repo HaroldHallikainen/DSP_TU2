@@ -13,6 +13,7 @@ build/DSP_TU2/debug/_ext/1360937237/main.o: ../src/main.c \
  ../src/config/DSP_TU2/peripheral/clk/plib_clk.h \
  ../src/config/DSP_TU2/peripheral/gpio/plib_gpio.h \
  ../src/config/DSP_TU2/peripheral/evic/plib_evic.h \
+ ../src/config/DSP_TU2/peripheral/wdt/plib_wdt.h \
  ../src/config/DSP_TU2/peripheral/ocmp/plib_ocmp1.h \
  ../src/config/DSP_TU2/peripheral/ocmp/plib_ocmp_common.h \
  ../src/config/DSP_TU2/peripheral/spi/spi_master/plib_spi2_master.h \
@@ -50,6 +51,8 @@ build/DSP_TU2/debug/_ext/1360937237/main.o: ../src/main.c \
 ../src/config/DSP_TU2/peripheral/gpio/plib_gpio.h:
 
 ../src/config/DSP_TU2/peripheral/evic/plib_evic.h:
+
+../src/config/DSP_TU2/peripheral/wdt/plib_wdt.h:
 
 ../src/config/DSP_TU2/peripheral/ocmp/plib_ocmp1.h:
 
