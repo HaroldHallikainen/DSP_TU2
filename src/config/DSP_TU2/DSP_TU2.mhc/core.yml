@@ -3230,6 +3230,13 @@ children:
       children:
       - type: User
         attributes: {value: 'true'}
+  - type: String
+    attributes: {id: WDT_ALLOWED_WINDOW_PERIOD}
+    children:
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: core, value: 256.0 s}
   - type: Integer
     attributes: {id: WDT_CLOCK_FREQUENCY}
     children:
@@ -3293,6 +3300,10 @@ children:
         attributes: {id: visible}
         children:
         - {type: Value, value: 'true'}
+    - type: Values
+      children:
+      - type: Dynamic
+        attributes: {id: core, value: 1024.0 s}
   - type: Boolean
     attributes: {id: WDT_USE}
     children:

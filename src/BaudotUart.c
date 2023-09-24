@@ -3,9 +3,33 @@
 #include "BaudotUart.h"
 #include "main.h"
 #include "UserConfig.h"
+#include <stdio.h>
+#include "fifo8.h"      // Buffer locally generated ascii for transmission
 
 uint32_t CharCount=0;   // How many good start bits we got
 uint32_t BadStopBitCount=0; // How many bad stop bits we got
+Fifo8_t  *pAsciiTxFifo;  // Fifo for stuff not coming in uart
+
+void BaudotUartInit(void){
+  // Actually initializes stuff to send error count report.
+  pAsciiTxFifo=Fifo8Create(200);  // Create a 200 byte fifo
+}
+
+void TxErrorReport(void){
+  // Send error report if enabled on new transmission
+  char *pStringBuf = StringBuf;  // Point to StringBuf
+  GenerateErrorCountReport();    // Makes report in StringBuf
+  while(*pStringBuf!=0){
+    Fifo8Put(pAsciiTxFifo, *pStringBuf); // Put a character info fifo for tex
+    pStringBuf++;
+  }
+}
+
+void GenerateErrorCountReport(void){
+  // Put receive error report in StringBuf and clear counters;
+  sprintf(StringBuf,"\r\n\r\nReceive Error Report\r\nCharacters: %d\r\nBad Characters: %d\r\nError Percentage: %.0f\r\n\r\n",
+          CharCount,BadStopBitCount,100.0*(double)BadStopBitCount/(double)CharCount);
+}
 
 char BaudotLtrs[]="~E\nA SIU\rDRJNFCKTZLWHYPQOBG~MXV~";  // 0x03 to shift to figs, 0x0f to ltrs
 char BaudotFigs[]="~3\n- \a87\r$4',!:(5\")2#6019?&~./;~"; // ~ characters not translated
@@ -22,6 +46,8 @@ char BaudotUartRx(bool MS){
   static uint8_t RxChar=0;
   static bool FIGS=false;
   char result=0;
+  const char ER[]="!ER";     // Sequence to request error report
+  static int ErIndex=0;      // Next position to check
   if(CallCounter!=0){        // Not time yet
     CallCounter--;           // decrement and get out
   }else{                     // CallCounter==0, time to do something
@@ -35,8 +61,10 @@ char BaudotUartRx(bool MS){
           break;
         case 1:             // Check middle of start bit  
           if(space){     //  We have a space, so start bit is valid
-            RxChar=0;       // Clear the character 
-            CharCount++;    // Count the character
+            RxChar=0;       // Clear the character
+            if(0==TX_LED_Get()){
+              CharCount++;    // Count the character if not transmitting
+            }  
             state++;        // Go to next state, get lsb
             CallCounter=176; // Come back in 22ms, middle of lsb
           }else{
@@ -80,7 +108,9 @@ char BaudotUartRx(bool MS){
           break;
         case 7:             // Check stop bit
           if(space){
-            BadStopBitCount++;  // Should be mark. Count error if not
+            if(0==TX_LED_Get()){  // Only count bad stops in receive
+              BadStopBitCount++;  // Should be mark. Count error if not
+            }  
             state=9;            // go wait for mark instead of running open
           }
           RxChar&=31;       // Mask to make sure we do not go off end of decode array
@@ -99,7 +129,18 @@ char BaudotUartRx(bool MS){
           }
           if(UartDest==modem){          // Send received data to UART/USN
             PrintChar(result);          // Print it
-          }  
+          }
+          if(result!=0){                // Throw out nulls
+            if(result==ER[ErIndex]){      // Check for error report request
+              ErIndex++;
+              if(0==ER[ErIndex]){     // We got whole command
+                TxErrorReport();          // Send it
+                ErIndex=0;                // Start looking for first char
+              }
+            }else{                        // Character did not match
+              ErIndex=0;                  // Start from beginning again
+            }
+          } // endif not null  
           state=0;          // Go back to waiting for start
           break;
         case 8:         // Got framing error. Wait here for mark
@@ -218,16 +259,23 @@ void BaudotUartTx(void){
   static uint32_t CallCount=0;
   static uint32_t BitTimeCallCount;
   static int Figs=0;          // non-zero if we are in FIGS
-  if(UartDest==modem){         // Use UART RX data here instead of command interp
+  if((UartDest==modem)||(Fifo8Full(pAsciiTxFifo))){ // Use UART RX data here instead of command interp
+                              // or we have some locally generated stuff to transmit
     if(CallCount>0){
       CallCount--;            // Count down at 8,000 per second
     }else{                    // Time to do something!
       switch(state){
         default:
         case 0:                 // See if there is a character to send
+          AsciiChar=0;          // Use non-null as flag that we have something
           if(0!=UART1_ReadCountGet()){  // There is something to transmit
-            BitTimeCallCount=(uint32_t)(8000.0/UserConfig.BaudRate);    // How many calls for one bit time
             UART1_Read(&AsciiChar,1);    // Get 1 character to AsciiChar
+          }  
+          if(0!=Fifo8Full(pAsciiTxFifo)){ // Fifo has data
+            AsciiChar=Fifo8Get(pAsciiTxFifo);
+          }
+          if(0!=AsciiChar){       // We got something!  
+            BitTimeCallCount=(uint32_t)(8000.0/UserConfig.BaudRate);    // How many calls for one bit time
             if(AsciiChar>0x60) AsciiChar-=0x20; // Shift lower case to upper case
             if(AsciiChar<sizeof(AsciiToBaudotTable)){    // Prevent running off end of array
               if(AsciiChar==0x1b){                      // Escape
@@ -345,4 +393,6 @@ void BaudotUartTx(void){
     } // End else CallCount timeout
   }  // End destination check
 }  
+  
+  
   

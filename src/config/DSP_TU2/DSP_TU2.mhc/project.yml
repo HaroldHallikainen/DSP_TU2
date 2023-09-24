@@ -12,7 +12,7 @@ files:
   physicalPath: ''
   security: NON_SECURE
   type: SOURCE
-  userChecksum: 26202546521266EBA36E8190A07C3B5E
+  userChecksum: 11B0A7107974B485A6B5511A891F8349
 - generatedChecksum: 199B816E305B9731F30FB93E708F83C1
   logicalPath: config/DSP_TU2
   name: interrupts.c
@@ -90,13 +90,13 @@ files:
   security: NON_SECURE
   type: SOURCE
   userChecksum: CB7A5E17457F3268C31238F6CA69E413
-- generatedChecksum: 159891D7336058CF7CB9C39C7E2E8FDC
+- generatedChecksum: 0EE4565738833FA6D0620F9F76B1229C
   logicalPath: config/DSP_TU2/peripheral/uart
   name: plib_uart1.c
   physicalPath: peripheral/uart
   security: NON_SECURE
   type: SOURCE
-  userChecksum: 159891D7336058CF7CB9C39C7E2E8FDC
+  userChecksum: 0EE4565738833FA6D0620F9F76B1229C
 - generatedChecksum: 421E0E3D113AC4742E1A755A321D08DF
   logicalPath: config/DSP_TU2/peripheral/wdt
   name: plib_wdt.c

@@ -69,6 +69,7 @@
       <itemPath>../src/AutostartKos.h</itemPath>
       <itemPath>../src/ExtFlash.h</itemPath>
       <itemPath>../src/CommandInterpreter.h</itemPath>
+      <itemPath>../src/fifo8.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -144,6 +145,7 @@
       <itemPath>../src/ExtFlash.c</itemPath>
       <itemPath>../src/CommandInterpreter.c</itemPath>
       <itemPath>../src/BootLoader.c</itemPath>
+      <itemPath>../src/fifo8.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -286,7 +288,7 @@
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-cross-reference-file" value="true"/>
         <property key="generate-micro-compressed-code" value="false"/>
-        <property key="heap-size" value="10000"/>
+        <property key="heap-size" value="12000"/>
         <property key="input-libraries" value=""/>
         <property key="kseg-length" value=""/>
         <property key="kseg-origin" value=""/>

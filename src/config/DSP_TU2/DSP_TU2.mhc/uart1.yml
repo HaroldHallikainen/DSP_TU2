@@ -110,7 +110,7 @@ children:
     - type: Values
       children:
       - type: User
-        attributes: {value: '6000'}
+        attributes: {value: '8000'}
   - type: KeyValueSet
     attributes: {id: UART_UEN_SELECT}
     children:

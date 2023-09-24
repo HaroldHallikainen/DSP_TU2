@@ -79,9 +79,9 @@
 #pragma config POSCMOD =    OFF
 #pragma config OSCIOFNC =   OFF
 #pragma config FCKSM =      CSECME
-#pragma config WDTPS =      PS2048
+#pragma config WDTPS =      PS1024
 #pragma config WDTSPGM =    STOP
-#pragma config FWDTEN =     OFF
+#pragma config FWDTEN =     ON
 #pragma config WINDIS =     NORMAL
 #pragma config FWDTWINSZ =  WINSZ_25
 #pragma config DMTCNT =     DMT31

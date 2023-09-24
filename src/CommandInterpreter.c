@@ -10,6 +10,7 @@
 #include "biquad.h"                 // Modify filters
 #include "agc.h"                    // Access to AGC filter
 #include "filters.h"                // Set up demod filters based on UserConfig
+#include "BaudotUart.h"             // Access receive error report
 
 
 //#define NumCommandBufs NumTcpSockets+3 // Separate command buffers for TCP connections (NumTcpSockets), RS232, ConfigFlash, and HTTPPOST
@@ -310,8 +311,13 @@ int ArgNum=0;                 // Argument number currently storing
           }
           break;  
         case 0x539b49b4:    // Reset
+          PrintString("\r\nResetting system\r\n");
           while(1);         // Loop 'til WDT times out
           break;
+        case 0x7559d22c:    // PrintRxReport
+          GenerateErrorCountReport();   // Put report in StringBuf and clear counters
+          strcat(StringBuf,">");        // Prompt for next command
+          break;            // Will print on exit
       }
     }
   }
@@ -375,6 +381,11 @@ NoLoop                    0        Allows operation without a loop supply,\r\n\
                                    ignore the lack of loop current.\r\n\
 PrintConfig                        No parameters. Prints the current system\r\n\
                                    configuration.\r\n\
+PrintRxReport                      No parameters. Prints the number of received\r\n\
+                                   characters (valid stop bits), the number of\r\n\
+                                   bad characters (bad stop bit), and the\r\n\
+                                   percentage error since the command last run.\r\n\
+                                   Resets the counters.\r\n\
 PrintSavedConfig                   No parameters. Prints saved configuration.\r\n\
 Reset                              No parameters. Loops until WDT times out\r\n\
                                    (1.024 seconds), resetting system. \r\n\
