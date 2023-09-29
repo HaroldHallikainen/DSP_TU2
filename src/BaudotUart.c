@@ -164,7 +164,7 @@ const uint8_t AsciiToBaudotTable[]={
   0x85,       // ASCII Bell.FIGS S
   0x00,       // ASCII BS, send blank key
   0x00,       // ASCII HT, send blank key
-  0x02,       // Line feed
+  0x00,       // Line feed. Ignore LF. Send CRLF on receiving CR
   0x00,       // ASCII VT, send blank key
   0x00,       // ASCII FF, send blank key
   0x08,       // Carriage return
@@ -259,6 +259,8 @@ void BaudotUartTx(void){
   static uint32_t CallCount=0;
   static uint32_t BitTimeCallCount;
   static int Figs=0;          // non-zero if we are in FIGS
+  const char ER[]="!ER";     // Sequence to request error report
+  static int ErIndex=0;      // Next position to check
   if((UartDest==modem)||(Fifo8Full(pAsciiTxFifo))){ // Use UART RX data here instead of command interp
                               // or we have some locally generated stuff to transmit
     if(CallCount>0){
@@ -275,6 +277,15 @@ void BaudotUartTx(void){
             AsciiChar=Fifo8Get(pAsciiTxFifo);
           }
           if(0!=AsciiChar){       // We got something!  
+            if(AsciiChar==ER[ErIndex]){      // Check for error report request
+              ErIndex++;
+              if(0==ER[ErIndex]){     // We got whole command
+                TxErrorReport();          // Send it
+                ErIndex=0;                // Start looking for first char
+              }
+            }else{                        // Character did not match
+              ErIndex=0;                  // Start from beginning again
+            }
             BitTimeCallCount=(uint32_t)(8000.0/UserConfig.BaudRate);    // How many calls for one bit time
             if(AsciiChar>0x60) AsciiChar-=0x20; // Shift lower case to upper case
             if(AsciiChar<sizeof(AsciiToBaudotTable)){    // Prevent running off end of array

@@ -316,6 +316,12 @@ int ArgNum=0;                 // Argument number currently storing
           break;
         case 0x7559d22c:    // PrintRxReport
           GenerateErrorCountReport();   // Put report in StringBuf and clear counters
+          if(2==ArgNum){                // Parameter passed
+            if(0==atoi(TokenArray[1])){ // If zero, clear counters
+              CharCount=0;              // How many good start bits we got
+              BadStopBitCount=0; // How many bad stop bits we got
+            }
+          }
           strcat(StringBuf,">");        // Prompt for next command
           break;            // Will print on exit
       }
@@ -381,11 +387,16 @@ NoLoop                    0        Allows operation without a loop supply,\r\n\
                                    ignore the lack of loop current.\r\n\
 PrintConfig                        No parameters. Prints the current system\r\n\
                                    configuration.\r\n\
-PrintRxReport                      No parameters. Prints the number of received\r\n\
-                                   characters (valid stop bits), the number of\r\n\
-                                   bad characters (bad stop bit), and the\r\n\
-                                   percentage error since the command last run.\r\n\
-                                   Resets the counters.\r\n\
+PrintRxReport                      Prints the number of received characters\r\n\
+                                   (valid start bits), the number of bad\r\n\
+                                   characters (bad stop bit), and the\r\n\
+                                   percentage error. If a parameter of zero\r\n\
+                                   is used, clears counters after printing\r\n\
+                                   report. Also, report can be transmitted by\r\n\
+                                   typing !ER on Teletype or on terminal when \r\n\
+                                   in modem mode (terminal to Baudot AFSK). Mote\r\n\
+                                   also that a transmit to receive transition\r\n\
+                                   resets the counters.\r\n\
 PrintSavedConfig                   No parameters. Prints saved configuration.\r\n\
 Reset                              No parameters. Loops until WDT times out\r\n\
                                    (1.024 seconds), resetting system. \r\n\
