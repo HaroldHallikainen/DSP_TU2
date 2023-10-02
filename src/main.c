@@ -88,7 +88,9 @@ int main ( void ){
   PrintString("Filters initialized\r\n");
   AgcInit();                  // Set up automatic gain control
   PrintString("AGC initialized\r\n");
+  WDT_Clear();           // Clear WDT. Prescale is 1024 for timeout in 1.024 seconds
   DisplayInit();         // Initialize display and related fifo
+  WDT_Clear();           // Clear WDT. Prescale is 1024 for timeout in 1.024 seconds
   PrintString("Display initialized\r\n");
   AudioPwmSet(0.0);           // Initialize PWM to 50% duty cycle representing 0.0.
   ADCHS_ChannelConversionStart(2); // Start a first ADC conversion

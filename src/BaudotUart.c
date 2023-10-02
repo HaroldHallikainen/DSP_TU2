@@ -131,15 +131,17 @@ char BaudotUartRx(bool MS){
             PrintChar(result);          // Print it
           }
           if(result!=0){                // Throw out nulls
-            if(result==ER[ErIndex]){      // Check for error report request
-              ErIndex++;
-              if(0==ER[ErIndex]){     // We got whole command
-                TxErrorReport();          // Send it
-                ErIndex=0;                // Start looking for first char
+            if(1==TX_LED_Get()){        // Only send error report if we are transmitting
+              if(result==ER[ErIndex]){      // Check for error report request
+                ErIndex++;
+                if(0==ER[ErIndex]){     // We got whole command
+                  TxErrorReport();          // Send it
+                  ErIndex=0;                // Start looking for first char
+                }
+              }else{                        // Character did not match
+                ErIndex=0;                  // Start from beginning again
               }
-            }else{                        // Character did not match
-              ErIndex=0;                  // Start from beginning again
-            }
+            }                           // Endif we are transmitting  
           } // endif not null  
           state=0;          // Go back to waiting for start
           break;

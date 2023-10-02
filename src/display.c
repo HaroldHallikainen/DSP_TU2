@@ -83,13 +83,13 @@ void DisplayInit(void){
   }
   DISPLAY_CSn_Set();
   DisplayCSN();                      // Chip select high. Put in fifo
-  Timer2TimeoutCounter=80;          // Counts down at 80 kHz, 12.5 us per click
-  while(Timer2TimeoutCounter>0);       // Delay 1ms
+  Timer2TimeoutCounter=800;          // Counts down at 80 kHz, 12.5 us per click
+  while(Timer2TimeoutCounter>0);       // Delay 1ms - changed to 10ms
   DISPLAY_RESETn_Clear();            // Display reset line low
   Timer2TimeoutCounter=2;           // Delay 12.5 to 25us, 2us min
   while(Timer2TimeoutCounter>0);       // Delay 1ms
   DISPLAY_RESETn_Set();              // Display reset line high
-  Timer2TimeoutCounter=17;            // Wait about 200ms 
+  Timer2TimeoutCounter=16000;            // Wait about 200ms - was 212us
   while(Timer2TimeoutCounter>0);
   // Below code from https://www.buydisplay.com/8051/ER-OLEDM015-1C_8051_Tutorial.zip
   // Note that that code has CSn go high between each byte while the datasheet at
