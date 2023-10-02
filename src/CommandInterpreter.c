@@ -357,7 +357,8 @@ AutostartThresh           0.3      Discriminator threshold (mark level minus\r\n
                                    space level) that will start motor. Too low a\r\n\
                                    level can give false starts on noise. Too\r\n\
                                    high a level can keep the motor from starting\r\n\
-                                   on a weak signal.\r\n\
+                                   on a weak signal. If the Input LPF is enabled\r\n\
+                                   this is typically set to 0.5.\r\n\
 BaudRate                  45.45    The transmit baud rate in bits per second.\r\n\
                                    Used to set the speed of the Baudot UART and\r\n\
                                    tone filter bandwidths.\r\n\
@@ -370,7 +371,8 @@ LoadSavedConfig                    No parameters. Loads the configuration saved\
                                    to external flash.\r\n\
 MarkHoldThresh            0.2      Sustained discriminator levels below this\r\n\
                                    threshold put the demodulator in mark to\r\n\
-                                   avoid printing on noise.\r\n\
+                                   avoid printing on noise. If the Input LPF is\r\n\
+                                   enabled, this is typically increased to 0.5\r\n\
 modem                              No parameters. Switches USB terminal to the\r\n\
                                    Baudot UART to transmit and receive data. ESC\r\n\
                                    returns to the command interpreter.\r\n\
