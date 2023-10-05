@@ -4,15 +4,15 @@
 
 #include "definitions.h"                // Defines types like uint8_t
 #include "display.h"
-#include "main.h"                   // typedef for smp_type
+#include "main.h"                   
 
-void xyScope(smp_type x, smp_type y){
+void xyScope(double x, double y){
 #define OldArraySize 256 // 512 //1024
     static uint8_t oldX[OldArraySize]={0};
     static uint8_t oldY[OldArraySize]={0};
     static uint16_t OldIndex=1;     // Circular buffer where we make oldes black and newest white
     static uint16_t NewIndex=0;
-    static smp_type scale=64.0;    // How many pixels 1.0 represents. Would be 64 if peak input was 1.0
+    static double scale=64.0;    // How many pixels 1.0 represents. Would be 64 if peak input was 1.0
     uint8_t newX, newY;
     newX=64+(uint8_t)(scale*x);   // 0.0 gives 64, -1=0, +1=128
     newY=64+(uint8_t)(scale*y);

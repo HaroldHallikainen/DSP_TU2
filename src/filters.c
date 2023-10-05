@@ -2,7 +2,7 @@
 
 
 #include "filters.h"
-#include "main.h"     // definition of smp_type
+#include "main.h"     
 #include "UserConfig.h"// frequencies, shifts, etc.
 #include <math.h>
 

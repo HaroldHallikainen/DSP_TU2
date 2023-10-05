@@ -1,9 +1,9 @@
 #ifndef xyScope_h
 #define xyScope_h
 
-#include "main.h"   // typedef for smp_type
+#include "main.h"   
 
-void xyScope(smp_type x, smp_type y);   // Simulate XY scope on display
+void xyScope(double x, double y);   // Simulate XY scope on display
 
 
 

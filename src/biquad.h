@@ -13,9 +13,9 @@
 #endif
 
 /* whatever sample type you want */
-#include "main.h"       // Project-wide definition of smp_type
+#include "main.h"       
 // typedef double smp_type;
-
+// Made all smp_types doubles. hh
 
 /* this holds the data required to update samples thru a filter */
 typedef struct {

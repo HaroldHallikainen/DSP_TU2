@@ -3,7 +3,7 @@
 // Determines mark/space threshold based on current mark/space levels.
 
 #include "biquad.h"
-#include "main.h"// typedef for smp_type
+#include "main.h"// 
 
 #define DynamicThresholdF 50.0     // LPF cutoff frequency
 
@@ -13,12 +13,12 @@ void DynamicThresholdInit(void){
   DynamicThresholdLpf=BiQuad_new(LPF, 0.0, DynamicThresholdF, 8000.0, 0.707 );    
 }
 
-smp_type DynamicThresholdGet(smp_type MarkLevel, smp_type SpaceLevel){
+double DynamicThresholdGet(double MarkLevel, double SpaceLevel){
 // Returns a level half way between the average max of mark and space levels.
-  static smp_type LastThreshold=0.0;    // Threshold after LPF. Use to determine if currently mark or space
-  static smp_type Max=0.0;          // Maximum mark or space received so far
-  static smp_type MarkMax=0.0;      // Last peak level received for mark
-  static smp_type SpaceMax=0.0;
+  static double LastThreshold=0.0;    // Threshold after LPF. Use to determine if currently mark or space
+  static double Max=0.0;          // Maximum mark or space received so far
+  static double MarkMax=0.0;      // Last peak level received for mark
+  static double SpaceMax=0.0;
   static enum{Mark, Space} PreviousState=Mark; // Remember last so we detect transitions
   if((MarkLevel-SpaceLevel)>0.0){   // Currently in mark condition
     if(PreviousState==Space){               // Space ended. Save max and reset

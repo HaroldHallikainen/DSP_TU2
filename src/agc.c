@@ -4,7 +4,7 @@
 
 #include <math.h>
 #include "biquad.h"
-#include "main.h"   // typedef smp_type
+#include "main.h"   
 #include "UserConfig.h"
 
 

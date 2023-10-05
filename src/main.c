@@ -30,7 +30,7 @@
 #include "definitions.h"                // SYS function prototypes
 #include "PwmAudioOut.h"                // Convert floating sample to PWM duty cycle
 #include "dds.h"                        // Generate next sample via Direct Digital Synthesis
-#include "biquad.h"                     // biquad filters. Includes typedef for smp_type
+#include "biquad.h"                     // biquad filters. 
 #include "DynamicThreshold.h"           // Calculates threshold based on max mark and space levels
 #include "agc.h"                        // Input automatic gain control
 #include "main.h"
@@ -113,7 +113,7 @@ int main ( void ){
       FpPollCounter--;                // Decrement at 8 kHz so we can poll front panel now and then
       Timer2TimeoutCounter+=10;    // come back in 125 us. PWM frequency is 80 kHz, so change every 10 cycles
       AdcSample=ADCHS_ChannelResultGet(2);      // Get sample as uint16_t
-      samplef=(double)(AdcSample-2048)/2048.0;   // Convert to smp_type with mid-scale=0.0
+      samplef=(double)(AdcSample-2048)/2048.0;   // Convert to double with mid-scale=0.0
       ADCHS_ChannelConversionStart(2);              // Start next ADC conversion 
       if((1==UserConfig.NoLoop)||Fifo8Full(pAsciiTxFifo)){ // If NoLoop or transmittting error report, ignore lack of loop current
         AfskGen(BaudotUartTxOut);
@@ -134,7 +134,7 @@ int main ( void ){
       }
       if(AudioOut==AGC) TestSamplef=samplef;
       if(UserConfig.UseLimiter==TRUE){                            // Use limiter or pass input to output
-        samplef=(smp_type)copysign(1.0,(double)samplef);            // Limiter. Returns 1.0 if sample positive, =1.0 if negative
+        samplef=copysign(1.0,samplef);            // Limiter. Returns 1.0 if sample positive, =1.0 if negative
       }
       if(AudioOut==LIMITER) TestSamplef=samplef;
       MarkSample=samplef;                         

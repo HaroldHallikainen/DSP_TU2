@@ -5,7 +5,7 @@
 #include <stdint.h>     // int_t types defined here
 #include "main.h"
 #include "dds.h"
-#include "biquad.h"                     // biquad filters. Includes typedef for smp_type
+#include "biquad.h"                     // biquad filters. 
 #include "AfskGen.h"  
 #include "definitions.h"                // SYS function prototypes like peripheral library
 #include "filters.h"                    // Mark and space frequencies specified here

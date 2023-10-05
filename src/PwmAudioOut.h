@@ -8,9 +8,9 @@
 #ifndef PWMAUDIO_H
 #define	PWMAUDIO_H
 
-#include "main.h"// typedef for smp_type
+#include "main.h"
 
-void AudioPwmSet(smp_type sample); // Pass in audio sample as -1.0 to +1.0 to set duty cycle to 0% to 100%
+void AudioPwmSet(double sample); // Pass in audio sample as -1.0 to +1.0 to set duty cycle to 0% to 100%
 
 #ifdef	__cplusplus
 extern "C" {
