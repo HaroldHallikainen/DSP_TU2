@@ -105,8 +105,7 @@ int main ( void ){
   PrintString(__DATE__);
   PrintString("\r\n\r\n>");
   DisplayClear();
-//  DisplayCharacter('A');  // TEST
-//  while(1) DisplayPoll();
+  DisplayCharacter('A');  // TEST
   while ( true ){
     if(Timer2TimeoutCounter<1){        // We have timed out 10 times, so it has been 125 us
       IDLEn_Set();                  // CPU not idle, so set RE7 so we can time it 
