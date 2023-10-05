@@ -324,6 +324,15 @@ int ArgNum=0;                 // Argument number currently storing
           }
           strcat(StringBuf,">");        // Prompt for next command
           break;            // Will print on exit
+        case 0x5521bc1:     // AfskOutputContinuous
+          if(2==ArgNum){
+            UserConfig.AfskOutputContinuous = atoi(TokenArray[1]);
+            UserConfig.AfskOutputContinuous&=1; // Force to 0|1
+            strcpy(StringBuf,"\r\n>");
+          }else{
+            sprintf(StringBuf, "\r\n%d\r\n>", UserConfig.AfskOutputContinuous);
+          }
+          break;
       }
     }
   }
@@ -337,12 +346,15 @@ int ArgNum=0;                 // Argument number currently storing
 char HelpString[]= "DSP TU Command Line Interface\r\n\n\
 Each command consists of a command string, and zero or more parameters.\r\n\
 Parameters are tab delimited, and the command is terminated with a carriage\r\n\
-return. Commands take effect immediately. They can be saved to be reloaded on\
+return. Commands take effect immediately. They can be saved to be reloaded on\r\n\
 the next power cycle. If no parameter is given, the current value of the\r\n\
 parameter is returned. If a command is not recognized, an error message is shown\r\n\
 along with a hash of the command. Commands ARE case sensitive! In the list\r\n\
 below, the default value of each parameter is shown along with a description of\r\n\
 the command.\r\n\n\
+AfskOutputContinuous      0        If nonzero, the AFSK output is active in both\r\n\
+                                   transmit and receive. If zero, the output is\r\n\
+                                   only active in transmit.\r\n\
 AgcLpfF                   1.0      Set the frequency of the AGC control loop low\r\n\
                                    pass filter. A lower number makes the AGC\r\n\
                                    respond more slowly\r\n\
@@ -396,7 +408,7 @@ PrintRxReport                      Prints the number of received characters\r\n\
                                    is used, clears counters after printing\r\n\
                                    report. Also, report can be transmitted by\r\n\
                                    typing !ER on Teletype or on terminal when \r\n\
-                                   in modem mode (terminal to Baudot AFSK). Mote\r\n\
+                                   in modem mode (terminal to Baudot AFSK). Note\r\n\
                                    also that a transmit to receive transition\r\n\
                                    resets the counters.\r\n\
 PrintSavedConfig                   No parameters. Prints saved configuration.\r\n\

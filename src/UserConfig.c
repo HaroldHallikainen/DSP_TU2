@@ -27,7 +27,8 @@ const UserConfig_t UserConfigDefault={
   .UseLimiter=0,
   .UseAgc=1,
   .AgcMaxGain=100,                  // Max gain of AGC in V/V 
-  .NoLoop=0                        // Assume there is a loop supply
+  .NoLoop=0,                        // Assume there is a loop supply
+  .AfskOutputContinuous=0           // By default, only output AFSK in transmit
 };
 
 
@@ -185,7 +186,12 @@ void SavePrintConfig(int print){
   }else{
     NextAddr=StreamProgramExtFlash(NextAddr,strlen(StringBuf),(uint8_t*)StringBuf); // Write to external flash and get next address
   }
-
+  sprintf(StringBuf,"AfskOutputContinuous\t%d\r\n",UserConfig.AfskOutputContinuous);
+  if(1==print){
+    PrintString(StringBuf);
+  }else{
+    NextAddr=StreamProgramExtFlash(NextAddr,strlen(StringBuf),(uint8_t*)StringBuf); // Write to external flash and get next address
+  }
 }
 
   

@@ -45,6 +45,7 @@
 #include "AutostartKos.h"               // Handle autostart and KOS
 #include "ExtFlash.h"
 #include "CommandInterpreter.h"
+#include "Unifont.h"                    // Send text to display
 
 static void MyTimer2Isr(uint32_t intCause, uintptr_t context);
 
@@ -104,6 +105,8 @@ int main ( void ){
   PrintString(__DATE__);
   PrintString("\r\n\r\n>");
   DisplayClear();
+//  DisplayCharacter('A');  // TEST
+//  while(1) DisplayPoll();
   while ( true ){
     if(Timer2TimeoutCounter<1){        // We have timed out 10 times, so it has been 125 us
       IDLEn_Set();                  // CPU not idle, so set RE7 so we can time it 
@@ -159,8 +162,13 @@ int main ( void ){
       if(AudioOut==DISCRIM) TestSamplef=DiscrimOut;
       if(AudioOut==THRESHOLD) TestSamplef=Threshold;
       if(AudioOut==DISCRIM_LESS_THRESHOLD) TestSamplef=DiscrimOut-Threshold;
+      if(TX_LED_Get()||UserConfig.AfskOutputContinuous){
+        DdsOut=DdsNextSample(); // Run DDS tone generator in transmit or continuous
+        AFSK_OUT_EN_Set();  // Enable AFSK output
+      }else{
+        AFSK_OUT_EN_Clear();  // Disable AFSK output
+      }
       if(TX_LED_Get()){     // Transmit selected
-        DdsOut=DdsNextSample(); // Run DDS tone generator only in transmit
         if(0==Fifo8Full(pAsciiTxFifo)){       // Don't send locally generated stuff to swuart (like error report))
           LOOP_KEY_Set();     // Loop switch on if not sending error report
         }else{                // Provide local output of generated Error Report
@@ -170,11 +178,9 @@ int main ( void ){
             LOOP_KEY_Clear();
           }
         }  
-        AFSK_OUT_EN_Set();  // Enable AFSK output
         PTT_Set();          // Close PTT relay
         MarkHoldTimer=0;    // Go into mark hold when dropping out of transmit
       }else{                  // Not in tx, let received data key loop
-        AFSK_OUT_EN_Clear();  // Disable AFSK output
         PTT_Clear();          // Release PTT relay                                        
         if(MarkHoldTimer>0){     // Not in mark hold, key loop
           if((DiscrimOut-Threshold)>=0){      // Mark

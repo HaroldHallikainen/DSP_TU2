@@ -25,6 +25,7 @@ typedef struct{
   int UseLimiter;                   // True if we want to use the limiter
   int UseAgc;                       // True if we want to use the AGC
   int NoLoop;                       // Allows use of UART modem without a loop supply
+  int AfskOutputContinuous;         // If non-zero, output AFSK continuously. Otherwise, only in transmit
   double AgcMaxGain;                // Maximum gain of AGC in V/V
 } UserConfig_t;
 
