@@ -8,6 +8,7 @@
 
 uint32_t CharCount=0;   // How many good start bits we got
 uint32_t BadStopBitCount=0; // How many bad stop bits we got
+uint32_t SeqGoodChars=0; // Count how many good characters we got in sequence.
 Fifo8_t  *pAsciiTxFifo;  // Fifo for stuff not coming in uart
 
 void BaudotUartInit(void){
@@ -62,9 +63,6 @@ char BaudotUartRx(bool MS){
         case 1:             // Check middle of start bit  
           if(space){     //  We have a space, so start bit is valid
             RxChar=0;       // Clear the character
-            if(0==TX_LED_Get()){
-              CharCount++;    // Count the character if not transmitting
-            }  
             state++;        // Go to next state, get lsb
             CallCounter=176; // Come back in 22ms, middle of lsb
           }else{
@@ -107,12 +105,16 @@ char BaudotUartRx(bool MS){
           CallCounter=176; // Come back in 22ms, middle of stop bit
           break;
         case 7:             // Check stop bit
-          if(space){
-            if(0==TX_LED_Get()){  // Only count bad stops in receive
+          if(0==TX_LED_Get()){
+            CharCount++;    // Count the character if not transmitting
+            if(space){
               BadStopBitCount++;  // Should be mark. Count error if not
-            }  
-            state=9;            // go wait for mark instead of running open
-          }
+              SeqGoodChars=0;     // Reset sequential good character counter
+              state=8;            // go wait for mark instead of running open
+            }else{
+              SeqGoodChars++;      // Increment it
+            }                     // end stop bit check]
+          }                       // End receive check
           RxChar&=31;       // Mask to make sure we do not go off end of decode array
           switch(RxChar){
               case 27: FIGS=true; break;
@@ -120,12 +122,12 @@ char BaudotUartRx(bool MS){
               case  0: break;        // do nothing with baudot blank key
               case  4: FIGS=false;   // Unshift on space. No break. Drop into decode
               default: 
-                  if(FIGS){
-                      result=BaudotFigs[RxChar];
-                  }else{
-                      result=BaudotLtrs[RxChar]; 
-                  }    
-                  break;
+                if(FIGS){
+                  result=BaudotFigs[RxChar];
+                }else{
+                  result=BaudotLtrs[RxChar]; 
+                }    
+                break;
           }
           if(UartDest==modem){          // Send received data to UART/USN
             PrintChar(result);          // Print it

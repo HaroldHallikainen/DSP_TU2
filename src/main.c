@@ -56,7 +56,8 @@ static void MyTimer2Isr(uint32_t intCause, uintptr_t context);
 // *****************************************************************************
 
 // Globals 
-volatile int16_t Timer2TimeoutCounter=0; // Derive 8 kHz from timer 2 80 kHz - Decremented by MyTimer2Isr.
+volatile int Timer2TimeoutCounter=0; // Derive 8 kHz from timer 2 80 kHz - Decremented by MyTimer2Isr.
+int TimeoutCounterMin=0;              // Minimum timeout value to see if we are servicing audio on time
 int16_t FpPollCounter=0;                // Decrements at 8 kHz telling us when to poll switches and LEDs.
 // Audio samples at various stages
 uint16_t AdcSample;         // Raw sample from ADC. Converted to AdcSamplef for calculations.
@@ -65,6 +66,7 @@ double samplef, TestSamplef, MarkSample, SpaceSample, MarkDemodOut, SpaceDemodOu
 // What drives the audio output. Usually dds (AFSK tone), but others for debug.  
 enum {NONE,ADC, AGC, INPUT_BPF, LIMITER, MARK_FILTER_OUT, SPACE_FILTER_OUT, MARK_DEMOD_OUT, SPACE_DEMOD_OUT, DISCRIM, DDS, THRESHOLD, DISCRIM_LESS_THRESHOLD} AudioOut=DDS;
 UartDest_t UartDest=CLI;   // Where to send UART1 data
+uint32_t MarkHoldReleaseSamples=8000;  // How many samples to disable mark hold after good mark
 
 
 int main ( void ){
@@ -108,7 +110,8 @@ int main ( void ){
   DisplayCharacter('A');  // TEST
   while ( true ){
     if(Timer2TimeoutCounter<1){        // We have timed out 10 times, so it has been 125 us
-      IDLEn_Set();                  // CPU not idle, so set RE7 so we can time it 
+      IDLEn_Set();                  // CPU not idle, so set RE7 so we can time it
+      if(Timer2TimeoutCounter<TimeoutCounterMin) TimeoutCounterMin = Timer2TimeoutCounter;  // Remember for test
       WDT_Clear();           // Clear WDT. Prescale is 1024 for timeout in 1.024 seconds
       FpPollCounter--;                // Decrement at 8 kHz so we can poll front panel now and then
       Timer2TimeoutCounter+=10;    // come back in 125 us. PWM frequency is 80 kHz, so change every 10 cycles
@@ -120,9 +123,6 @@ int main ( void ){
       }else{
         AfskGen(LoopSenseMark && BaudotUartTxOut);     // Adjust DDS frequency based on loop condition and software uart
       }
-      if(0==Fifo8Full(pAsciiTxFifo)){       // Don't send locally generated stuff to swuart (like error report))
-        BaudotUartRx(LoopSenseMark);        // Send sensed loop condition (true is mark) to softwaree uart)
-      }  
       TestSamplef=0.0;                // Output silence if nothing selected
       if(AudioOut==ADC) TestSamplef=samplef;
       if(UserConfig.UseInputBpf==TRUE){
@@ -154,7 +154,7 @@ int main ( void ){
              // DiscrimOut is difference between LPF of full wave rectified of mark and space BPFs
       DiscrimOut=MarkDemodOut-SpaceDemodOut;
       if(DiscrimOut-Threshold>UserConfig.MarkHoldThresh){  // we have mark instead of space or noise
-        MarkHoldTimer=2400;         // Allow loop key for another 300ms. One character is 163ms long
+        MarkHoldTimer=MarkHoldReleaseSamples;   // Disable mark hold for this many samples
       }else{
         if(MarkHoldTimer>0) MarkHoldTimer--;
       } 
@@ -168,28 +168,38 @@ int main ( void ){
         AFSK_OUT_EN_Clear();  // Disable AFSK output
       }
       if(TX_LED_Get()){     // Transmit selected
-        if(0==Fifo8Full(pAsciiTxFifo)){       // Don't send locally generated stuff to swuart (like error report))
-          LOOP_KEY_Set();     // Loop switch on if not sending error report
-        }else{                // Provide local output of generated Error Report
+        if(Fifo8Full(pAsciiTxFifo)>0){       // Don't send locally generated stuff to swuart (like error report))
           if(BaudotUartTxOut){
             LOOP_KEY_Set();
           }else{
             LOOP_KEY_Clear();
           }
+        }else{
+          BaudotUartRx(!LOOP_SENSE_Get()); //Send tty keyboard data to uart to detect !ER command
         }  
         PTT_Set();          // Close PTT relay
         MarkHoldTimer=0;    // Go into mark hold when dropping out of transmit
       }else{                  // Not in tx, let received data key loop
-        PTT_Clear();          // Release PTT relay                                        
-        if(MarkHoldTimer>0){     // Not in mark hold, key loop
-          if((DiscrimOut-Threshold)>=0){      // Mark
-            LOOP_KEY_Set();     // Loop switch on
-          }else{                  // Space
-            LOOP_KEY_Clear();     // Loop switch off
-          } 
-        }else{
-          LOOP_KEY_Set();     // Mark hold timed out, so hold mark
-        }
+        PTT_Clear();          // Release PTT relay
+//        if(AUTOSTART_LED_Get() && !MOTOR_LED_Get()){  // If autostart enabled but motor not,
+//          LOOP_KEY_Set();     // Assume no good signal, so hold mark
+//        }else{                // Not autostart with motor off, do normal mark hold check
+          if(MarkHoldTimer>0){     // Not in mark hold, key loop
+            if((DiscrimOut-Threshold)>=0){      // Mark
+              LOOP_KEY_Set();     // Loop switch on
+              BaudotUartRx(1);
+            }else{                  // Space
+              if(AUTOSTART_LED_Get() && !MOTOR_LED_Get()){  // If autostart enabled but motor not,
+                LOOP_KEY_Set();     // Keep loop in mark
+              }else{                // Not autostart or autostart with motor running, key loop
+                LOOP_KEY_Clear();     // Loop switch off
+              }  
+              BaudotUartRx(0);
+            } 
+          }else{
+            LOOP_KEY_Set();     // Mark hold timed out, so hold mark
+          }
+  //      }     // end else not autostart  
       }       // end else not in transmit 
       BaudotUartTx();     // UART data to baudot to BaudotUartTxOut. Run in both
                           // tx and rx so KOS works.
@@ -197,7 +207,8 @@ int main ( void ){
       if(AudioOut==DDS) TestSamplef=DdsOut;
       AudioPwmSet(TestSamplef);   // Output selected test signal or DDS
     } // endif Timer2TimeoutCounter
-    if(Timer2TimeoutCounter>5){   // Don't need to handle audio for a while
+    if(Timer2TimeoutCounter>2){   // Don't need to handle audio for a while
+                      // Use TimeoutCounterMin to see if this needs to be larger
       DisplayPoll();            // If something in display fifo, send it
       if(FpPollCounter<1){      // Time to poll front panel switches, LEDs, etc.
         PollSwitchesLeds();   // Go poll the switches and LEDs.

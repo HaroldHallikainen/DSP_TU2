@@ -16,6 +16,7 @@ typedef struct{
   double BaudRate;                 // Used to calculate tone filter bw and data filter cutoff
   double ToneFilterBwBrMult;        // Tone filter bandwidth is the baud rate times this number
   double MarkHoldThresh;            // Minimum discriminator level to reset mark hold timer.
+  double MarkHoldReleaseTime;       // Seconds to hold off Mark Hold on valid mark
   double AutostartThresh;           // Minimum discriminator level to start motor
   uint32_t AutostartShutdownSeconds; // How many seconda after loss of mark to shut down motor
   uint32_t KosDropSeconds;            // How many seconds after last character to drop transmitter  
@@ -26,6 +27,7 @@ typedef struct{
   int UseAgc;                       // True if we want to use the AGC
   int NoLoop;                       // Allows use of UART modem without a loop supply
   int AfskOutputContinuous;         // If non-zero, output AFSK continuously. Otherwise, only in transmit
+  int AutostartSeqGoodChars;        // How many good characters before motor start
   double AgcMaxGain;                // Maximum gain of AGC in V/V
 } UserConfig_t;
 

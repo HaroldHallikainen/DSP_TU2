@@ -7,6 +7,7 @@
 #include "AutostartKos.h"
 #include "main.h"     // UartDest
 #include "BaudotUart.h"// Access to BaudotUartTxOut
+#include <math.h>     // fabs
 
 
 
@@ -27,28 +28,19 @@ void AutostartKos(double discrim){
     AutostartCounter=8000*UserConfig.AutostartShutdownSeconds;
   }else{                              // Not transmitting        
     if(1==AUTOSTART_LED_Get()){         // Autostart is enabled
-      if(1==MOTOR_LED_Get()){           // Motor is on. Figure out when to drop out
-        if(discrim>UserConfig.AutostartThresh){ // above threshold, reload counter
-          AutostartCounter=8000*UserConfig.AutostartShutdownSeconds;
-        }else{
-          if(0!=AutostartCounter){
-            AutostartCounter--;       // Decrement the counter
-          }else{  
-            MOTOR_LED_Clear();      // Turn off the front panel LED
-          }
+      if((discrim>UserConfig.AutostartThresh)&&(SeqGoodChars>=UserConfig.AutostartSeqGoodChars)){ // above threshold and good characters, reload counter
+        AutostartCounter=8000*UserConfig.AutostartShutdownSeconds;
+      }else{
+        if(0!=AutostartCounter){
+          AutostartCounter--;       // Decrement the counter
         }
-      }else{                        // Motor LED off. See if we should start motor
-        if(discrim>UserConfig.AutostartThresh){   // Mark present, let counter drop
-          if(0==AutostartCounter){  // Mark has been present for 80% of bit time, start motor
-            MOTOR_LED_Set();
-          }else{                    // Not timed out yet
-            AutostartCounter--;
-          }
-        }else{                      // Mark not present, reload counter with 80% of a bit time
-          AutostartCounter=8000*(uint32_t)(2.0/UserConfig.BaudRate); // Require continuous space for 2 bit times   
-        }
-      }  
-    }
+      }
+      if(AutostartCounter>0){
+        MOTOR_LED_Set();
+      }else{
+        MOTOR_LED_Clear();
+      }  // Not timed out yet
+    }  // endif autostart
   }
   if(1==MOTOR_LED_Get()){           // LED is on
     AUTOSTARTn_Clear();             // turn on autostart output

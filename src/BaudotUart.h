@@ -9,6 +9,7 @@
 
 extern uint32_t CharCount;   // How many good start bits we got
 extern uint32_t BadStopBitCount; // How many bad stop bits we got
+extern uint32_t SeqGoodChars; // Count how many good characters we got in sequence.
 extern int BaudotUartTxOut;   // 0 for space, non-zero for mark
 extern Fifo8_t  *pAsciiTxFifo;  // Fifo for stuff not coming in uart
 

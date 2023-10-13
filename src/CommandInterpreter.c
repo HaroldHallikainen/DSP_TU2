@@ -90,7 +90,7 @@ int ArgNum=0;                 // Argument number currently storing
       Hash=HashGenerate(TokenArray[0]);  // Generate a hash of the command
       switch(Hash){  // Hash also available as a float64 in arg[0], but we'll use this UINT32 value for the switch
         default:
-          sprintf(StringBuf,"Bad command. Hash=0x%x.\r\n>",Hash);
+          sprintf(StringBuf,"\r\nBad command. Hash=0x%x.\r\n>",Hash);
           break;
         case 0x3f:               // ? (help)
           PrintString(HelpString);
@@ -333,6 +333,27 @@ int ArgNum=0;                 // Argument number currently storing
             sprintf(StringBuf, "\r\n%d\r\n>", UserConfig.AfskOutputContinuous);
           }
           break;
+        case 0xbe2dd4:        // TimeoutCounterMin
+          sprintf(StringBuf,"\r\n%d\r\n>", TimeoutCounterMin);
+          TimeoutCounterMin=0;
+          break;
+        case 0x168c90b:       // AutostartGoodChars
+          if(2==ArgNum){      // How many good characters in row required for autostart
+            UserConfig.AutostartSeqGoodChars=atoi(TokenArray[1]);
+            strcpy(StringBuf,"\r\n>");
+          }else{
+            sprintf(StringBuf,"\r\n%d\r\n>",UserConfig.AutostartSeqGoodChars);
+          }
+          break;
+        case 0x2ca22f3:   // MarkHoldReleaseTime
+          if(2==ArgNum){  // Set the time
+            UserConfig.MarkHoldReleaseTime=atof(TokenArray[1]);
+            MarkHoldReleaseSamples=8000*(uint32_t)UserConfig.MarkHoldReleaseTime; // Convert to samples for use in main loop
+            strcpy(StringBuf,"\r\n>");
+          }else{
+            sprintf(StringBuf,"\r\n%f\r\n>",UserConfig.MarkHoldReleaseTime);
+          }
+          break;
       }
     }
   }
@@ -362,15 +383,26 @@ AgcMaxGain                100.0    The maximum gain the AGC will achieve with no
                                    input signal\r\n\
 AgcTargetLevel            0.5      The AGC adjusts its gain to yield this output\r\n\
                                    level to the remainder of the demodulator\r\n\
-Autostart                 0        1 enables autostart. 0 disables autostart\r\n\
+Autostart                 0        1 enables autostart. 0 disables autostart. If\r\n\
+                                   autostart is enabled, loop will not be keyed\r\n\
+                                   unless motor LED is lit due to presence of\r\n\
+                                   qualified signal (above MarkHoldThresh and\r\n\
+                                   AutostartGoodChars received).\r\n\
+AutostartGoodChars        10       How many sequential good characters to trigger\r\n\
+                                   autostart\r\n\
 AutostartShutdownSeconds  30       Integer number of seconds after loss of mark\r\n\
                                    tone when motor is shut down\r\n\
 AutostartThresh           0.3      Discriminator threshold (mark level minus\r\n\
                                    space level) that will start motor. Too low a\r\n\
                                    level can give false starts on noise. Too\r\n\
                                    high a level can keep the motor from starting\r\n\
-                                   on a weak signal. If the Input LPF is enabled\r\n\
-                                   this is typically set to 0.5.\r\n\
+                                   on a weak signal. If the Input BPF is enabled\r\n\
+                                   this is typically set to 0.5. This level can\r\n\
+                                   be set low if AutostartGoodChars is greater\r\n\
+                                   than 5 or so since noise will cause a bad \r\n\
+                                   character (bad stop bit) keeping the required\r\n\
+                                   number of good sequential characters to not be\r\n\
+                                   met.\r\n\
 BaudRate                  45.45    The transmit baud rate in bits per second.\r\n\
                                    Used to set the speed of the Baudot UART and\r\n\
                                    tone filter bandwidths.\r\n\
@@ -385,6 +417,12 @@ MarkHoldThresh            0.2      Sustained discriminator levels below this\r\n
                                    threshold put the demodulator in mark to\r\n\
                                    avoid printing on noise. If the Input LPF is\r\n\
                                    enabled, this is typically increased to 0.5\r\n\
+MarkHoldReleaseTime       1.0      How many seconds to disable mark hold after\r\n\
+                                   receiving mark above MarkHoldThresh. This\r\n\
+                                   allows a higher threshold to prevent noise\r\n\
+                                   from printing when no signal present, but\r\n\
+                                   keeps mark hold from interfering with\r\n\
+                                   printing during a fade.\r\n\
 modem                              No parameters. Switches USB terminal to the\r\n\
                                    Baudot UART to transmit and receive data. ESC\r\n\
                                    returns to the command interpreter.\r\n\
@@ -417,6 +455,9 @@ Reset                              No parameters. Loops until WDT times out\r\n\
 SaveConfig                         No parameters. Saves the current\r\n\
                                    configuration to external flash to be loaded\r\n\
                                    on next power up.\r\n\
+TimeoutCounterMin                  No parameters. Used to determine if we are\r\n\
+                                   getting to audio samples in time. Should be\r\n\
+                                   zero.\r\n\
 ToneFilterBwBrMult        2.0      The BaudRate is multiplied by this value to\r\n\
                                    yield the bandwidth of the tone filters. This\r\n\
                                    is set to the lowest value possible that\r\n\

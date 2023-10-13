@@ -90,13 +90,13 @@ files:
   security: NON_SECURE
   type: SOURCE
   userChecksum: CB7A5E17457F3268C31238F6CA69E413
-- generatedChecksum: 0EE4565738833FA6D0620F9F76B1229C
+- generatedChecksum: 1A3D0B2535A750D041A4738B8BDE5377
   logicalPath: config/DSP_TU2/peripheral/uart
   name: plib_uart1.c
   physicalPath: peripheral/uart
   security: NON_SECURE
   type: SOURCE
-  userChecksum: 0EE4565738833FA6D0620F9F76B1229C
+  userChecksum: 1A3D0B2535A750D041A4738B8BDE5377
 - generatedChecksum: 421E0E3D113AC4742E1A755A321D08DF
   logicalPath: config/DSP_TU2/peripheral/wdt
   name: plib_wdt.c

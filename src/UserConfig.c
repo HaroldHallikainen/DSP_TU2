@@ -18,8 +18,10 @@ const UserConfig_t UserConfigDefault={
   .BaudRate=45.45,                  // Used to determine filter bandwidth and in software uart
   .ToneFilterBwBrMult=2.0,          // Tone filter bandwidth is the baud rate times this number. Make wide enough for minimal attenuation of BR/2 sideband
   .MarkHoldThresh=0.5,              // Minimum discriminator - threshold level to reset mark hold timer.
+  .MarkHoldReleaseTime=1.0,      // Disable mark hold for 1 second after valid mark
   .AutostartThresh=0.5,             // Minimum discriminator - threshold level to start motor
   .AutostartShutdownSeconds=30.0,   // Keep motor running this may seconds after signal drop
+  .AutostartSeqGoodChars=10,        // How many sequential good characters before motor start
   .KosDropSeconds=5.0,              // Drop transmitter 5 seconds after last character
   .AgcTargetLevel=0.5,               // AGC adjusts to this level
   .AgcLpfF=1.0,                     // Cutoff frequency of the LPF in the AGC gain control 
@@ -187,6 +189,18 @@ void SavePrintConfig(int print){
     NextAddr=StreamProgramExtFlash(NextAddr,strlen(StringBuf),(uint8_t*)StringBuf); // Write to external flash and get next address
   }
   sprintf(StringBuf,"AfskOutputContinuous\t%d\r\n",UserConfig.AfskOutputContinuous);
+  if(1==print){
+    PrintString(StringBuf);
+  }else{
+    NextAddr=StreamProgramExtFlash(NextAddr,strlen(StringBuf),(uint8_t*)StringBuf); // Write to external flash and get next address
+  }
+  sprintf(StringBuf,"AutostartGoodChars\t%d\r\n",UserConfig.AutostartSeqGoodChars);
+  if(1==print){
+    PrintString(StringBuf);
+  }else{
+    NextAddr=StreamProgramExtFlash(NextAddr,strlen(StringBuf),(uint8_t*)StringBuf); // Write to external flash and get next address
+  }
+  sprintf(StringBuf,"MarkHoldReleaseTime\t%f\r\n",UserConfig.MarkHoldReleaseTime);
   if(1==print){
     PrintString(StringBuf);
   }else{
