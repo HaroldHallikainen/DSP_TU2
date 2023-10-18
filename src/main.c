@@ -67,6 +67,7 @@ double samplef, TestSamplef, MarkSample, SpaceSample, MarkDemodOut, SpaceDemodOu
 enum {NONE,ADC, AGC, INPUT_BPF, LIMITER, MARK_FILTER_OUT, SPACE_FILTER_OUT, MARK_DEMOD_OUT, SPACE_DEMOD_OUT, DISCRIM, DDS, THRESHOLD, DISCRIM_LESS_THRESHOLD} AudioOut=DDS;
 UartDest_t UartDest=CLI;   // Where to send UART1 data
 uint32_t MarkHoldReleaseSamples=8000;  // How many samples to disable mark hold after good mark
+int MenuNumber=0;   // Menu to display. Zero is xyScope
 
 
 int main ( void ){
@@ -106,7 +107,7 @@ int main ( void ){
   PrintString("Build Date: ");
   PrintString(__DATE__);
   PrintString("\r\n\r\n>");
-  DisplayClear();
+  //DisplayClear();
   DisplayCharacter('A');  // TEST
   while ( true ){
     if(Timer2TimeoutCounter<1){        // We have timed out 10 times, so it has been 125 us
@@ -143,7 +144,9 @@ int main ( void ){
         MarkSample=BiQuad(MarkSample,MarkFilter[n]);       // Mark BPF
         SpaceSample=BiQuad(SpaceSample,SpaceFilter[n]);     // Space BPF
       }
-      xyScope(MarkSample,SpaceSample);
+      if(MenuNumber==0){      // No menu selected, show XY scope
+        xyScope(MarkSample,SpaceSample);
+      }  
       if(AudioOut==MARK_FILTER_OUT) TestSamplef=MarkSample;
       if(AudioOut==SPACE_FILTER_OUT) TestSamplef=SpaceSample;
       MarkDemodOut=BiQuad(fabs(MarkSample), MarkDataFilter);  // Envelope detected and filtered mark
@@ -181,25 +184,21 @@ int main ( void ){
         MarkHoldTimer=0;    // Go into mark hold when dropping out of transmit
       }else{                  // Not in tx, let received data key loop
         PTT_Clear();          // Release PTT relay
-//        if(AUTOSTART_LED_Get() && !MOTOR_LED_Get()){  // If autostart enabled but motor not,
-//          LOOP_KEY_Set();     // Assume no good signal, so hold mark
-//        }else{                // Not autostart with motor off, do normal mark hold check
-          if(MarkHoldTimer>0){     // Not in mark hold, key loop
-            if((DiscrimOut-Threshold)>=0){      // Mark
-              LOOP_KEY_Set();     // Loop switch on
-              BaudotUartRx(1);
-            }else{                  // Space
-              if(AUTOSTART_LED_Get() && !MOTOR_LED_Get()){  // If autostart enabled but motor not,
-                LOOP_KEY_Set();     // Keep loop in mark
-              }else{                // Not autostart or autostart with motor running, key loop
-                LOOP_KEY_Clear();     // Loop switch off
-              }  
-              BaudotUartRx(0);
-            } 
-          }else{
-            LOOP_KEY_Set();     // Mark hold timed out, so hold mark
-          }
-  //      }     // end else not autostart  
+        if(MarkHoldTimer>0){     // Not in mark hold, key loop
+          if((DiscrimOut-Threshold)>=0){      // Mark
+            LOOP_KEY_Set();     // Loop switch on
+            BaudotUartRx(1);
+          }else{                  // Space      
+            if(AUTOSTART_LED_Get() && (0==MOTOR_LED_Get())){  // If autostart enabled but motor not,
+              LOOP_KEY_Set();     // Keep loop in mark
+            }else{                // Not autostart or autostart with motor running, key loop
+              LOOP_KEY_Clear();     // Loop switch off
+            }  
+            BaudotUartRx(0);
+          } 
+        }else{
+          LOOP_KEY_Set();     // Mark hold timed out, so hold mark
+        }
       }       // end else not in transmit 
       BaudotUartTx();     // UART data to baudot to BaudotUartTxOut. Run in both
                           // tx and rx so KOS works.

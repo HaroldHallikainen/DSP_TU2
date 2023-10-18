@@ -56,7 +56,7 @@ void DisplayFifoWrite(uint8_t chip, uint8_t CommandFlag, uint8_t data){
   FifoData.ChipSelect=chip;      // Which chip we are talking to (display=1)
   FifoData.CommandBit=CommandFlag;   // True if command (DataCmdn will be low)
   FifoData.data=data;                // 8 bit data to send
-  while(Fifo16Free(DisplayFifo)<5) DisplayPoll(); // Let Fifo drain catch up. Typically on display clear
+  while(Fifo16Free(DisplayFifo)<100) DisplayPoll(); // Let Fifo drain catch up. Typically on display clear
   Fifo16Put(DisplayFifo,FifoData.word);  // Put result in fifo
 }
 
@@ -236,16 +236,16 @@ void DisplayWriteNextPixel(uint8_t r, uint8_t g, uint8_t b){
     union{
         uint8_t byte[2];
         struct{
-            uint8_t blue:5;
-            uint8_t green:6;
-            uint8_t red:5;
+            int blue:5;
+            int green:6;
+            int red:5;
         };
     }color;
     color.byte[0]=0;
     color.byte[1]=0;
     color.red=r>>3;     // Align msb
     color.green=g>>2;
-    color.red=b>>3;
+    color.blue=b>>3;
     ComWrite(0x5c);     // write to RAM command
     DataWrite(color.byte[1]);       // Write high byte of color
     DataWrite(color.byte[0]);       // and low byte
