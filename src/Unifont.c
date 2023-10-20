@@ -107,25 +107,62 @@ const uint8_t UnifontArray[][16]={
 {0x00,0x00,0x00,0x31,0x49,0x46,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,},	// Unicode 007E
 };
 
+Fifo8_t  *DisplayTextFifo;  // Fifo for stuff waiting to be displayed
 uint8_t CharX=0;  // X position of top left corner of character
 uint8_t CharY=0;  // Y position of top left corner of character
+// Text Color First index=0 for background, 1 for text. Second index is RGB
+uint8_t TextColor[2][3]={
+ {9,0,0},
+ {0xff,0xff,0xff}
+};
 
 void DisplayCharacter(char c){
   // Get bitmap for character and send to display.
-uint8_t row=0;
+uint8_t row;
 uint8_t RowPixelMask=0x80;          // Bit mask to left most pixel
   if((c>=0x20) && (c<=0x7e)){   // ASCII char we have bitmap for
     for(row=0;row<16;row++){    // Send each row
       DisplaySetXY(CharX,CharY+row);  // Set display to start of this row
       RowPixelMask=0x80;        // Point to left pixel
       while(RowPixelMask!=0){   // Loop through row
-        if(RowPixelMask & UnifontArray[c-0x20][row]){
-          DisplayWriteNextPixel(0xff,0xff,0xff);  // White pixel
+        if(0!= (RowPixelMask & UnifontArray[c-0x20][row])){
+          DisplayWriteNextPixel(TextColor[1][0],TextColor[1][1],TextColor[1][2]);  // White pixel
         }else{
-          DisplayWriteNextPixel(0,0,0);   // Black pixel
+          DisplayWriteNextPixel(TextColor[0][0],TextColor[0][1],TextColor[0][2]);   // Background color
         }
         RowPixelMask=RowPixelMask>>1; // Shift mask right for next pixel
       }  
     } // endfor
-  }// endif ascii
+    CharX+=8;   // Move to next character position
+  }else{  // endif ascii printable
+    switch(c){
+      case  '\r':   // CR, \r
+        CharX=0;
+        break;
+      case '\n':    // LF, \n
+        CharY+=16;
+        break;
+      case '\f':    // Form Feed, \f
+        CharX=0;    // Bact to top left corner
+        CharY=0;
+        break;
+    }
+  }
 }//end function
+
+
+
+void UnifontInit(void){
+  // Initializes a fifo for text to send to display
+  DisplayTextFifo=Fifo8Create(200);  // Create a 200 byte fifo
+}
+
+
+void DisplayString(char* string){
+  CharX=0;
+  CharY=0;      // Test
+  while(*string!=0){
+    //DisplayCharacter(*string++);
+    Fifo8Put(DisplayTextFifo,*string++); // Put in text fifo
+  }
+}

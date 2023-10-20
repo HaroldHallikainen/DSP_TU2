@@ -28,7 +28,7 @@ uint16_t Fifo8Put(Fifo8_t *fifo, char data);	// Put data in the specified fifo. 
 char Fifo8Get(Fifo8_t *fifo);         // Get a character from the specified fifo. Returns 0 if nothing available. 
 uint32_t Fifo8Full(Fifo8_t *fifo);          // How many words are in the fifo
 uint32_t Fifo8Free(Fifo8_t *fifo);          // How many words are available in the fifo
-void Fifo16Clear(Fifo8_t *fifo);            // Clear the fifo
+void Fifo8Clear(Fifo8_t *fifo);            // Clear the fifo
 
 
 

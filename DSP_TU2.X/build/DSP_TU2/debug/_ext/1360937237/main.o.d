@@ -19,8 +19,8 @@ build/DSP_TU2/debug/_ext/1360937237/main.o: ../src/main.c \
  ../src/config/DSP_TU2/peripheral/spi/spi_master/plib_spi2_master.h \
  ../src/config/DSP_TU2/peripheral/spi/spi_master/plib_spi1_master.h \
  ../src/PwmAudioOut.h ../src/main.h ../src/dds.h ../src/biquad.h \
- ../src/DynamicThreshold.h ../src/agc.h ../src/display.h ../src/xyScope.h \
- ../src/AfskGen.h ../src/BaudotUart.h ../src/fifo8.h \
+ ../src/DynamicThreshold.h ../src/agc.h ../src/display.h ../src/fifo8.h \
+ ../src/xyScope.h ../src/AfskGen.h ../src/BaudotUart.h \
  ../src/PollSwitchesLeds.h ../src/PollEncoder.h ../src/UserConfig.h \
  ../src/filters.h ../src/AutostartKos.h ../src/ExtFlash.h \
  ../src/CommandInterpreter.h ../src/Unifont.h
@@ -77,13 +77,13 @@ build/DSP_TU2/debug/_ext/1360937237/main.o: ../src/main.c \
 
 ../src/display.h:
 
+../src/fifo8.h:
+
 ../src/xyScope.h:
 
 ../src/AfskGen.h:
 
 ../src/BaudotUart.h:
-
-../src/fifo8.h:
 
 ../src/PollSwitchesLeds.h:
 

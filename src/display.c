@@ -7,6 +7,7 @@
 #include "definitions.h"                // SYS function prototypes
 #include "main.h"                       // access to Timer2TimeoutCounter for delays
 #include "display.h"
+#include "Unifont.h"                    // 
 
 
 /*
@@ -38,7 +39,7 @@
  * b4..0    - Blue
  */
 
-#define DisplayFifoSize 1024 //3000
+#define DisplayFifoSize 3000
 
 union DisplayWord{
     uint16_t word;
@@ -81,6 +82,7 @@ void DisplayInit(void){
   if(NULL==DisplayFifo){
     PrintString("Insufficient heap for DisplayFifo\r\n");
   }
+  UnifontInit();                      // Set up text fifo for display
   DISPLAY_CSn_Set();
   DisplayCSN();                      // Chip select high. Put in fifo
   Timer2TimeoutCounter=800;          // Counts down at 80 kHz, 12.5 us per click
@@ -106,7 +108,11 @@ void DisplayInit(void){
   DataWrite(0x00);
   DataWrite(0x7f);
   ComWrite(0xa0); // Set Re-map / Color Depth 
-  DataWrite(0x65);				//   Color sequence is swapped: C .. B .. A
+//  DataWrite(0x65);	//   Color sequence is swapped: C .. B .. A
+  //DataWrite(0x64);	// NextPixel increments in row
+  DataWrite(0b01100110); // D0: Next Pixel: 0:col, 1:row
+                         // D1: 1=ltr, 0=rtl
+                         // D7: 
   ComWrite(0xa2); // Set display offset
   DataWrite(0x00);
   ComWrite(0xa6); // Normal display
@@ -229,6 +235,11 @@ void DisplayPoll(void){
         }    
       }  
     }
+    if(Fifo16Free(DisplayFifo)>1000){        // There is enough room to make char
+      if(Fifo8Full(DisplayTextFifo)>0){      // We have a character to display
+        DisplayCharacter(Fifo8Get(DisplayTextFifo));  // Go put bitmap in display buf
+      }
+    } 
 }
 uint8_t ColorHi=0x40, ColorLo=0;
 void DisplayWriteNextPixel(uint8_t r, uint8_t g, uint8_t b){
@@ -253,13 +264,13 @@ void DisplayWriteNextPixel(uint8_t r, uint8_t g, uint8_t b){
 }
 
 void DisplaySetXY(uint8_t x, uint8_t y){
-    ComWrite(0x15);
-    DataWrite(x);       // Set column address
-    DataWrite(127);     // End column. Use default. Wraps around on this column
-    ComWrite(0x75);     // Note ComWrite sets CSN high before setting low to start command
-    DataWrite(y);       // Set row address
-    DataWrite(127);
-    DisplayCSN();
+  ComWrite(0x15);
+  DataWrite(x);       // Set column address
+  DataWrite(127);     // End column. Use default. Wraps around on this column
+  ComWrite(0x75);     // Note ComWrite sets CSN high before setting low to start command
+  DataWrite(y);       // Set row address
+  DataWrite(127);
+  DisplayCSN();
 }
 
 void DisplayWritePixel(uint8_t x, uint8_t y, uint8_t r, uint8_t g, uint8_t b){
@@ -276,4 +287,12 @@ void DisplayClear(void){
          DisplayWriteNextPixel(0,0,0);
     }    
     DisplayCSN();
+}
+
+void DisplayTest(void){
+  int n;
+  for(n=0;n<50;n++){
+    DisplaySetXY(n,2*n);
+    DisplayWriteNextPixel(255,255,255);
+  }          
 }

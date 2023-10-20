@@ -72,6 +72,7 @@ int MenuNumber=0;   // Menu to display. Zero is xyScope
 
 int main ( void ){
   int n;
+  uint32_t n32;
   int MarkHoldTimer=0;        // How long 'til we mark hold
   int OldTx=0;                // Watch for TX/RX change
   uint8_t RxChar;
@@ -107,8 +108,17 @@ int main ( void ){
   PrintString("Build Date: ");
   PrintString(__DATE__);
   PrintString("\r\n\r\n>");
-  //DisplayClear();
-  DisplayCharacter('A');  // TEST
+  DisplayClear();
+  DisplayString("\fW6IWI DSP TU\r\n");
+  DisplayString("Build\r\n");
+  DisplayString(__DATE__);
+  DisplayString("\r\nw6iwi.org/\r\n");
+  DisplayString("rtty/DspTU2\r\n");
+  for(n32=0;n32<0xffffff;n32++){    // Send to display and wait
+    WDT_Clear();
+    DisplayPoll();
+  }
+  DisplayClear();
   while ( true ){
     if(Timer2TimeoutCounter<1){        // We have timed out 10 times, so it has been 125 us
       IDLEn_Set();                  // CPU not idle, so set RE7 so we can time it
