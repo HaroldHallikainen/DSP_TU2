@@ -18,7 +18,11 @@ double agc(double sample){
 // Pass in a sample and get a sample out normalized to TargetLevel.
 static double gain=1.0;        // What to multiply the input sample by  
 double level;
-level=fabs(sample);            // full wave rectified sample
+if(UserConfig.UseAgc==2){       // Use mark and space filters for level detection
+  level=(MarkDemodOut+SpaceDemodOut)/4.0; // Adjust sum to be about same as broadband peak
+}else{
+  level=fabs(sample);            // full wave rectified sample
+}  
 level=BiQuad(level, AgcLpf);  // Filtered fw rect.
 if(level==0.0) level=UserConfig.AgcTargetLevel;   // Avoid divide by zero
 gain=UserConfig.AgcTargetLevel/level; 

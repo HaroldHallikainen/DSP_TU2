@@ -110,6 +110,7 @@ const uint8_t UnifontArray[][16]={
 Fifo8_t  *DisplayTextFifo;  // Fifo for stuff waiting to be displayed
 uint8_t CharX=0;  // X position of top left corner of character
 uint8_t CharY=0;  // Y position of top left corner of character
+int TextWhiteOnBlack=0; // If true, text is black on white
 // Text Color First index=0 for background, 1 for text. Second index is RGB
 uint8_t TextColor[2][3]={
  {0,0,0},
@@ -125,10 +126,10 @@ uint8_t RowPixelMask=0x80;          // Bit mask to left most pixel
       DisplaySetXY(CharX,CharY+row);  // Set display to start of this row
       RowPixelMask=0x80;        // Point to left pixel
       while(RowPixelMask!=0){   // Loop through row
-        if(0!= (RowPixelMask & UnifontArray[c-0x20][row])){
-          DisplayWriteNextPixel(TextColor[1][0],TextColor[1][1],TextColor[1][2]);  // White pixel
+        if(0==((RowPixelMask & UnifontArray[c-0x20][row]))){
+          DisplayWriteNextPixel(TextColor[TextWhiteOnBlack][0],TextColor[TextWhiteOnBlack][1],TextColor[TextWhiteOnBlack][2]);  // White pixel
         }else{
-          DisplayWriteNextPixel(TextColor[0][0],TextColor[0][1],TextColor[0][2]);   // Background color
+          DisplayWriteNextPixel(TextColor[!TextWhiteOnBlack][0],TextColor[!TextWhiteOnBlack][1],TextColor[!TextWhiteOnBlack][2]);   // Background color
         }
         RowPixelMask=RowPixelMask>>1; // Shift mask right for next pixel
       }  
@@ -145,6 +146,12 @@ uint8_t RowPixelMask=0x80;          // Bit mask to left most pixel
       case '\f':    // Form Feed, \f
         CharX=0;    // Bact to top left corner
         CharY=0;
+        break;
+      case 0x0f:    // Shift out to white text on black. Use \016 in printf
+        TextWhiteOnBlack=0;
+        break;
+      case 0x0e:    // Shift in to black text on white. Use \017 in printf 
+        TextWhiteOnBlack=1;
         break;
     }
   }

@@ -225,14 +225,10 @@ int ArgNum=0;                 // Argument number currently storing
           break;
         case 0xb1639143:                // UseAgc
           if(2==ArgNum){                // There is a parameter
-            UserConfig.UseAgc=1 & atoi(TokenArray[1]);
+            UserConfig.UseAgc=atoi(TokenArray[1]);
             strcpy(StringBuf,"\r\n>");
           }else{
-            if(1==UserConfig.UseAgc){
-              strcpy(StringBuf,"\r\n1\r\n>");
-            }else{
-              strcpy(StringBuf,"\r\n0\r\n>");
-            }
+            sprintf(StringBuf,"\r\n%d\r\n>",UserConfig.UseAgc);
           }
           break;
         case 0x7ccca9f6:              // AgcMaxGain
@@ -463,9 +459,15 @@ ToneFilterBwBrMult        2.0      The BaudRate is multiplied by this value to\r
                                    is set to the lowest value possible that\r\n\
                                    results in full discriminator swing in 1/2\r\n\
                                    bit time\r\n\
-UseAgc                    1        1 enables the AGC, while 0 disables it. Users\r\n\
-                                   may choose to use the limiter instead of the\r\n\
-                                   AGC\r\n\
+UseAgc                    2        0 disables AGC. 1 enables AGC sampling input\r\n\
+                                   data to set gain. 2 enables AGC but uses the\r\n\
+                                   outputs of the mark and space data LPFs to\r\n\
+                                   set gain. This avoids gain reduction caused\r\n\
+                                   by off-frequency signals. Users may choose\r\n\
+                                   to use the limiter instead of the AGC. If so,\r\n\
+                                   the Input BPF should be used to keep the\r\n\
+                                   limiter from being taken over by off-\r\n\
+                                   frequency signals.\r\n\
 UseInputBpf               0        1 enables the input bandpass filter; 0\r\n\
                                    disables it. The input BPF may be useful on\r\n\
                                    narrow shift especially if the limiter is\r\n\

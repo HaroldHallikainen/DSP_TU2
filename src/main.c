@@ -109,7 +109,7 @@ int main ( void ){
   PrintString(__DATE__);
   PrintString("\r\n\r\n>");
   DisplayClear();
-  DisplayString("\fW6IWI DSP TU\r\n");
+  DisplayString("\f\016W6IWI DSP TU\017\r\n");
   DisplayString("Build\r\n");
   DisplayString(__DATE__);
   DisplayString("\r\nw6iwi.org/\r\n");
@@ -140,7 +140,7 @@ int main ( void ){
         samplef=BiQuad(samplef,InputBpf);
       }
       if(AudioOut==INPUT_BPF) TestSamplef=samplef;
-      if(UserConfig.UseAgc==TRUE){
+      if(UserConfig.UseAgc!=0){
         samplef=agc(samplef);
       }
       if(AudioOut==AGC) TestSamplef=samplef;

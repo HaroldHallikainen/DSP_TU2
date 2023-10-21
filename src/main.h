@@ -18,6 +18,7 @@ extern   char StringBuf[100];
 typedef enum {CLI, modem} UartDest_t;   // Where to send UART1 data
 extern UartDest_t UartDest;
 extern uint32_t MarkHoldReleaseSamples; // How many samples to disable mark hold after good mark
+extern double MarkDemodOut, SpaceDemodOut;
 
 // typedef double smp_type; // Results in 11.5% CPU usage. Changed to double in all code. 
 //typedef float smp_type;     // Results in 10.5% CPU usage
