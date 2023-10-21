@@ -41,7 +41,7 @@ void LoadDefaultConfig(void){
 
 void PrintSavedConfig(void){
   // Print config saved to external flash starting at address 0.
-  uint8_t data;
+  uint8_t data=0;
   uint32_t NextAddr=0;
   PrintString("\r\n");
   while(0xff!=data){

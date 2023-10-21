@@ -20,7 +20,7 @@ void xyScope(double x, double y){
     if(newY>127) newY=127;
     if((oldX[OldIndex]!=newX)||(oldY[OldIndex]!=newY)){
       DisplayWritePixel(oldX[OldIndex], oldY[OldIndex], 0, 0, 0); // make previous pixel black
-      DisplayWritePixel(newX, newY, 255,255,255); // Write white pixel at new location
+      DisplayWritePixel(newX, newY, 0,255,0); // Write green pixel at new location
       OldIndex++;
       OldIndex=OldIndex % OldArraySize;
       NewIndex++;

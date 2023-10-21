@@ -108,11 +108,9 @@ void DisplayInit(void){
   DataWrite(0x00);
   DataWrite(0x7f);
   ComWrite(0xa0); // Set Re-map / Color Depth 
-//  DataWrite(0x65);	//   Color sequence is swapped: C .. B .. A
-  //DataWrite(0x64);	// NextPixel increments in row
-  DataWrite(0b01100110); // D0: Next Pixel: 0:col, 1:row
-                         // D1: 1=ltr, 0=rtl
-                         // D7: 
+  DataWrite(0b01110111); // D0: Next Pixel: 0:col, 1:row
+                         // D1: Col direction
+                         // D4: Row direction
   ComWrite(0xa2); // Set display offset
   DataWrite(0x00);
   ComWrite(0xa6); // Normal display
@@ -264,10 +262,12 @@ void DisplayWriteNextPixel(uint8_t r, uint8_t g, uint8_t b){
 }
 
 void DisplaySetXY(uint8_t x, uint8_t y){
-  ComWrite(0x15);
+  // NOTE: Row and column are swapped so display board can be stood on end
+  // and plugged directly into header on main board.
+  ComWrite(0x75);     // Send x to row register
   DataWrite(x);       // Set column address
   DataWrite(127);     // End column. Use default. Wraps around on this column
-  ComWrite(0x75);     // Note ComWrite sets CSN high before setting low to start command
+  ComWrite(0x15);     // Send y to col register  
   DataWrite(y);       // Set row address
   DataWrite(127);
   DisplayCSN();

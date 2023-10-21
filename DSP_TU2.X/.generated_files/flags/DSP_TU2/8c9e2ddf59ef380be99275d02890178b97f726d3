@@ -1,1 +1,0 @@
- $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -I"../src" -I"../src/config/DSP_TU2" -Werror -Wall   -DXPRJ_DSP_TU2=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  C:\Users\Harold_Win7\Documents\Microchip\Projects\DSP_TU2\firmware\src\ExtFlash.c

@@ -72,7 +72,7 @@ void BiQuad_modify(biquad* const b, const int type, const double dbGain, const d
 		   const double srate, const double Q)
 {
   double A, omega, sn, cs, alpha, beta;
-  double a0, a1, a2, b0, b1, b2;
+  double a0=0.0, a1=0.0, a2=0.0, b0=0.0, b1=0.0, b2=0.0;  // Get rid of "may be uninitialized" warning
   /* setup variables */
   A = pow(10, dbGain /40);
   omega = 2 * M_PI * freq /srate;

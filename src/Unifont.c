@@ -112,7 +112,7 @@ uint8_t CharX=0;  // X position of top left corner of character
 uint8_t CharY=0;  // Y position of top left corner of character
 // Text Color First index=0 for background, 1 for text. Second index is RGB
 uint8_t TextColor[2][3]={
- {9,0,0},
+ {0,0,0},
  {0xff,0xff,0xff}
 };
 
@@ -157,6 +157,15 @@ void UnifontInit(void){
   DisplayTextFifo=Fifo8Create(200);  // Create a 200 byte fifo
 }
 
+// NOTE! Since it takes three bytes to write a single pixel, and characters
+// are 8x16 (128 pixels), a very large display SPI FIFO would be required to
+// buffer text to be sent to the display. To reduce the required buffer sizes,
+// display strings are written to the DisplayTextFifo (one character per byte).
+// DisplayPoll checks to see if there is enough room in the display SPI FIFO
+// for another character and if there is another character in the 
+// DisplayTextFifo. If so, the oldest character in the DisplayTextFifo is sent
+// to DisplayCharacter (above), which then puts commands in the display SPI
+// FIFO to display the character.
 
 void DisplayString(char* string){
   CharX=0;
