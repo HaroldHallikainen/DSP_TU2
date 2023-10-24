@@ -161,7 +161,7 @@ uint8_t RowPixelMask=0x80;          // Bit mask to left most pixel
 
 void UnifontInit(void){
   // Initializes a fifo for text to send to display
-  DisplayTextFifo=Fifo8Create(200);  // Create a 200 byte fifo
+  DisplayTextFifo=Fifo8Create(1000);  // Create a 200 byte fifo
 }
 
 // NOTE! Since it takes three bytes to write a single pixel, and characters

@@ -46,6 +46,7 @@
 #include "ExtFlash.h"
 #include "CommandInterpreter.h"
 #include "Unifont.h"                    // Send text to display
+#include "menu.h"                       // Handle display menus
 
 static void MyTimer2Isr(uint32_t intCause, uintptr_t context);
 
@@ -67,7 +68,6 @@ double samplef, TestSamplef, MarkSample, SpaceSample, MarkDemodOut, SpaceDemodOu
 enum {NONE,ADC, AGC, INPUT_BPF, LIMITER, MARK_FILTER_OUT, SPACE_FILTER_OUT, MARK_DEMOD_OUT, SPACE_DEMOD_OUT, DISCRIM, DDS, THRESHOLD, DISCRIM_LESS_THRESHOLD} AudioOut=DDS;
 UartDest_t UartDest=CLI;   // Where to send UART1 data
 uint32_t MarkHoldReleaseSamples=8000;  // How many samples to disable mark hold after good mark
-int MenuNumber=0;   // Menu to display. Zero is xyScope
 
 
 int main ( void ){
@@ -109,7 +109,7 @@ int main ( void ){
   PrintString(__DATE__);
   PrintString("\r\n\r\n>");
   DisplayClear();
-  DisplayString("\f\016W6IWI DSP TU\017\r\n");
+  DisplayString("\fW6IWI DSP TU\r\n");
   DisplayString("Build\r\n");
   DisplayString(__DATE__);
   DisplayString("\r\nw6iwi.org/\r\n");
@@ -161,7 +161,11 @@ int main ( void ){
       if(AudioOut==SPACE_FILTER_OUT) TestSamplef=SpaceSample;
       MarkDemodOut=BiQuad(fabs(MarkSample), MarkDataFilter);  // Envelope detected and filtered mark
       SpaceDemodOut=BiQuad(fabs(SpaceSample), SpaceDataFilter);    // Same for space
-      Threshold=DynamicThresholdGet(MarkDemodOut, SpaceDemodOut);
+      if(0==UserConfig.DTC){    // Disable DTC
+        Threshold=0.0;
+      }else{                    // Enable it
+        Threshold=DynamicThresholdGet(MarkDemodOut, SpaceDemodOut);
+      }  
       if(AudioOut==MARK_DEMOD_OUT) TestSamplef=MarkDemodOut;
       if(AudioOut==SPACE_DEMOD_OUT) TestSamplef=SpaceDemodOut;
              // DiscrimOut is difference between LPF of full wave rectified of mark and space BPFs
@@ -223,6 +227,7 @@ int main ( void ){
         PollSwitchesLeds();   // Go poll the switches and LEDs.
         PollShiftMarkHi();    // Change filters if shift or MarkHi changed
         PollEncoder();        // Poll the quadrature encoder updating EncoderCount
+        PollMenu();           // Update and act on menu selections
         if(TX_LED_Get()!=OldTx){  // TX/RX mode changed
           OldTx=TX_LED_Get();     // Remember the new value
           if(0==OldTx){           // We changed from transmit to receive

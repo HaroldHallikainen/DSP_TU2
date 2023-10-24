@@ -81,7 +81,7 @@ void UpdateDemodFilters(){
     BiQuad_modify(SpaceFilter[n], BPF, 0.0, SpaceFreq, 8000.0, SpaceQn);
   }// end for  
   BiQuad_modify(MarkDataFilter, LPF, 0.0, UserConfig.BaudRate, 8000.0, 0.707 ); // After rectification data LPF. Cutoff same as baud rate
-  BiQuad_modify(SpaceDataFilter, LPF, 0.0, UserConfig.BaudRate, 8000.0, 0.707 );
+  BiQuad_modify(SpaceDataFilter, LPF, 0.0, UserConfig.BaudRate, 8000.0, 0.707 ); // According to https://arachnoid.com/BiQuadDesigner/index.html , 22 Hz is down .014 dB
   InputBpfFreq=sqrt(MarkFreq*SpaceFreq);     // Input BPF center freq
   BiQuad_modify(InputBpf, BPF,0.0,InputBpfFreq, 8000.0, InputBpfFreq/InputBpfBW);  // Calculate Q from freq/bw
 }

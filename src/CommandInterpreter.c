@@ -88,9 +88,10 @@ int ArgNum=0;                 // Argument number currently storing
         NextToken=strtok(NULL,tokens);    // Point to next argument in string
       }
       Hash=HashGenerate(TokenArray[0]);  // Generate a hash of the command
+      PrintString("\r\n");
       switch(Hash){  // Hash also available as a float64 in arg[0], but we'll use this UINT32 value for the switch
         default:
-          sprintf(StringBuf,"\r\nBad command. Hash=0x%x.\r\n>",Hash);
+          sprintf(StringBuf,"Bad command. Hash=0x%x.\r\n>",Hash);
           break;
         case 0x3f:               // ? (help)
           PrintString(HelpString);
@@ -102,7 +103,7 @@ int ArgNum=0;                 // Argument number currently storing
             UpdateDemodFilters();   // Update all filters and DDS M/S frequencies
             strcpy(StringBuf,"\r\n>");
           }else{
-            sprintf(StringBuf,"\r\n%f\r\n>",UserConfig.NarrowShiftCenterFreq);
+            sprintf(StringBuf,"%f\r\n>",UserConfig.NarrowShiftCenterFreq);
           }
           break;
         case 0x6fbc1b5a:            // NarrowShiftHz
@@ -111,7 +112,7 @@ int ArgNum=0;                 // Argument number currently storing
             UpdateDemodFilters();   // Update all filters and DDS M/S frequencies
             strcpy(StringBuf,"\r\n>");
           }else{
-            sprintf(StringBuf,"\r\n%f\r\n>",UserConfig.NarrowShiftHz);
+            sprintf(StringBuf,"%f\r\n>",UserConfig.NarrowShiftHz);
           }
           break;
         case 0x2f327f3:            // WideShiftCenterFreq
@@ -120,7 +121,7 @@ int ArgNum=0;                 // Argument number currently storing
             UpdateDemodFilters();   // Update all filters and DDS M/S frequencies
             strcpy(StringBuf,"\r\n>");
           }else{
-            sprintf(StringBuf,"\r\n%f\r\n>",UserConfig.WideShiftCenterFreq);
+            sprintf(StringBuf,"%f\r\n>",UserConfig.WideShiftCenterFreq);
           }
           break;   
         case 0x7989b5a:            // WideShiftHz
@@ -129,7 +130,7 @@ int ArgNum=0;                 // Argument number currently storing
             UpdateDemodFilters();   // Update all filters and DDS M/S frequencies
             strcpy(StringBuf,"\r\n>");
           }else{
-            sprintf(StringBuf,"\r\n%f\r\n>",UserConfig.WideShiftHz);
+            sprintf(StringBuf,"%f\r\n>",UserConfig.WideShiftHz);
           }
           break;   
         case 0x88b988a5:            // BaudRate
@@ -138,7 +139,7 @@ int ArgNum=0;                 // Argument number currently storing
             UpdateDemodFilters();   // Update all filters and DDS M/S frequencies
             strcpy(StringBuf,"\r\n>");
           }else{
-            sprintf(StringBuf,"\r\n%f\r\n>",UserConfig.BaudRate);
+            sprintf(StringBuf,"%f\r\n>",UserConfig.BaudRate);
           }
           break;   
         case 0x17d4fa8:            // ToneFilterBwBrMult
@@ -147,7 +148,7 @@ int ArgNum=0;                 // Argument number currently storing
             UpdateDemodFilters();   // Update all filters and DDS M/S frequencies
             strcpy(StringBuf,"\r\n>");
           }else{
-            sprintf(StringBuf,"\r\n%f\r\n>",UserConfig.ToneFilterBwBrMult);
+            sprintf(StringBuf,"%f\r\n>",UserConfig.ToneFilterBwBrMult);
           }
           break;             
         case 0xb9e21d04:            // MarkHoldThresh
@@ -155,7 +156,7 @@ int ArgNum=0;                 // Argument number currently storing
             UserConfig.MarkHoldThresh = atof(TokenArray[1]);
             strcpy(StringBuf,"\r\n>");
           }else{
-            sprintf(StringBuf,"\r\n%f\r\n>",UserConfig.MarkHoldThresh);
+            sprintf(StringBuf,"%f\r\n>",UserConfig.MarkHoldThresh);
           }
           break;  
         case 0x7d469d04:            // AutostartThresh
@@ -163,7 +164,7 @@ int ArgNum=0;                 // Argument number currently storing
             UserConfig.AutostartThresh = atof(TokenArray[1]);
             strcpy(StringBuf,"\r\n>");
           }else{
-            sprintf(StringBuf,"\r\n%f\r\n>",UserConfig.AutostartThresh);
+            sprintf(StringBuf,"%f\r\n>",UserConfig.AutostartThresh);
           }
           break;  
         case 0x5a35f9fb:            // AutostartShutdownSeconds
@@ -171,7 +172,7 @@ int ArgNum=0;                 // Argument number currently storing
             UserConfig.AutostartShutdownSeconds = atoi(TokenArray[1]);
             strcpy(StringBuf,"\r\n>");
           }else{
-            sprintf(StringBuf,"\r\n%d\r\n>",UserConfig.AutostartShutdownSeconds);
+            sprintf(StringBuf,"%d\r\n>",UserConfig.AutostartShutdownSeconds);
           }
           break;  
         case 0xbe5a4ba3:            // KosDropSeconds
@@ -179,7 +180,7 @@ int ArgNum=0;                 // Argument number currently storing
             UserConfig.KosDropSeconds = atoi(TokenArray[1]);
             strcpy(StringBuf,"\r\n>");
           }else{
-            sprintf(StringBuf,"\r\n%d\r\n>",UserConfig.KosDropSeconds);
+            sprintf(StringBuf,"%d\r\n>",UserConfig.KosDropSeconds);
           }
           break;  
         case 0x8b184ea0:            // AgcTargetLevel
@@ -187,7 +188,7 @@ int ArgNum=0;                 // Argument number currently storing
             UserConfig.AgcTargetLevel = atof(TokenArray[1]);
             strcpy(StringBuf,"\r\n>");
           }else{
-            sprintf(StringBuf,"\r\n%f\r\n>",UserConfig.AgcTargetLevel);
+            sprintf(StringBuf,"%f\r\n>",UserConfig.AgcTargetLevel);
           }
           break;  
         case 0x47d836a6:              // AgcLpfF
@@ -196,7 +197,7 @@ int ArgNum=0;                 // Argument number currently storing
             BiQuad_modify(AgcLpf, LPF, 0.0, UserConfig.AgcLpfF, 8000.0, 0.707 ); 
             strcpy(StringBuf,"\r\n>");
           }else{
-            sprintf(StringBuf,"\r\n%f\r\n>",UserConfig.AgcLpfF);
+            sprintf(StringBuf,"%f\r\n>",UserConfig.AgcLpfF);
           }
           break;
         case 0x79c7846:                // UseInputBpf
@@ -204,11 +205,7 @@ int ArgNum=0;                 // Argument number currently storing
             UserConfig.UseInputBpf=1 & atoi(TokenArray[1]);
             strcpy(StringBuf,"\r\n>");
           }else{
-            if(1==UserConfig.UseInputBpf){
-              strcpy(StringBuf,"\r\n1\r\n>");
-            }else{
-              strcpy(StringBuf,"\r\n0\r\n>");
-            }
+            sprintf(StringBuf,"%d\r\n>", UserConfig.UseInputBpf);
           }
           break;
         case 0x290c429a:                // UseLimiter
@@ -216,11 +213,7 @@ int ArgNum=0;                 // Argument number currently storing
             UserConfig.UseLimiter=1 & atoi(TokenArray[1]);
             strcpy(StringBuf,"\r\n>");
           }else{
-            if(1==UserConfig.UseLimiter){
-              strcpy(StringBuf,"\r\n1\r\n>");
-            }else{
-              strcpy(StringBuf,"\r\n0\r\n>");
-            }
+            sprintf(StringBuf,"%d\r\n>",UserConfig.UseLimiter);
           }
           break;
         case 0xb1639143:                // UseAgc
@@ -228,7 +221,7 @@ int ArgNum=0;                 // Argument number currently storing
             UserConfig.UseAgc=atoi(TokenArray[1]);
             strcpy(StringBuf,"\r\n>");
           }else{
-            sprintf(StringBuf,"\r\n%d\r\n>",UserConfig.UseAgc);
+            sprintf(StringBuf,"%d\r\n>",UserConfig.UseAgc);
           }
           break;
         case 0x7ccca9f6:              // AgcMaxGain
@@ -236,7 +229,7 @@ int ArgNum=0;                 // Argument number currently storing
             UserConfig.AgcMaxGain=atof(TokenArray[1]);
             strcpy(StringBuf,"\r\n>");
           }else{
-            sprintf(StringBuf,"\r\n%f\r\n>",UserConfig.AgcMaxGain);
+            sprintf(StringBuf,"%f\r\n>",UserConfig.AgcMaxGain);
           }
           break; 
         case 0x6ec259ad:            // modem
@@ -266,7 +259,7 @@ int ArgNum=0;                 // Argument number currently storing
             UserConfig.NoLoop=atoi(TokenArray[1]);
             strcpy(StringBuf,"\r\n>");
           }else{
-            sprintf(StringBuf,"\r\n%d\r\n>",UserConfig.NoLoop);
+            sprintf(StringBuf,"%d\r\n>",UserConfig.NoLoop);
           }
           break; 
         case 0x65e89de4:          // WideShift
@@ -279,7 +272,7 @@ int ArgNum=0;                 // Argument number currently storing
             UpdateDemodFilters();     // Update filters and DDS
             strcpy(StringBuf,"\r\n>");
           }else{                      // Read back
-            sprintf(StringBuf,"\r\n%d\r\n>",SHIFT_850_LED_Get());
+            sprintf(StringBuf,"%d\r\n>",SHIFT_850_LED_Get());
           }
           break;
         case 0x51afb444:        // Autostart
@@ -291,7 +284,7 @@ int ArgNum=0;                 // Argument number currently storing
             }
             strcpy(StringBuf,"\r\n>");
           }else{                      // Read back
-            sprintf(StringBuf,"\r\n%d\r\n>",AUTOSTART_LED_Get());
+            sprintf(StringBuf,"%d\r\n>",AUTOSTART_LED_Get());
           }
           break;
         case 0x4b13c53:     // KOS
@@ -303,7 +296,7 @@ int ArgNum=0;                 // Argument number currently storing
             }
             strcpy(StringBuf,"\r\n>");
           }else{                      // Read back
-            sprintf(StringBuf,"\r\n%d\r\n>",KOS_LED_Get());
+            sprintf(StringBuf,"%d\r\n>",KOS_LED_Get());
           }
           break;  
         case 0x539b49b4:    // Reset
@@ -326,11 +319,11 @@ int ArgNum=0;                 // Argument number currently storing
             UserConfig.AfskOutputContinuous&=1; // Force to 0|1
             strcpy(StringBuf,"\r\n>");
           }else{
-            sprintf(StringBuf, "\r\n%d\r\n>", UserConfig.AfskOutputContinuous);
+            sprintf(StringBuf, "%d\r\n>", UserConfig.AfskOutputContinuous);
           }
           break;
         case 0xbe2dd4:        // TimeoutCounterMin
-          sprintf(StringBuf,"\r\n%d\r\n>", TimeoutCounterMin);
+          sprintf(StringBuf,"%d\r\n>", TimeoutCounterMin);
           TimeoutCounterMin=0;
           break;
         case 0x168c90b:       // AutostartGoodChars
@@ -338,7 +331,7 @@ int ArgNum=0;                 // Argument number currently storing
             UserConfig.AutostartSeqGoodChars=atoi(TokenArray[1]);
             strcpy(StringBuf,"\r\n>");
           }else{
-            sprintf(StringBuf,"\r\n%d\r\n>",UserConfig.AutostartSeqGoodChars);
+            sprintf(StringBuf,"%d\r\n>",UserConfig.AutostartSeqGoodChars);
           }
           break;
         case 0x2ca22f3:   // MarkHoldReleaseTime
@@ -347,7 +340,15 @@ int ArgNum=0;                 // Argument number currently storing
             MarkHoldReleaseSamples=8000*(uint32_t)UserConfig.MarkHoldReleaseTime; // Convert to samples for use in main loop
             strcpy(StringBuf,"\r\n>");
           }else{
-            sprintf(StringBuf,"\r\n%f\r\n>",UserConfig.MarkHoldReleaseTime);
+            sprintf(StringBuf,"%f\r\n>",UserConfig.MarkHoldReleaseTime);
+          }
+          break;
+        case 0x4415043:   //DTC
+          if(2==ArgNum){
+            UserConfig.DTC=atoi(TokenArray[1]); // Enable or disable dynamic threshold control
+            strcpy(StringBuf,"\r\n>");
+          }else{
+            sprintf(StringBuf,"%d\r\n>",UserConfig.DTC);
           }
           break;
       }
@@ -402,6 +403,9 @@ AutostartThresh           0.3      Discriminator threshold (mark level minus\r\n
 BaudRate                  45.45    The transmit baud rate in bits per second.\r\n\
                                    Used to set the speed of the Baudot UART and\r\n\
                                    tone filter bandwidths.\r\n\
+DTC                       1        1 enables Dynamic Threshold Control; 0\r\n\
+                                   disables. Enable for \"AM Demodulation\",\r\n\
+                                   where the limiter is disabled.\r\n\
 KOS                       0        1 enables Keyboard Operated Send. 0 disables.\r\n\
 KosDropSeconds            5        How many seconds after the last typed\r\n\
                                    character until the transceiver is switched\r\n\

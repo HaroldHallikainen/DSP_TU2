@@ -71,6 +71,7 @@
       <itemPath>../src/CommandInterpreter.h</itemPath>
       <itemPath>../src/fifo8.h</itemPath>
       <itemPath>../src/Unifont.h</itemPath>
+      <itemPath>../src/menu.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -148,6 +149,7 @@
       <itemPath>../src/BootLoader.c</itemPath>
       <itemPath>../src/fifo8.c</itemPath>
       <itemPath>../src/Unifont.c</itemPath>
+      <itemPath>../src/menu.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"

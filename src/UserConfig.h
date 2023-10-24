@@ -28,6 +28,7 @@ typedef struct{
   int NoLoop;                       // Allows use of UART modem without a loop supply
   int AfskOutputContinuous;         // If non-zero, output AFSK continuously. Otherwise, only in transmit
   int AutostartSeqGoodChars;        // How many good characters before motor start
+  int DTC;                          // 1= Enable Dynamic Threshold Control
   double AgcMaxGain;                // Maximum gain of AGC in V/V
 } UserConfig_t;
 

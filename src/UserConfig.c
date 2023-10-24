@@ -30,6 +30,7 @@ const UserConfig_t UserConfigDefault={
   .UseAgc=2,                        // Use AGC using M/S demod samples
   .AgcMaxGain=100,                  // Max gain of AGC in V/V 
   .NoLoop=0,                        // Assume there is a loop supply
+  .DTC=1,                           // Enable dynamic threshold control
   .AfskOutputContinuous=0           // By default, only output AFSK in transmit
 };
 
@@ -206,6 +207,12 @@ void SavePrintConfig(int print){
   }else{
     NextAddr=StreamProgramExtFlash(NextAddr,strlen(StringBuf),(uint8_t*)StringBuf); // Write to external flash and get next address
   }
+  sprintf(StringBuf,"DTC\t%d\r\n",UserConfig.DTC);
+  if(1==print){
+    PrintString(StringBuf);
+  }else{
+    NextAddr=StreamProgramExtFlash(NextAddr,strlen(StringBuf),(uint8_t*)StringBuf); // Write to external flash and get next address
+  } 
 }
 
   
