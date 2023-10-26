@@ -161,7 +161,7 @@ uint8_t RowPixelMask=0x80;          // Bit mask to left most pixel
 
 void UnifontInit(void){
   // Initializes a fifo for text to send to display
-  DisplayTextFifo=Fifo8Create(1000);  // Create a 200 byte fifo
+  DisplayTextFifo=Fifo8Create(2000);  // Create a  fifo
 }
 
 // NOTE! Since it takes three bytes to write a single pixel, and characters
@@ -175,10 +175,18 @@ void UnifontInit(void){
 // FIFO to display the character.
 
 void DisplayString(char* string){
-  CharX=0;
-  CharY=0;      // Test
   while(*string!=0){
     //DisplayCharacter(*string++);
     Fifo8Put(DisplayTextFifo,*string++); // Put in text fifo
+  }
+}
+
+void DisplayClearText(void){
+  // Clear display by writing a bunch of spaces
+  int LineNum;
+  char line[]="                ";
+  DisplayString("\f\016");      // Top of display, white text on black
+  for(LineNum=0;LineNum<8;LineNum++){
+    DisplayString(line);      // Line of spaces
   }
 }

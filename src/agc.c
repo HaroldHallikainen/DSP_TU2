@@ -19,7 +19,8 @@ double agc(double sample){
 static double gain=1.0;        // What to multiply the input sample by  
 double level;
 if(UserConfig.UseAgc==2){       // Use mark and space filters for level detection
-  level=(MarkDemodOut+SpaceDemodOut)/3.5; // Adjust sum to be about same as broadband peak
+  level=MarkDemodOut;
+  if(SpaceDemodOut>level) level=SpaceDemodOut;  // Use higher of the two
 }else{
   level=fabs(sample);            // full wave rectified sample
 }  

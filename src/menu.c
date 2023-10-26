@@ -6,6 +6,7 @@
 #include  "Unifont.h"       // Draw text
 #include  "PollSwitchesLeds.h"
 #include  "display.h"
+#include "UserConfig.h"
 
 int MenuNumber=0;     // Menu to display. Zero is xyScope
 int MenuSelection=0;  // Which line of menu currently selected.
@@ -26,7 +27,7 @@ char MenuText[][8][17]={
     "More            ",
     "Exit            "        
   },
-  { // MenuText[1] dummy data
+  { // MenuText[1] 
     "  DSP TU Menu   ",
     "Baud Rate       ",        
     "Tone Filters    ",
@@ -35,7 +36,17 @@ char MenuText[][8][17]={
     "                ",
     "More            ",
     "Exit            "        
-  }  
+  },  
+  { // MenuText[2] 
+    " Mark Hold Menu ",
+    "Threshold       ",        
+    "Hold Time       ",
+    "                ",
+    "                ",
+    "                ",
+    "                ",
+    "Exit            "        
+  }    
 };
 
 void DrawMenu(void){
@@ -58,6 +69,7 @@ void DrawMenu(void){
 void PollMenu(void){
   // Update and act on menu selections
   static int OldS7=1;     // Previous state of encoder switch
+  static int adjusting=0; // Non-zero if we are adjusting the selected parameter
   switch(MenuNumber){
     case 0:         // Currently showing xy scope
       if(OldS7!=Switches.S7){     // Switch state changed
@@ -70,7 +82,7 @@ void PollMenu(void){
     case 1:             // Showing menu 1
       if(EncoderCount!=0){
         MenuSelection+=EncoderCount;    // Change selected line
-        if(MenuSelection<0) MenuSelection=0;  // Don't go negative
+        if(MenuSelection<0) MenuSelection=6;  // Wrap around
         MenuSelection=MenuSelection%7;  // Wrap on overflow
         EncoderCount=0;
         DrawMenu();                     // Redraw the menu
@@ -79,6 +91,10 @@ void PollMenu(void){
         OldS7=Switches.S7;              // Remember new value
         if(0==OldS7){
           switch(MenuSelection){
+            case 0:                     // Mark Hold
+              MenuNumber=3;             // Go to mark hold menu
+              DrawMenu();
+              break;
             case 5:                     // More
               MenuNumber=2;             // Go to next menu
               MenuSelection=0;          // First line
@@ -96,7 +112,7 @@ void PollMenu(void){
     case 2:         // Showing menu 2
       if(EncoderCount!=0){
         MenuSelection+=EncoderCount;    // Change selected line
-        if(MenuSelection<0) MenuSelection=0;  // Don't go negative
+        if(MenuSelection<0) MenuSelection=6;  // Wrap around
         MenuSelection=MenuSelection%7;  // Wrap on overflow
         EncoderCount=0;
         DrawMenu();                     // Redraw the menu
@@ -118,7 +134,52 @@ void PollMenu(void){
           }
         }
       }
-      break;      
+      break; 
+    case 3:         // Showing menu 3 (Mark Hold)
+      if(EncoderCount!=0){
+        if(adjusting==0){           // Not adjusting, change lines
+          MenuSelection+=EncoderCount;    // Change selected line
+          if(MenuSelection<0) MenuSelection=6;  // Wrap around
+          MenuSelection=MenuSelection%7;  // Wrap on overflow
+          EncoderCount=0;
+          DrawMenu();                     // Redraw the menu
+        }else{
+          switch(MenuSelection){          // Adjust based on selected line
+            case 0:                       // Adjusting mark hold threshold
+              UserConfig.MarkHoldThresh+=.001*(double)EncoderCount; // Adjust it
+              EncoderCount=0;             // Reset for next call
+              sprintf(StringBuf,"\f\n\017Threshold  \016%.3f",UserConfig.MarkHoldThresh);
+              DisplayString(StringBuf); // Send updated line
+              break;
+            case 1:                       // Adjusting hold time
+              break;
+          }
+        }  
+      }
+      if(OldS7!=Switches.S7){           // Switch changed
+        OldS7=Switches.S7;              // Remember new value
+        if(0==OldS7){
+          switch(MenuSelection){
+            case 0:                       // Threshold. Rewrite line with portion highlighted. Use \f\n to get to second line
+              if(adjusting==0){           // Not yet adjusting, start adjusting
+                adjusting=1;
+                sprintf(StringBuf,"\f\n\017Threshold  \016%.3f",UserConfig.MarkHoldThresh);
+              }else{
+                adjusting=0;            // Stop adjusting
+                sprintf(StringBuf,"\f\n\016Threshold  \017%.3f",UserConfig.MarkHoldThresh);           
+              }
+              DisplayString(StringBuf);
+              break;              
+            case 6:                     // Exit
+              MenuNumber=1;             // Back to first menu
+              MenuSelection=6;          // Point to exit in case they want to exit all the way
+              DrawMenu();
+              break;
+          }
+        }
+      }
+      break; 
+       
 
     default:
       MenuNumber=0;
