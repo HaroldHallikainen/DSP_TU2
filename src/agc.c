@@ -6,6 +6,7 @@
 #include "biquad.h"
 #include "main.h"   
 #include "UserConfig.h"
+#include <stdio.h>
 
 
 biquad *AgcLpf;    
@@ -16,17 +17,21 @@ void AgcInit(void){
 
 double agc(double sample){
 // Pass in a sample and get a sample out normalized to TargetLevel.
-static double gain=1.0;        // What to multiply the input sample by  
-double level;
-if(UserConfig.UseAgc==2){       // Use mark and space filters for level detection
-  level=MarkDemodOut;
-  if(SpaceDemodOut>level) level=SpaceDemodOut;  // Use higher of the two
-}else{
+  static double gain=1.0;        // What to multiply the input sample by  
+  double level=1.0;
   level=fabs(sample);            // full wave rectified sample
-}  
-level=BiQuad(level, AgcLpf);  // Filtered fw rect.
-if(level==0.0) level=UserConfig.AgcTargetLevel;   // Avoid divide by zero
-gain=UserConfig.AgcTargetLevel/level; 
-if(gain>UserConfig.AgcMaxGain) gain=UserConfig.AgcMaxGain;  // limit gain
-return(sample*gain);
+  level=BiQuad(level, AgcLpf);  // Filtered fw rect.
+  if(level==0.0) level=UserConfig.AgcTargetLevel;   // Avoid divide by zero
+  gain=UserConfig.AgcTargetLevel/level;
+  if(gain<0.1) gain=0.1;
+  if(gain>UserConfig.AgcMaxGain) gain=UserConfig.AgcMaxGain;  // limit gain
+  #if 0   // Debug output
+    static int n=8000;                   // Use for debug output
+    if(n--==0){   // Debug stuff
+      n=8000;
+      sprintf(StringBuf,"\r\nLevel=%f\tGain=%f",level,gain);
+      PrintString(StringBuf);
+    }  
+  #endif
+  return(sample*gain);
 }

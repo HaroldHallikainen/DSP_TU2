@@ -40,7 +40,7 @@ char MenuText[][8][17]={
   { // MenuText[2] 
     " Mark Hold Menu ",
     "Threshold       ",        
-    "Hold Time       ",
+    "Disable Secs    ",
     "                ",
     "                ",
     "                ",
@@ -140,10 +140,11 @@ void PollMenu(void){
         if(adjusting==0){           // Not adjusting, change lines
           MenuSelection+=EncoderCount;    // Change selected line
           if(MenuSelection<0) MenuSelection=6;  // Wrap around
+          if(MenuSelection==2) MenuSelection=6;  // Skip blank lines
           MenuSelection=MenuSelection%7;  // Wrap on overflow
           EncoderCount=0;
           DrawMenu();                     // Redraw the menu
-        }else{
+        }else{                            // Adjust value instead of changing menu lines
           switch(MenuSelection){          // Adjust based on selected line
             case 0:                       // Adjusting mark hold threshold
               UserConfig.MarkHoldThresh+=.001*(double)EncoderCount; // Adjust it
@@ -152,6 +153,11 @@ void PollMenu(void){
               DisplayString(StringBuf); // Send updated line
               break;
             case 1:                       // Adjusting hold time
+              UserConfig.MarkHoldDisableSecs+=0.1*(double)EncoderCount; // Adjust it
+              if(UserConfig.MarkHoldDisableSecs<0.1) UserConfig.MarkHoldDisableSecs=0.1; // Limit minimum
+              EncoderCount=0;             // Reset for next call
+              sprintf(StringBuf,"\f\n\n\017Disable Secs \016%.1f",UserConfig.MarkHoldDisableSecs);
+              DisplayString(StringBuf); // Send updated line        
               break;
           }
         }  
@@ -167,6 +173,16 @@ void PollMenu(void){
               }else{
                 adjusting=0;            // Stop adjusting
                 sprintf(StringBuf,"\f\n\016Threshold  \017%.3f",UserConfig.MarkHoldThresh);           
+              }
+              DisplayString(StringBuf);
+              break;              
+            case 1:                       // Release Time. Rewrite line with portion highlighted. Use \f\n\n to get to third line
+              if(adjusting==0){           // Not yet adjusting, start adjusting
+                adjusting=1;
+                sprintf(StringBuf,"\f\n\n\017Disable Secs \016%.1f",UserConfig.MarkHoldDisableSecs);
+              }else{
+                adjusting=0;            // Stop adjusting
+                sprintf(StringBuf,"\f\n\n\016Disable Secs \017%.1f",UserConfig.MarkHoldDisableSecs);           
               }
               DisplayString(StringBuf);
               break;              

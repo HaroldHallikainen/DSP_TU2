@@ -334,13 +334,13 @@ int ArgNum=0;                 // Argument number currently storing
             sprintf(StringBuf,"%d\r\n>",UserConfig.AutostartSeqGoodChars);
           }
           break;
-        case 0x2ca22f3:   // MarkHoldReleaseTime
+        case 0x2c9f735:   // MarkHoldDisableSecs
           if(2==ArgNum){  // Set the time
-            UserConfig.MarkHoldReleaseTime=atof(TokenArray[1]);
-            MarkHoldReleaseSamples=8000*(uint32_t)UserConfig.MarkHoldReleaseTime; // Convert to samples for use in main loop
+            UserConfig.MarkHoldDisableSecs=atof(TokenArray[1]);
+            MarkHoldReleaseSamples=8000*(uint32_t)UserConfig.MarkHoldDisableSecs; // Convert to samples for use in main loop
             strcpy(StringBuf,"\r\n>");
           }else{
-            sprintf(StringBuf,"%f\r\n>",UserConfig.MarkHoldReleaseTime);
+            sprintf(StringBuf,"%f\r\n>",UserConfig.MarkHoldDisableSecs);
           }
           break;
         case 0x4415043:   //DTC
@@ -417,7 +417,7 @@ MarkHoldThresh            0.2      Sustained discriminator levels below this\r\n
                                    threshold put the demodulator in mark to\r\n\
                                    avoid printing on noise. If the Input LPF is\r\n\
                                    enabled, this is typically increased to 0.5\r\n\
-MarkHoldReleaseTime       1.0      How many seconds to disable mark hold after\r\n\
+MarkHoldDisableSecs       1.0      How many seconds to disable mark hold after\r\n\
                                    receiving mark above MarkHoldThresh. This\r\n\
                                    allows a higher threshold to prevent noise\r\n\
                                    from printing when no signal present, but\r\n\
@@ -463,15 +463,12 @@ ToneFilterBwBrMult        2.0      The BaudRate is multiplied by this value to\r
                                    is set to the lowest value possible that\r\n\
                                    results in full discriminator swing in 1/2\r\n\
                                    bit time\r\n\
-UseAgc                    2        0 disables AGC. 1 enables AGC sampling input\r\n\
-                                   data to set gain. 2 enables AGC but uses the\r\n\
-                                   outputs of the mark and space data LPFs to\r\n\
-                                   set gain. This avoids gain reduction caused\r\n\
-                                   by off-frequency signals. Users may choose\r\n\
-                                   to use the limiter instead of the AGC. If so,\r\n\
-                                   the Input BPF should be used to keep the\r\n\
-                                   limiter from being taken over by off-\r\n\
-                                   frequency signals.\r\n\
+UseAgc                    1        0 disables AGC. 1 enables AGC sampling input\r\n\
+                                   data to set gain. Users may choose to use the\r\n\
+                                   limiter instead of the AGC. With either the\r\n\
+                                   limiter or the AGC, the Input BPF should be\r\n\
+                                   used to keep the limiter or AGC  from being\r\n\
+                                   taken over by off-frequency signals.\r\n\
 UseInputBpf               0        1 enables the input bandpass filter; 0\r\n\
                                    disables it. The input BPF may be useful on\r\n\
                                    narrow shift especially if the limiter is\r\n\
