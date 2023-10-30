@@ -30,7 +30,7 @@ void PollEncoder(void){
       break;
   }
   // Debug
-#if 1
+#if 0   // Test code
   static int32_t OldEncoderCount=0;   // Here for debut
   if(OldEncoderCount!=EncoderCount){
     OldEncoderCount=EncoderCount;

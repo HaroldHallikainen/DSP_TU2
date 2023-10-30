@@ -19,7 +19,8 @@ build/DSP_TU2/production/_ext/1360937237/menu.o: ../src/menu.c \
  ../src/config/DSP_TU2/peripheral/spi/spi_master/plib_spi2_master.h \
  ../src/config/DSP_TU2/peripheral/spi/spi_master/plib_spi1_master.h \
  ../src/main.h ../src/Unifont.h ../src/PollSwitchesLeds.h \
- ../src/display.h ../src/fifo8.h ../src/UserConfig.h
+ ../src/display.h ../src/fifo8.h ../src/UserConfig.h ../src/filters.h \
+ ../src/biquad.h
 
 ../src/PollEncoder.h:
 
@@ -72,3 +73,7 @@ build/DSP_TU2/production/_ext/1360937237/menu.o: ../src/menu.c \
 ../src/fifo8.h:
 
 ../src/UserConfig.h:
+
+../src/filters.h:
+
+../src/biquad.h:
