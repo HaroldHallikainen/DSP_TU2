@@ -65,7 +65,23 @@ uint16_t AdcSample;         // Raw sample from ADC. Converted to AdcSamplef for 
 char StringBuf[100];        // Build strings here
 double samplef, TestSamplef, MarkSample, SpaceSample, MarkDemodOut, SpaceDemodOut, DiscrimOut, DdsOut, Threshold;  // These were originally in main but seemed to get corrupted
 // What drives the audio output. Usually dds (AFSK tone), but others for debug.  
-enum {NONE,ADC, AGC, INPUT_BPF, LIMITER, MARK_FILTER_OUT, SPACE_FILTER_OUT, MARK_DEMOD_OUT, SPACE_DEMOD_OUT, DISCRIM, DDS, THRESHOLD, DISCRIM_LESS_THRESHOLD} AudioOut=DDS;
+// enum {NONE,ADC, AGC, INPUT_BPF, LIMITER, MARK_FILTER_OUT, SPACE_FILTER_OUT, MARK_DEMOD_OUT, SPACE_DEMOD_OUT, DISCRIM, DDS, THRESHOLD, DISCRIM_LESS_THRESHOLD} AudioOut=DDS;
+AudioOut_t AudioOut=DDS;
+char AudioOutString[][17]={ // Each string is 16 bytes long plus null terminator
+  "NONE            ",
+  "ADC             ",
+  "AGC             ",
+  "INPUT_BPF       ",
+  "LIMITER         ",
+  "MARK_FILTER_OUT ",
+  "SPACE_FILTER_OUT",
+  "MARK_DEMOD_OUT  ",
+  "SPACE_DEMOD_OUT ", 
+  "DISCRIM         ",
+  "DDS             ", 
+  "THRESHOLD       ",
+  "DISCRIM - THRESH"
+};
 UartDest_t UartDest=CLI;   // Where to send UART1 data
 uint32_t MarkHoldReleaseSamples=8000;  // How many samples to disable mark hold after good mark
 
@@ -178,8 +194,8 @@ int main ( void ){
       if(AudioOut==DISCRIM) TestSamplef=DiscrimOut;
       if(AudioOut==THRESHOLD) TestSamplef=Threshold;
       if(AudioOut==DISCRIM_LESS_THRESHOLD) TestSamplef=DiscrimOut-Threshold;
-      if(TX_LED_Get()||UserConfig.AfskOutputContinuous){
-        DdsOut=DdsNextSample(); // Run DDS tone generator in transmit or continuous
+      if((TX_LED_Get()||UserConfig.AfskOutputContinuous)||(AudioOut!=DDS)){
+        DdsOut=DdsNextSample(); // Run DDS tone generator in transmit or continuous or in debug (AudioOut!=DDS)
         AFSK_OUT_EN_Set();  // Enable AFSK output
       }else{
         AFSK_OUT_EN_Clear();  // Disable AFSK output

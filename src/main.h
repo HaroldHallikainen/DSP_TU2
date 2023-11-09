@@ -19,9 +19,9 @@ typedef enum {CLI, modem} UartDest_t;   // Where to send UART1 data
 extern UartDest_t UartDest;
 extern uint32_t MarkHoldReleaseSamples; // How many samples to disable mark hold after good mark
 extern double MarkDemodOut, SpaceDemodOut;
-
-// typedef double smp_type; // Results in 11.5% CPU usage. Changed to double in all code. 
-//typedef float smp_type;     // Results in 10.5% CPU usage
+typedef enum {NONE,ADC, AGC, INPUT_BPF, LIMITER, MARK_FILTER_OUT, SPACE_FILTER_OUT, MARK_DEMOD_OUT, SPACE_DEMOD_OUT, DISCRIM, DDS, THRESHOLD, DISCRIM_LESS_THRESHOLD} AudioOut_t;
+extern AudioOut_t AudioOut;
+extern char AudioOutString[][17];       // Each string is 16 bytes long plus null terminator
 extern double MarkFreq;
 extern double SpaceFreq;
 

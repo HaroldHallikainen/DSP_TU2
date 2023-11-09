@@ -36,8 +36,8 @@ void FiltersInit(void){
     MarkFilter[n] = BiQuad_new(BPF, 0.0, MarkFreq, 8000.0, MarkQn);    
     SpaceFilter[n] = BiQuad_new(BPF, 0.0, SpaceFreq, 8000.0, SpaceQn);
   }  
-  MarkDataFilter=BiQuad_new(LPF, 0.0, UserConfig.BaudRate, 8000.0, 0.707 ); // After rectification data LPF. Cutoff same as baud rate
-  SpaceDataFilter=BiQuad_new(LPF, 0.0, UserConfig.BaudRate, 8000.0, 0.707 );
+  MarkDataFilter=BiQuad_new(LPF, 0.0, UserConfig.DataLpfBwBrMult*UserConfig.BaudRate, 8000.0, 0.707 ); // After rectification data LPF. Cutoff same as baud rate
+  SpaceDataFilter=BiQuad_new(LPF, 0.0, UserConfig.DataLpfBwBrMult*UserConfig.BaudRate, 8000.0, 0.707 );
   InputBpf=BiQuad_new(BPF,0.0,InputBpfFreq, 8000.0, InputBpfFreq/InputBpfBW);  // Calculate Q from freq/bw
 }
 
@@ -53,7 +53,7 @@ void PollShiftMarkHi(void){
   }
 }
 
-void UpdateDemodFilters(){
+void UpdateDemodFilters(void){
 // Update all filters and Mark/Space frequencies used by DDS
   double ToneFilterBW, MarkQ, SpaceQ, MarkQn, SpaceQn, InputBpfBW, InputBpfFreq, ShiftFlipNot;
   int n;
@@ -80,8 +80,8 @@ void UpdateDemodFilters(){
     BiQuad_modify(MarkFilter[n], BPF, 0.0, MarkFreq, 8000.0, MarkQn);    
     BiQuad_modify(SpaceFilter[n], BPF, 0.0, SpaceFreq, 8000.0, SpaceQn);
   }// end for  
-  BiQuad_modify(MarkDataFilter, LPF, 0.0, UserConfig.BaudRate, 8000.0, 0.707 ); // After rectification data LPF. Cutoff same as baud rate
-  BiQuad_modify(SpaceDataFilter, LPF, 0.0, UserConfig.BaudRate, 8000.0, 0.707 ); // According to https://arachnoid.com/BiQuadDesigner/index.html , 22 Hz is down .014 dB
+  BiQuad_modify(MarkDataFilter, LPF, 0.0, UserConfig.DataLpfBwBrMult*UserConfig.BaudRate, 8000.0, 0.707 ); // After rectification data LPF. Cutoff same as baud rate
+  BiQuad_modify(SpaceDataFilter, LPF, 0.0, UserConfig.DataLpfBwBrMult*UserConfig.BaudRate, 8000.0, 0.707 ); // According to https://arachnoid.com/BiQuadDesigner/index.html , 22 Hz is down .014 dB
   InputBpfFreq=sqrt(MarkFreq*SpaceFreq);     // Input BPF center freq
   BiQuad_modify(InputBpf, BPF,0.0,InputBpfFreq, 8000.0, InputBpfFreq/InputBpfBW);  // Calculate Q from freq/bw
 }

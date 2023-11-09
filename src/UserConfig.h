@@ -15,6 +15,7 @@ typedef struct{
   double WideShiftHz;              // How many Hz shift (typically 850)
   double BaudRate;                 // Used to calculate tone filter bw and data filter cutoff
   double ToneFilterBwBrMult;        // Tone filter bandwidth is the baud rate times this number
+  double DataLpfBwBrMult;           // Multiply baud rate by this to get data LPF bandwidth (cutoff freq))
   double MarkHoldThresh;            // Minimum discriminator level to reset mark hold timer.
   double MarkHoldDisableSecs;       // Seconds to hold off Mark Hold on valid mark
   double AutostartThresh;           // Minimum discriminator level to start motor
@@ -23,6 +24,7 @@ typedef struct{
   double AgcTargetLevel;            // Desired AGC output level
   double AgcLpfF;                   // Cutoff frequency in AGC control.
   int UseInputBpf;                  // True if we want to use input bpf
+  double InputBpfBwShiftMult;       // Input BPF bandwidth is shift times this number
   int UseLimiter;                   // True if we want to use the limiter
   int UseAgc;                       // True if we want to use the AGC
   int NoLoop;                       // Allows use of UART modem without a loop supply

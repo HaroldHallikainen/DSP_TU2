@@ -17,6 +17,7 @@ const UserConfig_t UserConfigDefault={
   .WideShiftHz=850.0,
   .BaudRate=45.45,                  // Used to determine filter bandwidth and in software uart
   .ToneFilterBwBrMult=2.0,          // Tone filter bandwidth is the baud rate times this number. Make wide enough for minimal attenuation of BR/2 sideband
+  .DataLpfBwBrMult=1.0,            // Multiply baud rate by this to get data LPF bandwidth (cutoff freq))
   .MarkHoldThresh=0.5,              // Minimum discriminator - threshold level to reset mark hold timer.
   .MarkHoldDisableSecs=2.0,      // Disable mark hold for 2 seconds after valid mark
   .AutostartThresh=0.5,             // Minimum discriminator - threshold level to start motor
@@ -26,6 +27,7 @@ const UserConfig_t UserConfigDefault={
   .AgcTargetLevel=0.5,               // AGC adjusts to this level
   .AgcLpfF=1.0,                     // Cutoff frequency of the LPF in the AGC gain control 
   .UseInputBpf=0,
+  .InputBpfBwShiftMult=1.0,         // Multiply shift by this number to get input BPF bandwidth
   .UseLimiter=0,
   .UseAgc=2,                        // Use AGC using M/S demod samples
   .AgcMaxGain=100,                  // Max gain of AGC in V/V 
@@ -213,6 +215,18 @@ void SavePrintConfig(int print){
   }else{
     NextAddr=StreamProgramExtFlash(NextAddr,strlen(StringBuf),(uint8_t*)StringBuf); // Write to external flash and get next address
   } 
+  sprintf(StringBuf,"InputBpfBwShiftMult\t%f\r\n",UserConfig.InputBpfBwShiftMult);
+  if(1==print){
+    PrintString(StringBuf);
+  }else{
+    NextAddr=StreamProgramExtFlash(NextAddr,strlen(StringBuf),(uint8_t*)StringBuf); // Write to external flash and get next address
+  } 
+  sprintf(StringBuf,"DataLpfBwBrMult\t%f\r\n",UserConfig.DataLpfBwBrMult);
+  if(1==print){
+    PrintString(StringBuf);
+  }else{
+    NextAddr=StreamProgramExtFlash(NextAddr,strlen(StringBuf),(uint8_t*)StringBuf); // Write to external flash and get next address
+  }   
 }
 
   

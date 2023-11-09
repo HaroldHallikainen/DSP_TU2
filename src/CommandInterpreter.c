@@ -351,6 +351,25 @@ int ArgNum=0;                 // Argument number currently storing
             sprintf(StringBuf,"%d\r\n>",UserConfig.DTC);
           }
           break;
+        case 0x2dca0c8:       // InputBpfBwShiftMult
+          if(2==ArgNum){
+            UserConfig.InputBpfBwShiftMult=atof(TokenArray[1]);
+            UpdateDemodFilters();       // Update filter as we adjust
+            strcpy(StringBuf,"\r\n>");
+          }else{
+            sprintf(StringBuf,"%f\r\n>",UserConfig.InputBpfBwShiftMult);
+          }
+          break; 
+        case 0x573f86b4:    // DataLpfBwBrMult
+           if(2==ArgNum){
+            UserConfig.DataLpfBwBrMult=atof(TokenArray[1]);
+            UpdateDemodFilters();       // Update filter as we adjust
+            strcpy(StringBuf,"\r\n>");
+          }else{
+            sprintf(StringBuf,"%f\r\n>",UserConfig.DataLpfBwBrMult);
+          }
+          break; 
+         
       }
     }
   }
@@ -403,9 +422,13 @@ AutostartThresh           0.3      Discriminator threshold (mark level minus\r\n
 BaudRate                  45.45    The transmit baud rate in bits per second.\r\n\
                                    Used to set the speed of the Baudot UART and\r\n\
                                    tone filter bandwidths.\r\n\
+DataLpfBwBrMult           1.0      Multiply this by Baud Rate to get the\r\n\
+                                   bandwidth (cutoff frequency) of the data low\r\n\
+                                   pass filters (one eacj for mark amd s[ace).\r\n\
 DTC                       1        1 enables Dynamic Threshold Control; 0\r\n\
                                    disables. Enable for \"AM Demodulation\",\r\n\
                                    where the limiter is disabled.\r\n\
+InputBpfBwShiftMult       1.0      Input BPF Bandwidth is shift times this.\r\n\
 KOS                       0        1 enables Keyboard Operated Send. 0 disables.\r\n\
 KosDropSeconds            5        How many seconds after the last typed\r\n\
                                    character until the transceiver is switched\r\n\
