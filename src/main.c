@@ -91,6 +91,7 @@ int main ( void ){
   uint32_t n32;
   int MarkHoldTimer=0;        // How long 'til we mark hold
   int OldTx=0;                // Watch for TX/RX change
+  int TxRxHoldoffSamples=8000;  // Count down timer to enable demod
   uint8_t RxChar;
   WDT_Clear();           // Clear WDT. Prescale is 1024 for timeout in 1.024 seconds
   /* Initialize all modules */
@@ -187,7 +188,16 @@ int main ( void ){
              // DiscrimOut is difference between LPF of full wave rectified of mark and space BPFs
       DiscrimOut=MarkDemodOut-SpaceDemodOut;
       if(DiscrimOut-Threshold>UserConfig.MarkHoldThresh){  // we have mark instead of space or noise
-        MarkHoldTimer=MarkHoldReleaseSamples;   // Disable mark hold for this many samples
+        if(TX_LED_Get()){
+          MarkHoldTimer=0;        // Don't set mark hold timeout during tx
+          TxRxHoldoffSamples=(int) (8000*UserConfig.TxRxHoldoff);   // Set TxRx countdown timer
+        }else{                              // In receive. Hold off mark hold if above threshold and not in TxRx transition.
+          if(0==TxRxHoldoffSamples){          // Tx/Rx transition timed out
+            MarkHoldTimer=MarkHoldReleaseSamples;   // Disable mark hold for this many samples
+          }else{
+            TxRxHoldoffSamples--;             // Not timed out yet. Decrement counter
+          }  
+        }  
       }else{
         if(MarkHoldTimer>0) MarkHoldTimer--;
       } 
@@ -211,7 +221,6 @@ int main ( void ){
           BaudotUartRx(!LOOP_SENSE_Get()); //Send tty keyboard data to uart to detect !ER command
         }  
         PTT_Set();          // Close PTT relay
-        MarkHoldTimer=0;    // Go into mark hold when dropping out of transmit
       }else{                  // Not in tx, let received data key loop
         PTT_Clear();          // Release PTT relay
         if(MarkHoldTimer>0){     // Not in mark hold, key loop

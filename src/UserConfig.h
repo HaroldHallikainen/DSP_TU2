@@ -31,6 +31,7 @@ typedef struct{
   int AfskOutputContinuous;         // If non-zero, output AFSK continuously. Otherwise, only in transmit
   int AutostartSeqGoodChars;        // How many good characters before motor start
   int DTC;                          // 1= Enable Dynamic Threshold Control
+  double TxRxHoldoff;               // How many seconds to disable demod on Tx to Rx transition
   double AgcMaxGain;                // Maximum gain of AGC in V/V
 } UserConfig_t;
 

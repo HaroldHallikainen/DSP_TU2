@@ -33,7 +33,8 @@ const UserConfig_t UserConfigDefault={
   .AgcMaxGain=100,                  // Max gain of AGC in V/V 
   .NoLoop=0,                        // Assume there is a loop supply
   .DTC=1,                           // Enable dynamic threshold control
-  .AfskOutputContinuous=0           // By default, only output AFSK in transmit
+  .AfskOutputContinuous=0,           // By default, only output AFSK in transmit
+  .TxRxHoldoff=1.0               // How many seconds to disable demod on Tx to Rx transition
 };
 
 
