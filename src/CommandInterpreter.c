@@ -395,11 +395,11 @@ AfskOutputContinuous      0        If nonzero, the AFSK output is active in both
 AgcLpfF                   1.0      Set the frequency of the AGC control loop low\r\n\
                                    pass filter. A lower number makes the AGC\r\n\
                                    respond more slowly\r\n\
-AgcMaxGain                100.0    The maximum gain the AGC will achieve with no\r\n\
+AgcMaxGain                15.0     The maximum gain the AGC will achieve with no\r\n\
                                    input signal\r\n\
-AgcTargetLevel            0.5      The AGC adjusts its gain to yield this output\r\n\
+AgcTargetLevel            0.6      The AGC adjusts its gain to yield this output\r\n\
                                    level to the remainder of the demodulator\r\n\
-Autostart                 0        1 enables autostart. 0 disables autostart. If\r\n\
+Autostart                 1        1 enables autostart. 0 disables autostart. If\r\n\
                                    autostart is enabled, loop will not be keyed\r\n\
                                    unless motor LED is lit due to presence of\r\n\
                                    qualified signal (above MarkHoldThresh and\r\n\
@@ -408,7 +408,7 @@ AutostartGoodChars        10       How many sequential good characters to trigge
                                    autostart\r\n\
 AutostartShutdownSeconds  30       Integer number of seconds after loss of mark\r\n\
                                    tone when motor is shut down\r\n\
-AutostartThresh           0.3      Discriminator threshold (mark level minus\r\n\
+AutostartThresh           0.5      Discriminator threshold (mark level minus\r\n\
                                    space level) that will start motor. Too low a\r\n\
                                    level can give false starts on noise. Too\r\n\
                                    high a level can keep the motor from starting\r\n\
@@ -429,18 +429,18 @@ DTC                       1        1 enables Dynamic Threshold Control; 0\r\n\
                                    disables. Enable for \"AM Demodulation\",\r\n\
                                    where the limiter is disabled.\r\n\
 InputBpfBwShiftMult       1.0      Input BPF Bandwidth is shift times this.\r\n\
-KOS                       0        1 enables Keyboard Operated Send. 0 disables.\r\n\
-KosDropSeconds            5        How many seconds after the last typed\r\n\
+KOS                       1        1 enables Keyboard Operated Send. 0 disables.\r\n\
+KosDropSeconds            3.0      How many seconds after the last typed\r\n\
                                    character until the transceiver is switched\r\n\
                                    from transmit to receive.\r\n\
 LoadDefaultConfig                  No parameters. Loads default configuration.\r\n\
 LoadSavedConfig                    No parameters. Loads the configuration saved\r\n\
                                    to external flash.\r\n\
-MarkHoldThresh            0.2      Sustained discriminator levels below this\r\n\
+MarkHoldThresh            0.3      Sustained discriminator levels below this\r\n\
                                    threshold put the demodulator in mark to\r\n\
                                    avoid printing on noise. If the Input LPF is\r\n\
                                    enabled, this is typically increased to 0.5\r\n\
-MarkHoldDisableSecs       1.0      How many seconds to disable mark hold after\r\n\
+MarkHoldDisableSecs       2.0      How many seconds to disable mark hold after\r\n\
                                    receiving mark above MarkHoldThresh. This\r\n\
                                    allows a higher threshold to prevent noise\r\n\
                                    from printing when no signal present, but\r\n\
@@ -481,7 +481,7 @@ SaveConfig                         No parameters. Saves the current\r\n\
 TimeoutCounterMin                  No parameters. Used to determine if we are\r\n\
                                    getting to audio samples in time. Should be\r\n\
                                    zero.\r\n\
-ToneFilterBwBrMult        2.0      The BaudRate is multiplied by this value to\r\n\
+ToneFilterBwBrMult        1.7      The BaudRate is multiplied by this value to\r\n\
                                    yield the bandwidth of the tone filters. This\r\n\
                                    is set to the lowest value possible that\r\n\
                                    results in full discriminator swing in 1/2\r\n\
@@ -492,7 +492,7 @@ UseAgc                    1        0 disables AGC. 1 enables AGC sampling input\
                                    limiter or the AGC, the Input BPF should be\r\n\
                                    used to keep the limiter or AGC  from being\r\n\
                                    taken over by off-frequency signals.\r\n\
-UseInputBpf               0        1 enables the input bandpass filter; 0\r\n\
+UseInputBpf               1        1 enables the input bandpass filter; 0\r\n\
                                    disables it. The input BPF may be useful on\r\n\
                                    narrow shift especially if the limiter is\r\n\
                                    used (instead of the AGC) to prevent other\r\n\

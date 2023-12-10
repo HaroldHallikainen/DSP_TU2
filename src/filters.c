@@ -71,7 +71,7 @@ void UpdateDemodFilters(void){
     SpaceFreq = UserConfig.NarrowShiftCenterFreq + (ShiftFlipNot*(UserConfig.NarrowShiftHz/2));  // Space half shift above center
     InputBpfBW=2*UserConfig.NarrowShiftHz;
   } // end else narrow shift
-  ToneFilterBW=1.5*UserConfig.BaudRate;     // arrived at experimentally so fundamental is not attenauted so
+  ToneFilterBW=UserConfig.ToneFilterBwBrMult*UserConfig.BaudRate;     // Set tone filter bandwidth based on baud rate
   MarkQ=MarkFreq/ToneFilterBW;              // Calculate Q for each filter. Could vary for wide shift
   SpaceQ=SpaceFreq/ToneFilterBW;
   MarkQn=MarkQ*sqrt(pow(2,1/(double)NumBpf)-1.0);   // Q of filter section with NumBpf cascaded sections
