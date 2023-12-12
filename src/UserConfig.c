@@ -34,7 +34,9 @@ const UserConfig_t UserConfigDefault={
   .NoLoop=0,                        // Assume there is a loop supply
   .DTC=1,                           // Enable dynamic threshold control
   .AfskOutputContinuous=0,           // By default, only output AFSK in transmit
-  .TxRxHoldoff=1.0               // How many seconds to disable demod on Tx to Rx transition
+  .TxRxHoldoff=1.0,               // How many seconds to disable demod on Tx to Rx transition
+  .NarrowTxHfEq=0.0,              // High tone boost in dB
+  .WideTxHfEq=0.0                 // High tone boost in dB
 };
 
 
@@ -227,7 +229,20 @@ void SavePrintConfig(int print){
     PrintString(StringBuf);
   }else{
     NextAddr=StreamProgramExtFlash(NextAddr,strlen(StringBuf),(uint8_t*)StringBuf); // Write to external flash and get next address
+  }  
+  sprintf(StringBuf,"NarrowHfEq\t%f\r\n",UserConfig.NarrowTxHfEq);
+  if(1==print){
+    PrintString(StringBuf);
+  }else{
+    NextAddr=StreamProgramExtFlash(NextAddr,strlen(StringBuf),(uint8_t*)StringBuf); // Write to external flash and get next address
   }   
+  sprintf(StringBuf,"WideHfEq\t%f\r\n",UserConfig.WideTxHfEq);
+  if(1==print){
+    PrintString(StringBuf);
+  }else{
+    NextAddr=StreamProgramExtFlash(NextAddr,strlen(StringBuf),(uint8_t*)StringBuf); // Write to external flash and get next address
+  }   
+  
 }
 
   

@@ -242,7 +242,7 @@ int main ( void ){
       BaudotUartTx();     // UART data to baudot to BaudotUartTxOut. Run in both
                           // tx and rx so KOS works.
       AutostartKos(DiscrimOut);       // Handle autostart and Keyboard Operated Send only in mark
-      if(AudioOut==DDS) TestSamplef=DdsOut;
+      if(AudioOut==DDS) TestSamplef=DdsOut*DdsTxGain; // Output DDS with equalization by DdsTxGain
       AudioPwmSet(TestSamplef);   // Output selected test signal or DDS
     } // endif Timer2TimeoutCounter
     if(Timer2TimeoutCounter>2){   // Don't need to handle audio for a while

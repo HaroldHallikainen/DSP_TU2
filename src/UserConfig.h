@@ -33,6 +33,8 @@ typedef struct{
   int DTC;                          // 1= Enable Dynamic Threshold Control
   double TxRxHoldoff;               // How many seconds to disable demod on Tx to Rx transition
   double AgcMaxGain;                // Maximum gain of AGC in V/V
+  double WideTxHfEq;                // dB to boost high frequency (or cut low if positive) in dB for wide shift
+  double NarrowTxHfEq;             // Same for narrow shift
 } UserConfig_t;
 
 void LoadDefaultConfig(void);       // Load default user config (tone frequencies, etc.)

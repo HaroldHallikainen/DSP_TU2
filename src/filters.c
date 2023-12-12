@@ -4,6 +4,7 @@
 #include "filters.h"
 #include "main.h"     
 #include "UserConfig.h"// frequencies, shifts, etc.
+#include "AfskGen.h"    // Access to AdjustTxHfEq to adjust transmit equalization
 #include <math.h>
 
 
@@ -84,4 +85,5 @@ void UpdateDemodFilters(void){
   BiQuad_modify(SpaceDataFilter, LPF, 0.0, UserConfig.DataLpfBwBrMult*UserConfig.BaudRate, 8000.0, 0.707 ); // According to https://arachnoid.com/BiQuadDesigner/index.html , 22 Hz is down .014 dB
   InputBpfFreq=sqrt(MarkFreq*SpaceFreq);     // Input BPF center freq
   BiQuad_modify(InputBpf, BPF,0.0,InputBpfFreq, 8000.0, InputBpfFreq/InputBpfBW);  // Calculate Q from freq/bw
+  AdjustTxHfEq();                 // Adjusts gain of mark and space transmit
 }

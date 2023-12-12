@@ -19,7 +19,7 @@ build/DSP_TU2/production/_ext/1360937237/filters.o: ../src/filters.c \
  ../src/config/DSP_TU2/peripheral/ocmp/plib_ocmp_common.h \
  ../src/config/DSP_TU2/peripheral/spi/spi_master/plib_spi2_master.h \
  ../src/config/DSP_TU2/peripheral/spi/spi_master/plib_spi1_master.h \
- ../src/UserConfig.h
+ ../src/UserConfig.h ../src/AfskGen.h
 
 ../src/filters.h:
 
@@ -66,3 +66,5 @@ build/DSP_TU2/production/_ext/1360937237/filters.o: ../src/filters.c \
 ../src/config/DSP_TU2/peripheral/spi/spi_master/plib_spi1_master.h:
 
 ../src/UserConfig.h:
+
+../src/AfskGen.h:

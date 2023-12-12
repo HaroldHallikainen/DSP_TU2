@@ -369,6 +369,26 @@ int ArgNum=0;                 // Argument number currently storing
             sprintf(StringBuf,"%f\r\n>",UserConfig.DataLpfBwBrMult);
           }
           break; 
+        case 0xdfa9eac1:    // WideHfEq  
+           if(2==ArgNum){
+            UserConfig.WideTxHfEq=atof(TokenArray[1]);
+            UpdateDemodFilters();       // Update filter as we adjust
+            strcpy(StringBuf,"\r\n>");
+          }else{
+            sprintf(StringBuf,"%f\r\n>",UserConfig.WideTxHfEq);
+          }
+          break; 
+        case 0xe1479c19:    // NarrowHfEq
+          if(2==ArgNum){
+            UserConfig.NarrowTxHfEq=atof(TokenArray[1]);
+            UpdateDemodFilters();       // Update filter as we adjust
+            strcpy(StringBuf,"\r\n>");
+          }else{
+            sprintf(StringBuf,"%f\r\n>",UserConfig.NarrowTxHfEq);
+          }
+          break; 
+           
+          
          
       }
     }
@@ -449,6 +469,9 @@ MarkHoldDisableSecs       2.0      How many seconds to disable mark hold after\r
 modem                              No parameters. Switches USB terminal to the\r\n\
                                    Baudot UART to transmit and receive data. ESC\r\n\
                                    returns to the command interpreter.\r\n\
+NarrowHfEq                0.0      How many dB to boost the high tone level over\r\n\
+                                   the low tone level when running narrow shift.\r\n\
+                                   Can be positive or negative.\r\n\
 NarrowShiftCenterFreq     2210.0   Mean of Mark and Space frequencies for tone\r\n\
                                    filters and tone generator.\r\n\
 NarrowShiftHz             170.0    Difference between Mark and Space\r\n\
@@ -500,6 +523,9 @@ UseInputBpf               1        1 enables the input bandpass filter; 0\r\n\
 UseLimiter                0        1 enables the limiter; 0 disables it. Users\r\n\
                                    may choose to use the limiter (FM\r\n\
                                    demodulation) or the AGC (AM demodulation).\r\n\
+WideHfEq                  0.0      How many dB to boost the high tone level over\r\n\
+                                   the low tone level when running wide shift.\r\n\
+                                   Can be positive or negative.\r\n\
 WideShift                 0        1 selects wide shift (tyipcally 850 Hz). \r\n\
                                    0 selects narrow shift (typically 170 Hz).)\r\n\
 WideShiftCenterFreq       2000.0   As described for NarrowShiftCenterFreq, this\r\n\

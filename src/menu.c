@@ -78,7 +78,7 @@ char MenuText[][8][17]={
     "Wide/Narrow     ",        
     "Center Hz       ",
     "Shift Hz        ",
-    "                ",
+    "HF Boost        ",
     "                ", 
     "                ",
     "Exit            " 
@@ -586,8 +586,8 @@ void menu05(void){    // (Shift)
     if(adjusting==0){           // Not adjusting, change lines
       MenuSelection+=EncoderCount;    // Change selected line
       if(MenuSelection<0) MenuSelection=6;  // Wrap around
-      if(MenuSelection==3) MenuSelection=6;  // Skip blank lines
-      if(MenuSelection==5) MenuSelection=2;
+      if(MenuSelection==4) MenuSelection=6;  // Skip blank lines
+      if(MenuSelection==5) MenuSelection=4;
       MenuSelection=MenuSelection%7;  // Wrap on overflow
       EncoderCount=0;
       DrawMenu();                     // Redraw the menu
@@ -619,12 +619,27 @@ void menu05(void){    // (Shift)
             sprintf(StringBuf,"\f\n\n\n\017Shift Hz     \016%.0f",UserConfig.NarrowShiftHz);
           }else{                      // stuff for wide shift
             UserConfig.WideShiftHz+=(double)EncoderCount; // Adjust wide shift
-            EncoderCount=0;           // Clear for next time
             sprintf(StringBuf,"\f\n\n\n\017Shift Hz     \016%.0f",UserConfig.WideShiftHz);
           }
           DisplayString(StringBuf);               
           UpdateDemodFilters();       // Adjust filters to new shift frequency
+          break; 
+      case 3:                       // Adjusting high tone boost
+         if(SHIFT_850_LED_Get()==0){   // Stuff for narrow shift
+            UserConfig.NarrowTxHfEq+=0.1*(double)EncoderCount; // Adjust high tone boost
+            if(UserConfig.NarrowTxHfEq<-9.9) UserConfig.NarrowTxHfEq=-9.9; // Limit range
+            if(UserConfig.NarrowTxHfEq>9.9) UserConfig.NarrowTxHfEq=9.9;
+            sprintf(StringBuf,"\f\n\n\n\n\017HF Boost \016% .1f dB",UserConfig.NarrowTxHfEq);
+          }else{                      // stuff for wide shift
+            UserConfig.WideTxHfEq+=0.1*(double)EncoderCount; // Adjust wide shift
+            if(UserConfig.WideTxHfEq<-9.9) UserConfig.WideTxHfEq=-9.9; // Limit range
+            if(UserConfig.WideTxHfEq>9.9) UserConfig.WideTxHfEq=9.9;
+            sprintf(StringBuf,"\f\n\n\n\n\017HF Boost \016% .1f dB",UserConfig.WideTxHfEq);
+          }
+          DisplayString(StringBuf);               
+          UpdateDemodFilters();       // Adjust filters to new shift frequency
           break;         
+          
       }
     }
     EncoderCount=0;             // Reset for next call
@@ -680,6 +695,21 @@ void menu05(void){    // (Shift)
             }else{
             sprintf(StringBuf,"%.0f",UserConfig.WideShiftHz);
             }   
+          DisplayString(StringBuf);
+          break;              
+        case 3:                      // High tone boost. Rewrite line with portion highlighted. Use \f\n\n to get to third line
+         if(adjusting==0){           // Not yet adjusting, start adjusting
+            adjusting=1;
+            DisplayString("\f\n\n\n\n\017HF Boost \016");
+          }else{
+            adjusting=0;            // Stop adjusting
+            DisplayString("\f\n\n\n\n\016HF Boost \017");
+          }
+          if(SHIFT_850_LED_Get()==0){
+            sprintf(StringBuf,"% .1f dB",UserConfig.NarrowTxHfEq);
+          }else{
+            sprintf(StringBuf,"% .1f dB",UserConfig.WideTxHfEq);
+          }   
           DisplayString(StringBuf);
           break;              
 

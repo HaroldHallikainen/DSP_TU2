@@ -3,17 +3,21 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/UserConfig.h</file>
-            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/filters.c</file>
-            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/main.h</file>
+            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/config/DSP_TU2/peripheral/gpio/plib_gpio.h</file>
             <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/BaudotUart.c</file>
             <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/CommandInterpreter.c</file>
             <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/Unifont.c</file>
-            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/display.c</file>
+            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/dds.c</file>
             <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/xyScope.c</file>
+            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/UserConfig.h</file>
+            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/filters.c</file>
+            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/main.h</file>
+            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/AfskGen.c</file>
+            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/display.c</file>
             <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/main.c</file>
             <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/UserConfig.c</file>
             <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/menu.c</file>
+            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/AfskGen.h</file>
         </group>
     </open-files>
 </project-private>
