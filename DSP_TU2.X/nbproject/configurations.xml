@@ -81,6 +81,7 @@
           <itemPath>../src/config/DSP_TU2/p32MZ0512EFE064.ld</itemPath>
         </logicalFolder>
       </logicalFolder>
+      <itemPath>../src/app_mz.ld</itemPath>
     </logicalFolder>
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
@@ -146,7 +147,6 @@
       <itemPath>../src/AutostartKos.c</itemPath>
       <itemPath>../src/ExtFlash.c</itemPath>
       <itemPath>../src/CommandInterpreter.c</itemPath>
-      <itemPath>../src/BootLoader.c</itemPath>
       <itemPath>../src/fifo8.c</itemPath>
       <itemPath>../src/Unifont.c</itemPath>
       <itemPath>../src/menu.c</itemPath>
@@ -154,6 +154,17 @@
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
                    projectFiles="false">
+      <logicalFolder name="f2" displayName="Bootloader.mhc" projectFiles="true">
+        <itemPath>../../../Bootloader/firmware/src/config/Bootloader/Bootloader.mhc/core.yml</itemPath>
+        <itemPath>../../../Bootloader/firmware/src/config/Bootloader/Bootloader.mhc/core_timer.yml</itemPath>
+        <itemPath>../../../Bootloader/firmware/src/config/Bootloader/Bootloader.mhc/dfp.yml</itemPath>
+        <itemPath>../../../Bootloader/firmware/src/config/Bootloader/Bootloader.mhc/GraphSettings.yml</itemPath>
+        <itemPath>../../../Bootloader/firmware/src/config/Bootloader/Bootloader.mhc/nvm.yml</itemPath>
+        <itemPath>../../../Bootloader/firmware/src/config/Bootloader/Bootloader.mhc/project.yml</itemPath>
+        <itemPath>../../../Bootloader/firmware/src/config/Bootloader/Bootloader.mhc/settings.yml</itemPath>
+        <itemPath>../../../Bootloader/firmware/src/config/Bootloader/Bootloader.mhc/uart1.yml</itemPath>
+        <itemPath>../../../Bootloader/firmware/src/config/Bootloader/Bootloader.mhc/uart_bootloader.yml</itemPath>
+      </logicalFolder>
       <logicalFolder name="f1" displayName="DSP_TU2.mhc" projectFiles="true">
         <itemPath>../src/config/DSP_TU2/DSP_TU2.mhc/adchs.yml</itemPath>
         <itemPath>../src/config/DSP_TU2/DSP_TU2.mhc/core.yml</itemPath>
@@ -201,6 +212,21 @@
         <archiverTool>
         </archiverTool>
         <loading>
+          <makeArtifact PL="../../../Bootloader/firmware/Bootloader.X"
+                        CT="1"
+                        CN="Bootloader"
+                        AC="true"
+                        BL="true"
+                        WD="../../../Bootloader/firmware/Bootloader.X"
+                        BC="${MAKE}  -f Makefile CONF=Bootloader"
+                        DBC="${MAKE}  -f Makefile CONF=Bootloader TYPE_IMAGE=DEBUG_RUN"
+                        CC="rm -rf &quot;build/Bootloader&quot; &quot;dist/Bootloader&quot;"
+                        OP="dist/Bootloader/production/Bootloader.X.production.hex"
+                        DOP="dist/Bootloader/debug/Bootloader.X.debug.elf"
+                        FL="dist/Bootloader/production/Bootloader.X.production.hex"
+                        PD="dist/Bootloader/production/Bootloader.X.production.elf"
+                        DD="dist/Bootloader/debug/Bootloader.X.debug.elf">
+          </makeArtifact>
           <useAlternateLoadableFile>false</useAlternateLoadableFile>
           <parseOnProdLoad>true</parseOnProdLoad>
           <alternateLoadableFile></alternateLoadableFile>
@@ -218,6 +244,24 @@
         <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
+      <item path="../src/config/DSP_TU2/p32MZ0512EFE064.ld"
+            ex="true"
+            overriding="false">
+        <C32>
+        </C32>
+        <C32-AR>
+        </C32-AR>
+        <C32-AS>
+        </C32-AS>
+        <C32-CO>
+        </C32-CO>
+        <C32-LD>
+        </C32-LD>
+        <C32CPP>
+        </C32CPP>
+        <C32Global>
+        </C32Global>
+      </item>
       <C32>
         <property key="additional-warnings" value="true"/>
         <property key="addresss-attribute-use" value="false"/>
