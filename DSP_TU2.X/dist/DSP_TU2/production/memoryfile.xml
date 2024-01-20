@@ -3,9 +3,9 @@
   <executable name="dist/DSP_TU2/production/DSP_TU2.X.production.elf">                 
     <memory name="program">                 
       <units>bytes</units>                 
-      <length>525440</length>                 
-      <used>83340</used>                     
-      <free>442100</free>                     
+      <length>520832</length>                 
+      <used>83292</used>                     
+      <free>437540</free>                     
     </memory>                              
     <memory name="data">              
       <units>bytes</units>                 
