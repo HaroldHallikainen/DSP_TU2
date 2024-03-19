@@ -35,6 +35,7 @@ typedef struct{
   double AgcMaxGain;                // Maximum gain of AGC in V/V
   double WideTxHfEq;                // dB to boost high frequency (or cut low if positive) in dB for wide shift
   double NarrowTxHfEq;             // Same for narrow shift
+  double FreqAdjPercent;            // Adjust PR2 from nominal to change sample rate to correct for CPU clock error
 } UserConfig_t;
 
 void LoadDefaultConfig(void);       // Load default user config (tone frequencies, etc.)

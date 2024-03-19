@@ -387,10 +387,20 @@ int ArgNum=0;                 // Argument number currently storing
             sprintf(StringBuf,"%f\r\n>",UserConfig.NarrowTxHfEq);
           }
           break; 
-           
-          
-         
-      }
+        case 0xabd9a73c:    // FreqAdjPercent - Adjust all frequencies by 
+                            // adjusting PR2, changing sample rate to correct
+                            // for CPU clock error
+          if(2==ArgNum){    // Being set
+            UserConfig.FreqAdjPercent=atof(TokenArray[1]);
+            if(UserConfig.FreqAdjPercent>5.0) UserConfig.FreqAdjPercent=5.0; // Limit range
+            if(UserConfig.FreqAdjPercent<-5.0) UserConfig.FreqAdjPercent=-5.0;
+            PR2=(int)1249*(1.0-(UserConfig.FreqAdjPercent/100.0)); // Subtract percent/100 from 1.0
+                                                  // from 1.0. Positive percent makes lower PR2 for higher freq.
+            strcpy(StringBuf,"\r\n>");
+         }else{
+            sprintf(StringBuf,"%f\r\n>",UserConfig.FreqAdjPercent);
+          }  
+       }
     }
   }
 
@@ -448,6 +458,11 @@ DataLpfBwBrMult           1.0      Multiply this by Baud Rate to get the\r\n\
 DTC                       1        1 enables Dynamic Threshold Control; 0\r\n\
                                    disables. Enable for \"AM Demodulation\",\r\n\
                                    where the limiter is disabled.\r\n\
+FreqAdjPercent            0.0      Make minor adjustment (+/- 5%) to sample\r\n\
+                                   rate to correct for CPU clock error. Adjusts\r\n\
+                                   all frequencies. For example, if 170 Hz Mark\r\n\
+                                   frequency is 2138 Hz instead of 2125 Hz, set\r\n\
+                                   FreqAdjPercent to -0.7.\r\n\
 InputBpfBwShiftMult       1.0      Input BPF Bandwidth is shift times this.\r\n\
 KOS                       1        1 enables Keyboard Operated Send. 0 disables.\r\n\
 KosDropSeconds            3.0      How many seconds after the last typed\r\n\

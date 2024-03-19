@@ -2,6 +2,14 @@
 
 // Handle display menus
 
+// This got really complicated with a fair amount of duplicated code. It could
+// use a rewrite. Perhaps when a menu item is selected, it could go to a
+// general adjustment screen that shows what is being adjusted and its
+// value. The adjustment could be made there, then the encoder switch hit to
+// go back to the menu. This could save having to rewrite individual menu lines.
+// Some day!
+
+
 #include  "PollEncoder.h"       // Get encoder count
 #include  "Unifont.h"       // Draw text
 #include  "PollSwitchesLeds.h"
@@ -13,6 +21,9 @@ int MenuNumber=0;     // Menu to display. Zero is xyScope
 static int MenuSelection=0;  // Which line of menu currently selected.
 static int OldS7=1;     // Previous state of encoder switch
 static int adjusting=0; // Non-zero if we are adjusting the selected parameter
+
+#define BoW "\016"      // Control code for Black text on White
+#define WoB "\017"      // Control code for White text on Black
 
 // Handlers for each menu
 void menu01(void);
@@ -136,7 +147,7 @@ char MenuText[][8][17]={
   { // MenuText[10] - Menu 11 Debug
     "     Debug      ",
     "Audio out       ",        
-    "                ",
+    "Sample Rate Trim",
     "                ",
     "                ",
     "                ", 
@@ -1069,24 +1080,35 @@ void menu11(void){      // Debug Audio Output
     if(adjusting==0){   // Not adjusting, just change lines
       MenuSelection+=EncoderCount;    // Change selected line
       if(MenuSelection<0) MenuSelection=6;  // Wrap around
-      if(MenuSelection==1) MenuSelection=6;  // Skip blank lines
+      if(MenuSelection==2) MenuSelection=6;  // Skip blank lines
       if(MenuSelection==5) MenuSelection=1;
       MenuSelection=MenuSelection%7;  // Wrap on overflow
       EncoderCount=0;
       DrawMenu();                     // Redraw the menu
-    }else{                            // Adjusting. Change audio out selection
-      if((AudioOut==0)&&(EncoderCount<0)){  // enum does not go negative
-        AudioOut=12;
-      }else{                          // Deal with positive values  
-        AudioOut+=EncoderCount;
-        if(AudioOut>12)AudioOut=0;      // Limit selection range
-        DisplayString("\f\n\n\n");
-        DisplayString(AudioOutString[AudioOut]);
-      }  
+    }else{                            // Adjusting
+      switch(MenuSelection){
+        case 0:                       // Change audio out selection
+          if((AudioOut==0)&&(EncoderCount<0)){  // enum does not go negative
+            AudioOut=12;
+          }else{                          // Deal with positive values  
+            AudioOut+=EncoderCount;
+            if(AudioOut>12)AudioOut=0;      // Limit selection range
+            DisplayString("\f\n\n\n\n");
+            DisplayString(AudioOutString[AudioOut]);
+          }
+          break;
+        case 1:                       // Sample Rate Trim
+          UserConfig.FreqAdjPercent+= 0.1 * (double)EncoderCount;
+          if(UserConfig.FreqAdjPercent>5.0) UserConfig.FreqAdjPercent=5.0; // Limit range
+          if(UserConfig.FreqAdjPercent<-5.0) UserConfig.FreqAdjPercent=-5.0; // Limit range 
+          DisplayString("\f\n\n\n\n");  // Move to blank line
+          sprintf(StringBuf,"%3.1f%% ",UserConfig.FreqAdjPercent);
+          DisplayString(StringBuf);   // Show the percentage
+      } // end switch menu selection    
     }
     EncoderCount=0;                 // clear for next time
   }
-  if(OldS7!=Switches.S7){           // Switch changed im MENU 9 Save/Load/Debug
+  if(OldS7!=Switches.S7){           // Switch changed im MENU 11 - Debug
     OldS7=Switches.S7;              // Remember new value
     if(0==OldS7){
       switch(MenuSelection){
@@ -1094,13 +1116,32 @@ void menu11(void){      // Debug Audio Output
           if(adjusting==0){         // Not yet adjusting
             adjusting=1;            // Start it
             DisplayString("\f\n\017Audio Out       ");
-            DisplayString("\n\n\016");  // black text on white
+            DisplayString("\n\n\n\016");  // black text on white
             DisplayString(AudioOutString[AudioOut]);
           }else{
             adjusting=0;            // Stop adjusting
             DisplayString("\f\n\016Audio Out       ");
-            DisplayString("\n\n\017");  // black text on white
+            DisplayString("\n\n\n\017");  // black text on white
             DisplayString(AudioOutString[AudioOut]);
+          }
+          break;
+        case 1:                     // Sample rate trim
+          if(adjusting==0){         // Not yet adjusting
+            adjusting=1;            // Start adjusting and show current value
+            DisplayString(WoB);     // Go to white on black and rewrite menu line
+            DisplayString("\f\n\nSample Rate Trim\n\n"); // Menu line and move to next for value
+            DisplayString(BoW);     // Black text on white
+            sprintf(StringBuf,"%3.1f%%",UserConfig.FreqAdjPercent);
+            DisplayString(StringBuf);   // Show the percentage
+          }else{
+            adjusting=0;            // Stop adjusting
+            DisplayString("\f\n\n");  // Go to second line
+            DisplayString(BoW);     // Black on white on selected line
+            DisplayString("Sample Rate Trim");  // Rewrite the menu line
+            DisplayString(WoB);     // White on black on value
+            DisplayString("\n\n");
+            sprintf(StringBuf,"%3.1f%% ",UserConfig.FreqAdjPercent);
+            DisplayString(StringBuf); // Rewrite the current setting
           }
           break;
         case 6:                     // Exit
