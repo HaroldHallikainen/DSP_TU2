@@ -4,21 +4,7 @@
 #include "main.h"             // PrintString for error messages
 #include "ExtFlash.h"
 
-#if 0
-void PageProgramExtFlash(uint32_t addr, uint32_t NumBytes, uint8_t *pdata); // write a number of bytes to external flash.  
-uint8_t ReadExtFlash(uint32_t addr);	  // read the external flash. 
-uint8_t ReadExtFlashStatus(void);   // Write data to the external flash status register
-void WriteExtFlashStatus(uint8_t data); // Write data to the external flash status register. 
-uint32_t ReadExtFlashID(void);          // Read the ID of the external flash. For M25P16, should read 0x20201510.
-void SectorEraseExtFlash(uint32_t addr);// Erase the sector containing addr. A sector is 256 pages, and a page is 256 bytes. We can program a page at a time, but erase a sector at a time
-void ExtFlashCs(uint8_t cs);// Set or clear the chip select line. We're using a function call so it's a little slower because the minimum
-// CS disable time is 500ns.
-void InitializeSpi(void);   // Initialize SPI for the external flash 
-void ReadExtFlashArray(uint32_t addr, uint8_t *pdata, uint32_t NumBytes); // Read NumBytes starting at addr and put them in ram at address pointed to by pdata
-uint8_t SwSpiExchange(uint8_t data);  // send and get spi from bitmap flash
-uint32_t StreamProgramExtFlash(uint32_t addr, uint32_t NumBytes, uint8_t *pdata);// Program a stream of data to external flash. Breaks in to 256 byte pages and 65kByte sectors. Returns the next available address in external flash
 
-#endif
 
 uint8_t Spi3Exchange(uint8_t data){
   // Pass data to SPI3 and return result
@@ -108,7 +94,14 @@ uint32_t BytesLeftOnPage;
   return(addr);     // send back the next available address
 }
 
-
+void PrintExtFlash(uint32_t addr){
+  // Print external flash from addr until erased byte read.
+  uint8_t data=0;
+  while(0xff!=data){
+    data=ReadExtFlash(addr++);    // Get a byte from flash and bump address
+    if(0xff!=data) PrintChar((char)data); // Print what we read
+  };
+} 
 
 void PageProgramExtFlash(uint32_t addr, uint32_t NumBytes, uint8_t *pdata){
 // Program NumBytes pointed to by pdata at addr

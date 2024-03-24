@@ -37,7 +37,8 @@ const UserConfig_t UserConfigDefault={
   .TxRxHoldoff=1.0,               // How many seconds to disable demod on Tx to Rx transition
   .NarrowTxHfEq=0.0,              // High tone boost in dB
   .WideTxHfEq=0.0,                 // High tone boost in dB
-  .FreqAdjPercent=0.0             // Adjust PR2 for CPU clock error
+  .FreqAdjPercent=0.0,             // Adjust PR2 for CPU clock error
+  .LineFreq=60.0                    // Power line frequency used in power line noise measurement
 };
 
 
@@ -48,13 +49,10 @@ void LoadDefaultConfig(void){
 
 void PrintSavedConfig(void){
   // Print config saved to external flash starting at address 0.
-  uint8_t data=0;
-  uint32_t NextAddr=0;
+ // uint8_t data=0;
+//  uint32_t NextAddr=0;
   PrintString("\r\n");
-  while(0xff!=data){
-    data=ReadExtFlash(NextAddr++);    // Get a byte from flash and bump address
-    if(0xff!=data) PrintChar((char)data); // Print what we read
-  };
+  PrintExtFlash(0);       // Print text from external flash staring at address 0  
   PrintString("\r\n>");
 } 
 
@@ -249,7 +247,13 @@ void SavePrintConfig(int print){
   }else{
     NextAddr=StreamProgramExtFlash(NextAddr,strlen(StringBuf),(uint8_t*)StringBuf); // Write to external flash and get next address
   }   
-  
+  sprintf(StringBuf,"LineFreq\t%f\r\n",UserConfig.LineFreq);
+  if(1==print){
+    PrintString(StringBuf);
+  }else{
+    NextAddr=StreamProgramExtFlash(NextAddr,strlen(StringBuf),(uint8_t*)StringBuf); // Write to external flash and get next address
+  }   
+ 
 }
 
   

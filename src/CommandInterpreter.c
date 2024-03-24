@@ -11,7 +11,9 @@
 #include "agc.h"                    // Access to AGC filter
 #include "filters.h"                // Set up demod filters based on UserConfig
 #include "BaudotUart.h"             // Access receive error report
-
+#include "ExtFlash.h"
+#include "PowerLineNoise.h"
+#include "biquad.h"
 
 //#define NumCommandBufs NumTcpSockets+3 // Separate command buffers for TCP connections (NumTcpSockets), RS232, ConfigFlash, and HTTPPOST
 #define NumCommandBufs 1 // Separate command buffers for different possible sources
@@ -27,7 +29,7 @@ void CommandInterpreter(uint8_t stream, char data); // Call with a character as 
 																
 // Globals
 uint8_t MaxCommandSize=0;  // used in debug. Figure out how large buffers need to be
-char HelpString[];
+char HelpString0[], HelpString1[];
 
 uint32_t HashGenerate(char *pString){
 // generate a 32 bit hash of the string. 
@@ -94,7 +96,11 @@ int ArgNum=0;                 // Argument number currently storing
           sprintf(StringBuf,"Bad command. Hash=0x%x.\r\n>",Hash);
           break;
         case 0x3f:               // ? (help)
-          PrintString(HelpString);
+          PrintString(HelpString0);
+          strcpy(StringBuf,"\r\n>");
+          break;
+        case 0x3f003f:            // ?? help2  
+          PrintString(HelpString1);
           strcpy(StringBuf,"\r\n>");
           break;
         case 0xb6d27f3:            // NarrowShiftCenterFreq
@@ -399,8 +405,34 @@ int ArgNum=0;                 // Argument number currently storing
             strcpy(StringBuf,"\r\n>");
          }else{
             sprintf(StringBuf,"%f\r\n>",UserConfig.FreqAdjPercent);
+         }
+         break;
+        case 0x7556f944:    // PrintExtFlash starting at specified address
+          if(2==ArgNum){    // Address specified
+            PrintExtFlash(atol(TokenArray[1]));  
+          }
+          strcpy(StringBuf,"\r\n>");
+          break;
+        case 0x501304e:     // PLN (show power line noise
+          if(2==ArgNum){
+            PlnPrintCount=atoi(TokenArray[1]);  // Get how many times to print
+            if(PlnPrintCount<0) PlnPrintCount=0;  // Disallow negative
+          }else{              // No count specified, use 1
+            PlnPrintCount=1;
           }  
-       }
+          break;
+        case 0x3049d8c1:      //LineFreq set line frequency for power line noise measurement
+          if(2==ArgNum){
+            UserConfig.LineFreq=atof(TokenArray[1]);
+            if((UserConfig.LineFreq<30.0)||(UserConfig.LineFreq>100.0)){
+              UserConfig.LineFreq=60.0;   // Force to be reasonable
+            }
+            BiQuad_modify(PowerLineBPF,BPF,0.0,2.0*UserConfig.LineFreq,8000, 10); // Update BPF to 2 * LineFreq
+          }else{
+            sprintf(StringBuf,"%f\r\n>",UserConfig.LineFreq);
+          }
+          break;
+      }
     }
   }
 
@@ -410,7 +442,7 @@ int ArgNum=0;                 // Argument number currently storing
 */
   
  
-char HelpString[]= "DSP TU Command Line Interface\r\n\n\
+char HelpString0[]= "DSP TU Command Line Interface\r\n\n\
 Each command consists of a command string, and zero or more parameters.\r\n\
 Parameters are tab delimited, and the command is terminated with a carriage\r\n\
 return. Commands take effect immediately. They can be saved to be reloaded on\r\n\
@@ -467,7 +499,9 @@ InputBpfBwShiftMult       1.0      Input BPF Bandwidth is shift times this.\r\n\
 KOS                       1        1 enables Keyboard Operated Send. 0 disables.\r\n\
 KosDropSeconds            3.0      How many seconds after the last typed\r\n\
                                    character until the transceiver is switched\r\n\
-                                   from transmit to receive.\r\n\
+                                   from transmit to receive.\r\n"
+"Use ?? for additional commands";
+char HelpString1[]="\
 LoadDefaultConfig                  No parameters. Loads default configuration.\r\n\
 LoadSavedConfig                    No parameters. Loads the configuration saved\r\n\
                                    to external flash.\r\n\
@@ -498,6 +532,9 @@ NoLoop                    0        Allows operation without a loop supply,\r\n\
                                    instead using the software uart and USB.\r\n\
                                    If NoLoop = 1, KOS and AFSK generation will\r\n\
                                    ignore the lack of loop current.\r\n\
+PLN                       100      Print relative power line noise every second\r\n\
+                                   for the specified number of seconds. If no\r\n\
+                                   number specified, print once.\r\n\
 PrintConfig                        No parameters. Prints the current system\r\n\
                                    configuration.\r\n\
 PrintRxReport                      Prints the number of received characters\r\n\
