@@ -49,6 +49,27 @@
           <itemPath>../src/config/DSP_TU2/definitions.h</itemPath>
           <itemPath>../src/config/DSP_TU2/interrupts.h</itemPath>
         </logicalFolder>
+        <itemPath>../src/winc1500/winc1500_driver_config.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f2" displayName="framework" projectFiles="true">
+        <logicalFolder name="f1" displayName="driver" projectFiles="true">
+          <logicalFolder name="f1" displayName="winc1500" projectFiles="true">
+            <itemPath>../src/winc1500/winc1500_api.h</itemPath>
+            <itemPath>../src/winc1500/src/wf_asic.h</itemPath>
+            <itemPath>../src/winc1500/src/wf_common.h</itemPath>
+            <itemPath>../src/winc1500/src/wf_drv.h</itemPath>
+            <itemPath>../src/winc1500/src/wf_errors.h</itemPath>
+            <itemPath>../src/winc1500/src/wf_hif.h</itemPath>
+            <itemPath>../src/winc1500/src/wf_ota.h</itemPath>
+            <itemPath>../src/winc1500/src/wf_socket.h</itemPath>
+            <itemPath>../src/winc1500/src/wf_socket_internal.h</itemPath>
+            <itemPath>../src/winc1500/src/wf_spi.h</itemPath>
+            <itemPath>../src/winc1500/src/wf_spi_flash.h</itemPath>
+            <itemPath>../src/winc1500/src/wf_spi_flash_map.h</itemPath>
+            <itemPath>../src/winc1500/src/wf_types.h</itemPath>
+            <itemPath>../src/winc1500/src/wf_utils.h</itemPath>
+          </logicalFolder>
+        </logicalFolder>
       </logicalFolder>
       <itemPath>../src/main.h</itemPath>
       <itemPath>../src/AfskGen.h</itemPath>
@@ -128,6 +149,20 @@
           <itemPath>../src/config/DSP_TU2/initialization.c</itemPath>
           <itemPath>../src/config/DSP_TU2/interrupts.c</itemPath>
           <itemPath>../src/config/DSP_TU2/exceptions.c</itemPath>
+        </logicalFolder>
+      </logicalFolder>
+      <logicalFolder name="f2" displayName="framework" projectFiles="true">
+        <logicalFolder name="f1" displayName="driver" projectFiles="true">
+          <logicalFolder name="f1" displayName="winc1500" projectFiles="true">
+            <itemPath>../src/winc1500/src/wf_asic.c</itemPath>
+            <itemPath>../src/winc1500/src/wf_hif.c</itemPath>
+            <itemPath>../src/winc1500/src/wf_ota.c</itemPath>
+            <itemPath>../src/winc1500/src/wf_socket.c</itemPath>
+            <itemPath>../src/winc1500/src/wf_spi.c</itemPath>
+            <itemPath>../src/winc1500/src/wf_spi_flash.c</itemPath>
+            <itemPath>../src/winc1500/src/wf_utils.c</itemPath>
+            <itemPath>../src/winc1500/src/wf_wifi.c</itemPath>
+          </logicalFolder>
         </logicalFolder>
       </logicalFolder>
       <itemPath>../src/main.c</itemPath>
@@ -272,7 +307,8 @@
         <property key="enable-symbols" value="true"/>
         <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
-        <property key="extra-include-directories" value="../src;../src/config/DSP_TU2"/>
+        <property key="extra-include-directories"
+                  value="../src;../src/config/DSP_TU2;../src/winc1500;../src/winc1500/src"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
