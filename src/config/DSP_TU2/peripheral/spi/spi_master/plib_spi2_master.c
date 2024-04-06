@@ -79,7 +79,7 @@ void SPI2_Initialize ( void )
     IFS4CLR = 0x10000;
 
     /* BAUD Rate register Setup */
-    SPI2BRG = 49;
+    SPI2BRG = 1;  // Harmony stets this to 49 (1 Mbps). Changed to 1 for 25 Mbps. hh 4/5/24 
 
     /* CLear the Overflow */
     SPI2STATCLR = _SPI2STAT_SPIROV_MASK;
