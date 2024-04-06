@@ -23,6 +23,7 @@ void AutostartKos(double discrim){
   static uint32_t AutostartCounter=8000;    // Used to time shutdown and startup
   static uint32_t KosCounter=8000;
   static uint32_t KosLockout=8000;       // Ignore loop sensor for a period of time after loop keyer sends space
+  static int OldLoopSense=0;          // Watch for changes in loop sense to trigger KOS
   if(1==TX_LED_Get()){                // We're transmitting. Turn on motor and reload autostart counter
     MOTOR_LED_Set();                  // Front panel motor LED on
     AutostartCounter=8000*UserConfig.AutostartShutdownSeconds;
@@ -48,33 +49,25 @@ void AutostartKos(double discrim){
     AUTOSTARTn_Set();               // Turn off autostart output
   }
   if(1==KOS_LED_Get()){                // Keyboard operated send enabled
-    if(1==TX_LED_Get()){              // We are transmitting
-      if(((0==UserConfig.NoLoop) && (1==LOOP_SENSE_Get())) || (0==BaudotUartTxOut)){  // Space detected on loop or sw buart
-                                      // Ignore loop sense if NoLoop nonzero
+    if(0==LOOP_KEY_Get()){
+      KosLockout=800;               // Lock out KOS for 100 ms if rx data keyed loop
+    }else{
+      if(0!=KosLockout)KosLockout--;  // Decrement lockout if not keyed by receive data
+    }
+    if(0==KosLockout){                 // KOS not locked out by receive data
+      if(OldLoopSense!=LOOP_SENSE_Get()){ // Loop changed, so key up or stay keyed up - Don't need to check NoLoop since looking for change instead of space. 
+        OldLoopSense=LOOP_SENSE_Get();    // Remember new value
         KosCounter=8000*UserConfig.KosDropSeconds;  // Reset counter to drop out later
-      }else{                        // mark detected
-        if(0==KosCounter){          // We timed out
-          TX_LED_Clear();             // Stop transmitting
-        }else{                      // have not timed out
-          KosCounter--;             // Decrement towards zero
-        }
-      }  
-    }else{                          // Not transmitting, look for space not from keying SSR for 80% of bit time
-      if(0==LOOP_KEY_Get()){        // Loop keyed by demod, ignore loop sense for a while
-        KosLockout=800;            // Lockout for 100 ms
+      }
+      if(0==BaudotUartTxOut){       // Set KOS counter on BaudotUart space
+        KosCounter=8000*UserConfig.KosDropSeconds;  // Reset counter to drop out later 
+      }
+      if(0!=KosCounter) KosCounter--;   // Decrement towards zero
+      if(KosCounter!=0){              // Transmit if not timed out
+        TX_LED_Set();
       }else{
-        if(0!=KosLockout) KosLockout--; // Decrement if loop key is mark
-      }  
-      if(0==KosLockout){            // Loop not keyed by demod recently
-        if(0==UserConfig.NoLoop){   // Don't check for space on loop if NoLoop
-          if(1==LOOP_SENSE_Get()){  // Got a space  
-            TX_LED_Set();         // Start transmitting
-          }
-        }  
-        if(0==BaudotUartTxOut){ // Start transmitting based on data from UART
-          TX_LED_Set();
-        }
-      }  
+        TX_LED_Clear();               // or stop transmitting if timed out
+      }
     }
   }
   if(1==TX_LED_Get()){               // Transmit LED lit
