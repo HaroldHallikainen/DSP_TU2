@@ -57,17 +57,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=../src/config/DSP_TU2/peripheral/adchs/plib_adchs.c ../src/config/DSP_TU2/peripheral/clk/plib_clk.c ../src/config/DSP_TU2/peripheral/evic/plib_evic.c ../src/config/DSP_TU2/peripheral/gpio/plib_gpio.c ../src/config/DSP_TU2/peripheral/ocmp/plib_ocmp1.c ../src/config/DSP_TU2/peripheral/spi/spi_master/plib_spi1_master.c ../src/config/DSP_TU2/peripheral/spi/spi_master/plib_spi3_master.c ../src/config/DSP_TU2/peripheral/spi/spi_master/plib_spi2_master.c ../src/config/DSP_TU2/peripheral/tmr/plib_tmr2.c ../src/config/DSP_TU2/peripheral/uart/plib_uart1.c ../src/config/DSP_TU2/peripheral/wdt/plib_wdt.c ../src/config/DSP_TU2/stdio/xc32_monitor.c ../src/config/DSP_TU2/initialization.c ../src/config/DSP_TU2/interrupts.c ../src/config/DSP_TU2/exceptions.c ../src/main.c ../src/AfskGen.c ../src/BaudotUart.c ../src/DynamicThreshold.c ../src/PwmAudioOut.c ../src/agc.c ../src/biquad.c ../src/dds.c ../src/display.c ../src/fifo16.c ../src/xyScope.c ../src/PollSwitchesLeds.c ../src/PollEncoder.c ../src/UserConfig.c ../src/filters.c ../src/AutostartKos.c ../src/ExtFlash.c ../src/CommandInterpreter.c ../src/fifo8.c ../src/Unifont.c ../src/menu.c ../src/PowerLineNoise.c ../src/winc1500/src/wf_asic.c ../src/winc1500/src/wf_hif.c ../src/winc1500/src/wf_ota.c ../src/winc1500/src/wf_socket.c ../src/winc1500/src/wf_spi.c ../src/winc1500/src/wf_spi_flash.c ../src/winc1500/src/wf_utils.c ../src/winc1500/src/wf_wifi.c
+SOURCEFILES_QUOTED_IF_SPACED=../src/config/DSP_TU2/peripheral/adchs/plib_adchs.c ../src/config/DSP_TU2/peripheral/clk/plib_clk.c ../src/config/DSP_TU2/peripheral/evic/plib_evic.c ../src/config/DSP_TU2/peripheral/gpio/plib_gpio.c ../src/config/DSP_TU2/peripheral/ocmp/plib_ocmp1.c ../src/config/DSP_TU2/peripheral/spi/spi_master/plib_spi1_master.c ../src/config/DSP_TU2/peripheral/spi/spi_master/plib_spi3_master.c ../src/config/DSP_TU2/peripheral/spi/spi_master/plib_spi2_master.c ../src/config/DSP_TU2/peripheral/tmr/plib_tmr2.c ../src/config/DSP_TU2/peripheral/uart/plib_uart1.c ../src/config/DSP_TU2/peripheral/wdt/plib_wdt.c ../src/config/DSP_TU2/stdio/xc32_monitor.c ../src/config/DSP_TU2/initialization.c ../src/config/DSP_TU2/interrupts.c ../src/config/DSP_TU2/exceptions.c ../src/winc1500/src/wf_asic.c ../src/winc1500/src/wf_hif.c ../src/winc1500/src/wf_ota.c ../src/winc1500/src/wf_socket.c ../src/winc1500/src/wf_spi.c ../src/winc1500/src/wf_spi_flash.c ../src/winc1500/src/wf_utils.c ../src/winc1500/src/wf_wifi.c ../src/winc1500/wf_mcu_driver_stub.c ../src/main.c ../src/AfskGen.c ../src/BaudotUart.c ../src/DynamicThreshold.c ../src/PwmAudioOut.c ../src/agc.c ../src/biquad.c ../src/dds.c ../src/display.c ../src/fifo16.c ../src/xyScope.c ../src/PollSwitchesLeds.c ../src/PollEncoder.c ../src/UserConfig.c ../src/filters.c ../src/AutostartKos.c ../src/ExtFlash.c ../src/CommandInterpreter.c ../src/fifo8.c ../src/Unifont.c ../src/menu.c ../src/PowerLineNoise.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/302168295/plib_adchs.o ${OBJECTDIR}/_ext/255064926/plib_clk.o ${OBJECTDIR}/_ext/682852657/plib_evic.o ${OBJECTDIR}/_ext/682798829/plib_gpio.o ${OBJECTDIR}/_ext/682572869/plib_ocmp1.o ${OBJECTDIR}/_ext/957679836/plib_spi1_master.o ${OBJECTDIR}/_ext/957679836/plib_spi3_master.o ${OBJECTDIR}/_ext/957679836/plib_spi2_master.o ${OBJECTDIR}/_ext/255081301/plib_tmr2.o ${OBJECTDIR}/_ext/682395886/plib_uart1.o ${OBJECTDIR}/_ext/255083907/plib_wdt.o ${OBJECTDIR}/_ext/775482278/xc32_monitor.o ${OBJECTDIR}/_ext/1994557280/initialization.o ${OBJECTDIR}/_ext/1994557280/interrupts.o ${OBJECTDIR}/_ext/1994557280/exceptions.o ${OBJECTDIR}/_ext/1360937237/main.o ${OBJECTDIR}/_ext/1360937237/AfskGen.o ${OBJECTDIR}/_ext/1360937237/BaudotUart.o ${OBJECTDIR}/_ext/1360937237/DynamicThreshold.o ${OBJECTDIR}/_ext/1360937237/PwmAudioOut.o ${OBJECTDIR}/_ext/1360937237/agc.o ${OBJECTDIR}/_ext/1360937237/biquad.o ${OBJECTDIR}/_ext/1360937237/dds.o ${OBJECTDIR}/_ext/1360937237/display.o ${OBJECTDIR}/_ext/1360937237/fifo16.o ${OBJECTDIR}/_ext/1360937237/xyScope.o ${OBJECTDIR}/_ext/1360937237/PollSwitchesLeds.o ${OBJECTDIR}/_ext/1360937237/PollEncoder.o ${OBJECTDIR}/_ext/1360937237/UserConfig.o ${OBJECTDIR}/_ext/1360937237/filters.o ${OBJECTDIR}/_ext/1360937237/AutostartKos.o ${OBJECTDIR}/_ext/1360937237/ExtFlash.o ${OBJECTDIR}/_ext/1360937237/CommandInterpreter.o ${OBJECTDIR}/_ext/1360937237/fifo8.o ${OBJECTDIR}/_ext/1360937237/Unifont.o ${OBJECTDIR}/_ext/1360937237/menu.o ${OBJECTDIR}/_ext/1360937237/PowerLineNoise.o ${OBJECTDIR}/_ext/1360932806/wf_asic.o ${OBJECTDIR}/_ext/1360932806/wf_hif.o ${OBJECTDIR}/_ext/1360932806/wf_ota.o ${OBJECTDIR}/_ext/1360932806/wf_socket.o ${OBJECTDIR}/_ext/1360932806/wf_spi.o ${OBJECTDIR}/_ext/1360932806/wf_spi_flash.o ${OBJECTDIR}/_ext/1360932806/wf_utils.o ${OBJECTDIR}/_ext/1360932806/wf_wifi.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/302168295/plib_adchs.o.d ${OBJECTDIR}/_ext/255064926/plib_clk.o.d ${OBJECTDIR}/_ext/682852657/plib_evic.o.d ${OBJECTDIR}/_ext/682798829/plib_gpio.o.d ${OBJECTDIR}/_ext/682572869/plib_ocmp1.o.d ${OBJECTDIR}/_ext/957679836/plib_spi1_master.o.d ${OBJECTDIR}/_ext/957679836/plib_spi3_master.o.d ${OBJECTDIR}/_ext/957679836/plib_spi2_master.o.d ${OBJECTDIR}/_ext/255081301/plib_tmr2.o.d ${OBJECTDIR}/_ext/682395886/plib_uart1.o.d ${OBJECTDIR}/_ext/255083907/plib_wdt.o.d ${OBJECTDIR}/_ext/775482278/xc32_monitor.o.d ${OBJECTDIR}/_ext/1994557280/initialization.o.d ${OBJECTDIR}/_ext/1994557280/interrupts.o.d ${OBJECTDIR}/_ext/1994557280/exceptions.o.d ${OBJECTDIR}/_ext/1360937237/main.o.d ${OBJECTDIR}/_ext/1360937237/AfskGen.o.d ${OBJECTDIR}/_ext/1360937237/BaudotUart.o.d ${OBJECTDIR}/_ext/1360937237/DynamicThreshold.o.d ${OBJECTDIR}/_ext/1360937237/PwmAudioOut.o.d ${OBJECTDIR}/_ext/1360937237/agc.o.d ${OBJECTDIR}/_ext/1360937237/biquad.o.d ${OBJECTDIR}/_ext/1360937237/dds.o.d ${OBJECTDIR}/_ext/1360937237/display.o.d ${OBJECTDIR}/_ext/1360937237/fifo16.o.d ${OBJECTDIR}/_ext/1360937237/xyScope.o.d ${OBJECTDIR}/_ext/1360937237/PollSwitchesLeds.o.d ${OBJECTDIR}/_ext/1360937237/PollEncoder.o.d ${OBJECTDIR}/_ext/1360937237/UserConfig.o.d ${OBJECTDIR}/_ext/1360937237/filters.o.d ${OBJECTDIR}/_ext/1360937237/AutostartKos.o.d ${OBJECTDIR}/_ext/1360937237/ExtFlash.o.d ${OBJECTDIR}/_ext/1360937237/CommandInterpreter.o.d ${OBJECTDIR}/_ext/1360937237/fifo8.o.d ${OBJECTDIR}/_ext/1360937237/Unifont.o.d ${OBJECTDIR}/_ext/1360937237/menu.o.d ${OBJECTDIR}/_ext/1360937237/PowerLineNoise.o.d ${OBJECTDIR}/_ext/1360932806/wf_asic.o.d ${OBJECTDIR}/_ext/1360932806/wf_hif.o.d ${OBJECTDIR}/_ext/1360932806/wf_ota.o.d ${OBJECTDIR}/_ext/1360932806/wf_socket.o.d ${OBJECTDIR}/_ext/1360932806/wf_spi.o.d ${OBJECTDIR}/_ext/1360932806/wf_spi_flash.o.d ${OBJECTDIR}/_ext/1360932806/wf_utils.o.d ${OBJECTDIR}/_ext/1360932806/wf_wifi.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/302168295/plib_adchs.o ${OBJECTDIR}/_ext/255064926/plib_clk.o ${OBJECTDIR}/_ext/682852657/plib_evic.o ${OBJECTDIR}/_ext/682798829/plib_gpio.o ${OBJECTDIR}/_ext/682572869/plib_ocmp1.o ${OBJECTDIR}/_ext/957679836/plib_spi1_master.o ${OBJECTDIR}/_ext/957679836/plib_spi3_master.o ${OBJECTDIR}/_ext/957679836/plib_spi2_master.o ${OBJECTDIR}/_ext/255081301/plib_tmr2.o ${OBJECTDIR}/_ext/682395886/plib_uart1.o ${OBJECTDIR}/_ext/255083907/plib_wdt.o ${OBJECTDIR}/_ext/775482278/xc32_monitor.o ${OBJECTDIR}/_ext/1994557280/initialization.o ${OBJECTDIR}/_ext/1994557280/interrupts.o ${OBJECTDIR}/_ext/1994557280/exceptions.o ${OBJECTDIR}/_ext/1360932806/wf_asic.o ${OBJECTDIR}/_ext/1360932806/wf_hif.o ${OBJECTDIR}/_ext/1360932806/wf_ota.o ${OBJECTDIR}/_ext/1360932806/wf_socket.o ${OBJECTDIR}/_ext/1360932806/wf_spi.o ${OBJECTDIR}/_ext/1360932806/wf_spi_flash.o ${OBJECTDIR}/_ext/1360932806/wf_utils.o ${OBJECTDIR}/_ext/1360932806/wf_wifi.o ${OBJECTDIR}/_ext/1236603035/wf_mcu_driver_stub.o ${OBJECTDIR}/_ext/1360937237/main.o ${OBJECTDIR}/_ext/1360937237/AfskGen.o ${OBJECTDIR}/_ext/1360937237/BaudotUart.o ${OBJECTDIR}/_ext/1360937237/DynamicThreshold.o ${OBJECTDIR}/_ext/1360937237/PwmAudioOut.o ${OBJECTDIR}/_ext/1360937237/agc.o ${OBJECTDIR}/_ext/1360937237/biquad.o ${OBJECTDIR}/_ext/1360937237/dds.o ${OBJECTDIR}/_ext/1360937237/display.o ${OBJECTDIR}/_ext/1360937237/fifo16.o ${OBJECTDIR}/_ext/1360937237/xyScope.o ${OBJECTDIR}/_ext/1360937237/PollSwitchesLeds.o ${OBJECTDIR}/_ext/1360937237/PollEncoder.o ${OBJECTDIR}/_ext/1360937237/UserConfig.o ${OBJECTDIR}/_ext/1360937237/filters.o ${OBJECTDIR}/_ext/1360937237/AutostartKos.o ${OBJECTDIR}/_ext/1360937237/ExtFlash.o ${OBJECTDIR}/_ext/1360937237/CommandInterpreter.o ${OBJECTDIR}/_ext/1360937237/fifo8.o ${OBJECTDIR}/_ext/1360937237/Unifont.o ${OBJECTDIR}/_ext/1360937237/menu.o ${OBJECTDIR}/_ext/1360937237/PowerLineNoise.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/302168295/plib_adchs.o.d ${OBJECTDIR}/_ext/255064926/plib_clk.o.d ${OBJECTDIR}/_ext/682852657/plib_evic.o.d ${OBJECTDIR}/_ext/682798829/plib_gpio.o.d ${OBJECTDIR}/_ext/682572869/plib_ocmp1.o.d ${OBJECTDIR}/_ext/957679836/plib_spi1_master.o.d ${OBJECTDIR}/_ext/957679836/plib_spi3_master.o.d ${OBJECTDIR}/_ext/957679836/plib_spi2_master.o.d ${OBJECTDIR}/_ext/255081301/plib_tmr2.o.d ${OBJECTDIR}/_ext/682395886/plib_uart1.o.d ${OBJECTDIR}/_ext/255083907/plib_wdt.o.d ${OBJECTDIR}/_ext/775482278/xc32_monitor.o.d ${OBJECTDIR}/_ext/1994557280/initialization.o.d ${OBJECTDIR}/_ext/1994557280/interrupts.o.d ${OBJECTDIR}/_ext/1994557280/exceptions.o.d ${OBJECTDIR}/_ext/1360932806/wf_asic.o.d ${OBJECTDIR}/_ext/1360932806/wf_hif.o.d ${OBJECTDIR}/_ext/1360932806/wf_ota.o.d ${OBJECTDIR}/_ext/1360932806/wf_socket.o.d ${OBJECTDIR}/_ext/1360932806/wf_spi.o.d ${OBJECTDIR}/_ext/1360932806/wf_spi_flash.o.d ${OBJECTDIR}/_ext/1360932806/wf_utils.o.d ${OBJECTDIR}/_ext/1360932806/wf_wifi.o.d ${OBJECTDIR}/_ext/1236603035/wf_mcu_driver_stub.o.d ${OBJECTDIR}/_ext/1360937237/main.o.d ${OBJECTDIR}/_ext/1360937237/AfskGen.o.d ${OBJECTDIR}/_ext/1360937237/BaudotUart.o.d ${OBJECTDIR}/_ext/1360937237/DynamicThreshold.o.d ${OBJECTDIR}/_ext/1360937237/PwmAudioOut.o.d ${OBJECTDIR}/_ext/1360937237/agc.o.d ${OBJECTDIR}/_ext/1360937237/biquad.o.d ${OBJECTDIR}/_ext/1360937237/dds.o.d ${OBJECTDIR}/_ext/1360937237/display.o.d ${OBJECTDIR}/_ext/1360937237/fifo16.o.d ${OBJECTDIR}/_ext/1360937237/xyScope.o.d ${OBJECTDIR}/_ext/1360937237/PollSwitchesLeds.o.d ${OBJECTDIR}/_ext/1360937237/PollEncoder.o.d ${OBJECTDIR}/_ext/1360937237/UserConfig.o.d ${OBJECTDIR}/_ext/1360937237/filters.o.d ${OBJECTDIR}/_ext/1360937237/AutostartKos.o.d ${OBJECTDIR}/_ext/1360937237/ExtFlash.o.d ${OBJECTDIR}/_ext/1360937237/CommandInterpreter.o.d ${OBJECTDIR}/_ext/1360937237/fifo8.o.d ${OBJECTDIR}/_ext/1360937237/Unifont.o.d ${OBJECTDIR}/_ext/1360937237/menu.o.d ${OBJECTDIR}/_ext/1360937237/PowerLineNoise.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/_ext/302168295/plib_adchs.o ${OBJECTDIR}/_ext/255064926/plib_clk.o ${OBJECTDIR}/_ext/682852657/plib_evic.o ${OBJECTDIR}/_ext/682798829/plib_gpio.o ${OBJECTDIR}/_ext/682572869/plib_ocmp1.o ${OBJECTDIR}/_ext/957679836/plib_spi1_master.o ${OBJECTDIR}/_ext/957679836/plib_spi3_master.o ${OBJECTDIR}/_ext/957679836/plib_spi2_master.o ${OBJECTDIR}/_ext/255081301/plib_tmr2.o ${OBJECTDIR}/_ext/682395886/plib_uart1.o ${OBJECTDIR}/_ext/255083907/plib_wdt.o ${OBJECTDIR}/_ext/775482278/xc32_monitor.o ${OBJECTDIR}/_ext/1994557280/initialization.o ${OBJECTDIR}/_ext/1994557280/interrupts.o ${OBJECTDIR}/_ext/1994557280/exceptions.o ${OBJECTDIR}/_ext/1360937237/main.o ${OBJECTDIR}/_ext/1360937237/AfskGen.o ${OBJECTDIR}/_ext/1360937237/BaudotUart.o ${OBJECTDIR}/_ext/1360937237/DynamicThreshold.o ${OBJECTDIR}/_ext/1360937237/PwmAudioOut.o ${OBJECTDIR}/_ext/1360937237/agc.o ${OBJECTDIR}/_ext/1360937237/biquad.o ${OBJECTDIR}/_ext/1360937237/dds.o ${OBJECTDIR}/_ext/1360937237/display.o ${OBJECTDIR}/_ext/1360937237/fifo16.o ${OBJECTDIR}/_ext/1360937237/xyScope.o ${OBJECTDIR}/_ext/1360937237/PollSwitchesLeds.o ${OBJECTDIR}/_ext/1360937237/PollEncoder.o ${OBJECTDIR}/_ext/1360937237/UserConfig.o ${OBJECTDIR}/_ext/1360937237/filters.o ${OBJECTDIR}/_ext/1360937237/AutostartKos.o ${OBJECTDIR}/_ext/1360937237/ExtFlash.o ${OBJECTDIR}/_ext/1360937237/CommandInterpreter.o ${OBJECTDIR}/_ext/1360937237/fifo8.o ${OBJECTDIR}/_ext/1360937237/Unifont.o ${OBJECTDIR}/_ext/1360937237/menu.o ${OBJECTDIR}/_ext/1360937237/PowerLineNoise.o ${OBJECTDIR}/_ext/1360932806/wf_asic.o ${OBJECTDIR}/_ext/1360932806/wf_hif.o ${OBJECTDIR}/_ext/1360932806/wf_ota.o ${OBJECTDIR}/_ext/1360932806/wf_socket.o ${OBJECTDIR}/_ext/1360932806/wf_spi.o ${OBJECTDIR}/_ext/1360932806/wf_spi_flash.o ${OBJECTDIR}/_ext/1360932806/wf_utils.o ${OBJECTDIR}/_ext/1360932806/wf_wifi.o
+OBJECTFILES=${OBJECTDIR}/_ext/302168295/plib_adchs.o ${OBJECTDIR}/_ext/255064926/plib_clk.o ${OBJECTDIR}/_ext/682852657/plib_evic.o ${OBJECTDIR}/_ext/682798829/plib_gpio.o ${OBJECTDIR}/_ext/682572869/plib_ocmp1.o ${OBJECTDIR}/_ext/957679836/plib_spi1_master.o ${OBJECTDIR}/_ext/957679836/plib_spi3_master.o ${OBJECTDIR}/_ext/957679836/plib_spi2_master.o ${OBJECTDIR}/_ext/255081301/plib_tmr2.o ${OBJECTDIR}/_ext/682395886/plib_uart1.o ${OBJECTDIR}/_ext/255083907/plib_wdt.o ${OBJECTDIR}/_ext/775482278/xc32_monitor.o ${OBJECTDIR}/_ext/1994557280/initialization.o ${OBJECTDIR}/_ext/1994557280/interrupts.o ${OBJECTDIR}/_ext/1994557280/exceptions.o ${OBJECTDIR}/_ext/1360932806/wf_asic.o ${OBJECTDIR}/_ext/1360932806/wf_hif.o ${OBJECTDIR}/_ext/1360932806/wf_ota.o ${OBJECTDIR}/_ext/1360932806/wf_socket.o ${OBJECTDIR}/_ext/1360932806/wf_spi.o ${OBJECTDIR}/_ext/1360932806/wf_spi_flash.o ${OBJECTDIR}/_ext/1360932806/wf_utils.o ${OBJECTDIR}/_ext/1360932806/wf_wifi.o ${OBJECTDIR}/_ext/1236603035/wf_mcu_driver_stub.o ${OBJECTDIR}/_ext/1360937237/main.o ${OBJECTDIR}/_ext/1360937237/AfskGen.o ${OBJECTDIR}/_ext/1360937237/BaudotUart.o ${OBJECTDIR}/_ext/1360937237/DynamicThreshold.o ${OBJECTDIR}/_ext/1360937237/PwmAudioOut.o ${OBJECTDIR}/_ext/1360937237/agc.o ${OBJECTDIR}/_ext/1360937237/biquad.o ${OBJECTDIR}/_ext/1360937237/dds.o ${OBJECTDIR}/_ext/1360937237/display.o ${OBJECTDIR}/_ext/1360937237/fifo16.o ${OBJECTDIR}/_ext/1360937237/xyScope.o ${OBJECTDIR}/_ext/1360937237/PollSwitchesLeds.o ${OBJECTDIR}/_ext/1360937237/PollEncoder.o ${OBJECTDIR}/_ext/1360937237/UserConfig.o ${OBJECTDIR}/_ext/1360937237/filters.o ${OBJECTDIR}/_ext/1360937237/AutostartKos.o ${OBJECTDIR}/_ext/1360937237/ExtFlash.o ${OBJECTDIR}/_ext/1360937237/CommandInterpreter.o ${OBJECTDIR}/_ext/1360937237/fifo8.o ${OBJECTDIR}/_ext/1360937237/Unifont.o ${OBJECTDIR}/_ext/1360937237/menu.o ${OBJECTDIR}/_ext/1360937237/PowerLineNoise.o
 
 # Source Files
-SOURCEFILES=../src/config/DSP_TU2/peripheral/adchs/plib_adchs.c ../src/config/DSP_TU2/peripheral/clk/plib_clk.c ../src/config/DSP_TU2/peripheral/evic/plib_evic.c ../src/config/DSP_TU2/peripheral/gpio/plib_gpio.c ../src/config/DSP_TU2/peripheral/ocmp/plib_ocmp1.c ../src/config/DSP_TU2/peripheral/spi/spi_master/plib_spi1_master.c ../src/config/DSP_TU2/peripheral/spi/spi_master/plib_spi3_master.c ../src/config/DSP_TU2/peripheral/spi/spi_master/plib_spi2_master.c ../src/config/DSP_TU2/peripheral/tmr/plib_tmr2.c ../src/config/DSP_TU2/peripheral/uart/plib_uart1.c ../src/config/DSP_TU2/peripheral/wdt/plib_wdt.c ../src/config/DSP_TU2/stdio/xc32_monitor.c ../src/config/DSP_TU2/initialization.c ../src/config/DSP_TU2/interrupts.c ../src/config/DSP_TU2/exceptions.c ../src/main.c ../src/AfskGen.c ../src/BaudotUart.c ../src/DynamicThreshold.c ../src/PwmAudioOut.c ../src/agc.c ../src/biquad.c ../src/dds.c ../src/display.c ../src/fifo16.c ../src/xyScope.c ../src/PollSwitchesLeds.c ../src/PollEncoder.c ../src/UserConfig.c ../src/filters.c ../src/AutostartKos.c ../src/ExtFlash.c ../src/CommandInterpreter.c ../src/fifo8.c ../src/Unifont.c ../src/menu.c ../src/PowerLineNoise.c ../src/winc1500/src/wf_asic.c ../src/winc1500/src/wf_hif.c ../src/winc1500/src/wf_ota.c ../src/winc1500/src/wf_socket.c ../src/winc1500/src/wf_spi.c ../src/winc1500/src/wf_spi_flash.c ../src/winc1500/src/wf_utils.c ../src/winc1500/src/wf_wifi.c
+SOURCEFILES=../src/config/DSP_TU2/peripheral/adchs/plib_adchs.c ../src/config/DSP_TU2/peripheral/clk/plib_clk.c ../src/config/DSP_TU2/peripheral/evic/plib_evic.c ../src/config/DSP_TU2/peripheral/gpio/plib_gpio.c ../src/config/DSP_TU2/peripheral/ocmp/plib_ocmp1.c ../src/config/DSP_TU2/peripheral/spi/spi_master/plib_spi1_master.c ../src/config/DSP_TU2/peripheral/spi/spi_master/plib_spi3_master.c ../src/config/DSP_TU2/peripheral/spi/spi_master/plib_spi2_master.c ../src/config/DSP_TU2/peripheral/tmr/plib_tmr2.c ../src/config/DSP_TU2/peripheral/uart/plib_uart1.c ../src/config/DSP_TU2/peripheral/wdt/plib_wdt.c ../src/config/DSP_TU2/stdio/xc32_monitor.c ../src/config/DSP_TU2/initialization.c ../src/config/DSP_TU2/interrupts.c ../src/config/DSP_TU2/exceptions.c ../src/winc1500/src/wf_asic.c ../src/winc1500/src/wf_hif.c ../src/winc1500/src/wf_ota.c ../src/winc1500/src/wf_socket.c ../src/winc1500/src/wf_spi.c ../src/winc1500/src/wf_spi_flash.c ../src/winc1500/src/wf_utils.c ../src/winc1500/src/wf_wifi.c ../src/winc1500/wf_mcu_driver_stub.c ../src/main.c ../src/AfskGen.c ../src/BaudotUart.c ../src/DynamicThreshold.c ../src/PwmAudioOut.c ../src/agc.c ../src/biquad.c ../src/dds.c ../src/display.c ../src/fifo16.c ../src/xyScope.c ../src/PollSwitchesLeds.c ../src/PollEncoder.c ../src/UserConfig.c ../src/filters.c ../src/AutostartKos.c ../src/ExtFlash.c ../src/CommandInterpreter.c ../src/fifo8.c ../src/Unifont.c ../src/menu.c ../src/PowerLineNoise.c
 
 
 
@@ -196,6 +196,60 @@ ${OBJECTDIR}/_ext/1994557280/exceptions.o: ../src/config/DSP_TU2/exceptions.c  .
 	@${RM} ${OBJECTDIR}/_ext/1994557280/exceptions.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1994557280/exceptions.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -O2 -I"../src" -I"../src/config/DSP_TU2" -I"../src/winc1500" -I"../src/winc1500/src" -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1994557280/exceptions.o.d" -o ${OBJECTDIR}/_ext/1994557280/exceptions.o ../src/config/DSP_TU2/exceptions.c    -DXPRJ_DSP_TU2=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	
+${OBJECTDIR}/_ext/1360932806/wf_asic.o: ../src/winc1500/src/wf_asic.c  .generated_files/flags/DSP_TU2/e6e4608a229c547bdf031aa855554e0b7297a59f .generated_files/flags/DSP_TU2/81bc5fc5a660e0b86762e654f4f91d7af1decfb7
+	@${MKDIR} "${OBJECTDIR}/_ext/1360932806" 
+	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_asic.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_asic.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -O2 -I"../src" -I"../src/config/DSP_TU2" -I"../src/winc1500" -I"../src/winc1500/src" -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360932806/wf_asic.o.d" -o ${OBJECTDIR}/_ext/1360932806/wf_asic.o ../src/winc1500/src/wf_asic.c    -DXPRJ_DSP_TU2=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	
+${OBJECTDIR}/_ext/1360932806/wf_hif.o: ../src/winc1500/src/wf_hif.c  .generated_files/flags/DSP_TU2/e531a3720670b9b8d7e236b01667521fe4e834c2 .generated_files/flags/DSP_TU2/81bc5fc5a660e0b86762e654f4f91d7af1decfb7
+	@${MKDIR} "${OBJECTDIR}/_ext/1360932806" 
+	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_hif.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_hif.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -O2 -I"../src" -I"../src/config/DSP_TU2" -I"../src/winc1500" -I"../src/winc1500/src" -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360932806/wf_hif.o.d" -o ${OBJECTDIR}/_ext/1360932806/wf_hif.o ../src/winc1500/src/wf_hif.c    -DXPRJ_DSP_TU2=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	
+${OBJECTDIR}/_ext/1360932806/wf_ota.o: ../src/winc1500/src/wf_ota.c  .generated_files/flags/DSP_TU2/6bc3a7ccc01cd5c09a98ac4842b9441b6dd08d44 .generated_files/flags/DSP_TU2/81bc5fc5a660e0b86762e654f4f91d7af1decfb7
+	@${MKDIR} "${OBJECTDIR}/_ext/1360932806" 
+	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_ota.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_ota.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -O2 -I"../src" -I"../src/config/DSP_TU2" -I"../src/winc1500" -I"../src/winc1500/src" -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360932806/wf_ota.o.d" -o ${OBJECTDIR}/_ext/1360932806/wf_ota.o ../src/winc1500/src/wf_ota.c    -DXPRJ_DSP_TU2=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	
+${OBJECTDIR}/_ext/1360932806/wf_socket.o: ../src/winc1500/src/wf_socket.c  .generated_files/flags/DSP_TU2/6c0edcc1e2fa2deb4288e914e2b4ec4cd2cf568e .generated_files/flags/DSP_TU2/81bc5fc5a660e0b86762e654f4f91d7af1decfb7
+	@${MKDIR} "${OBJECTDIR}/_ext/1360932806" 
+	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_socket.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_socket.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -O2 -I"../src" -I"../src/config/DSP_TU2" -I"../src/winc1500" -I"../src/winc1500/src" -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360932806/wf_socket.o.d" -o ${OBJECTDIR}/_ext/1360932806/wf_socket.o ../src/winc1500/src/wf_socket.c    -DXPRJ_DSP_TU2=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	
+${OBJECTDIR}/_ext/1360932806/wf_spi.o: ../src/winc1500/src/wf_spi.c  .generated_files/flags/DSP_TU2/414cff1ba6b5ba71d3a50908a770df8bf45e005e .generated_files/flags/DSP_TU2/81bc5fc5a660e0b86762e654f4f91d7af1decfb7
+	@${MKDIR} "${OBJECTDIR}/_ext/1360932806" 
+	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_spi.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_spi.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -O2 -I"../src" -I"../src/config/DSP_TU2" -I"../src/winc1500" -I"../src/winc1500/src" -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360932806/wf_spi.o.d" -o ${OBJECTDIR}/_ext/1360932806/wf_spi.o ../src/winc1500/src/wf_spi.c    -DXPRJ_DSP_TU2=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	
+${OBJECTDIR}/_ext/1360932806/wf_spi_flash.o: ../src/winc1500/src/wf_spi_flash.c  .generated_files/flags/DSP_TU2/97dcc2cd45a41f8218243bf3ac1883e431911361 .generated_files/flags/DSP_TU2/81bc5fc5a660e0b86762e654f4f91d7af1decfb7
+	@${MKDIR} "${OBJECTDIR}/_ext/1360932806" 
+	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_spi_flash.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_spi_flash.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -O2 -I"../src" -I"../src/config/DSP_TU2" -I"../src/winc1500" -I"../src/winc1500/src" -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360932806/wf_spi_flash.o.d" -o ${OBJECTDIR}/_ext/1360932806/wf_spi_flash.o ../src/winc1500/src/wf_spi_flash.c    -DXPRJ_DSP_TU2=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	
+${OBJECTDIR}/_ext/1360932806/wf_utils.o: ../src/winc1500/src/wf_utils.c  .generated_files/flags/DSP_TU2/9ca5e4504544e1e00859e8dbdccb5b6f15fbd152 .generated_files/flags/DSP_TU2/81bc5fc5a660e0b86762e654f4f91d7af1decfb7
+	@${MKDIR} "${OBJECTDIR}/_ext/1360932806" 
+	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_utils.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_utils.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -O2 -I"../src" -I"../src/config/DSP_TU2" -I"../src/winc1500" -I"../src/winc1500/src" -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360932806/wf_utils.o.d" -o ${OBJECTDIR}/_ext/1360932806/wf_utils.o ../src/winc1500/src/wf_utils.c    -DXPRJ_DSP_TU2=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	
+${OBJECTDIR}/_ext/1360932806/wf_wifi.o: ../src/winc1500/src/wf_wifi.c  .generated_files/flags/DSP_TU2/a75262fadf540ab3c232de1227b5d76ce5b1bfa4 .generated_files/flags/DSP_TU2/81bc5fc5a660e0b86762e654f4f91d7af1decfb7
+	@${MKDIR} "${OBJECTDIR}/_ext/1360932806" 
+	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_wifi.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_wifi.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -O2 -I"../src" -I"../src/config/DSP_TU2" -I"../src/winc1500" -I"../src/winc1500/src" -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360932806/wf_wifi.o.d" -o ${OBJECTDIR}/_ext/1360932806/wf_wifi.o ../src/winc1500/src/wf_wifi.c    -DXPRJ_DSP_TU2=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	
+${OBJECTDIR}/_ext/1236603035/wf_mcu_driver_stub.o: ../src/winc1500/wf_mcu_driver_stub.c  .generated_files/flags/DSP_TU2/1e92dbc32cfb27615125d9f119ef0b082913960c .generated_files/flags/DSP_TU2/81bc5fc5a660e0b86762e654f4f91d7af1decfb7
+	@${MKDIR} "${OBJECTDIR}/_ext/1236603035" 
+	@${RM} ${OBJECTDIR}/_ext/1236603035/wf_mcu_driver_stub.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1236603035/wf_mcu_driver_stub.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -O2 -I"../src" -I"../src/config/DSP_TU2" -I"../src/winc1500" -I"../src/winc1500/src" -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1236603035/wf_mcu_driver_stub.o.d" -o ${OBJECTDIR}/_ext/1236603035/wf_mcu_driver_stub.o ../src/winc1500/wf_mcu_driver_stub.c    -DXPRJ_DSP_TU2=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
 	
 ${OBJECTDIR}/_ext/1360937237/main.o: ../src/main.c  .generated_files/flags/DSP_TU2/5c31228ff43bc94c93ef0ee0ddab83b866c65d05 .generated_files/flags/DSP_TU2/81bc5fc5a660e0b86762e654f4f91d7af1decfb7
 	@${MKDIR} "${OBJECTDIR}/_ext/1360937237" 
@@ -329,54 +383,6 @@ ${OBJECTDIR}/_ext/1360937237/PowerLineNoise.o: ../src/PowerLineNoise.c  .generat
 	@${RM} ${OBJECTDIR}/_ext/1360937237/PowerLineNoise.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -O2 -I"../src" -I"../src/config/DSP_TU2" -I"../src/winc1500" -I"../src/winc1500/src" -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360937237/PowerLineNoise.o.d" -o ${OBJECTDIR}/_ext/1360937237/PowerLineNoise.o ../src/PowerLineNoise.c    -DXPRJ_DSP_TU2=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
 	
-${OBJECTDIR}/_ext/1360932806/wf_asic.o: ../src/winc1500/src/wf_asic.c  .generated_files/flags/DSP_TU2/e6e4608a229c547bdf031aa855554e0b7297a59f .generated_files/flags/DSP_TU2/81bc5fc5a660e0b86762e654f4f91d7af1decfb7
-	@${MKDIR} "${OBJECTDIR}/_ext/1360932806" 
-	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_asic.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_asic.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -O2 -I"../src" -I"../src/config/DSP_TU2" -I"../src/winc1500" -I"../src/winc1500/src" -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360932806/wf_asic.o.d" -o ${OBJECTDIR}/_ext/1360932806/wf_asic.o ../src/winc1500/src/wf_asic.c    -DXPRJ_DSP_TU2=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
-	
-${OBJECTDIR}/_ext/1360932806/wf_hif.o: ../src/winc1500/src/wf_hif.c  .generated_files/flags/DSP_TU2/e531a3720670b9b8d7e236b01667521fe4e834c2 .generated_files/flags/DSP_TU2/81bc5fc5a660e0b86762e654f4f91d7af1decfb7
-	@${MKDIR} "${OBJECTDIR}/_ext/1360932806" 
-	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_hif.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_hif.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -O2 -I"../src" -I"../src/config/DSP_TU2" -I"../src/winc1500" -I"../src/winc1500/src" -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360932806/wf_hif.o.d" -o ${OBJECTDIR}/_ext/1360932806/wf_hif.o ../src/winc1500/src/wf_hif.c    -DXPRJ_DSP_TU2=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
-	
-${OBJECTDIR}/_ext/1360932806/wf_ota.o: ../src/winc1500/src/wf_ota.c  .generated_files/flags/DSP_TU2/6bc3a7ccc01cd5c09a98ac4842b9441b6dd08d44 .generated_files/flags/DSP_TU2/81bc5fc5a660e0b86762e654f4f91d7af1decfb7
-	@${MKDIR} "${OBJECTDIR}/_ext/1360932806" 
-	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_ota.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_ota.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -O2 -I"../src" -I"../src/config/DSP_TU2" -I"../src/winc1500" -I"../src/winc1500/src" -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360932806/wf_ota.o.d" -o ${OBJECTDIR}/_ext/1360932806/wf_ota.o ../src/winc1500/src/wf_ota.c    -DXPRJ_DSP_TU2=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
-	
-${OBJECTDIR}/_ext/1360932806/wf_socket.o: ../src/winc1500/src/wf_socket.c  .generated_files/flags/DSP_TU2/6c0edcc1e2fa2deb4288e914e2b4ec4cd2cf568e .generated_files/flags/DSP_TU2/81bc5fc5a660e0b86762e654f4f91d7af1decfb7
-	@${MKDIR} "${OBJECTDIR}/_ext/1360932806" 
-	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_socket.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_socket.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -O2 -I"../src" -I"../src/config/DSP_TU2" -I"../src/winc1500" -I"../src/winc1500/src" -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360932806/wf_socket.o.d" -o ${OBJECTDIR}/_ext/1360932806/wf_socket.o ../src/winc1500/src/wf_socket.c    -DXPRJ_DSP_TU2=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
-	
-${OBJECTDIR}/_ext/1360932806/wf_spi.o: ../src/winc1500/src/wf_spi.c  .generated_files/flags/DSP_TU2/414cff1ba6b5ba71d3a50908a770df8bf45e005e .generated_files/flags/DSP_TU2/81bc5fc5a660e0b86762e654f4f91d7af1decfb7
-	@${MKDIR} "${OBJECTDIR}/_ext/1360932806" 
-	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_spi.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_spi.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -O2 -I"../src" -I"../src/config/DSP_TU2" -I"../src/winc1500" -I"../src/winc1500/src" -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360932806/wf_spi.o.d" -o ${OBJECTDIR}/_ext/1360932806/wf_spi.o ../src/winc1500/src/wf_spi.c    -DXPRJ_DSP_TU2=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
-	
-${OBJECTDIR}/_ext/1360932806/wf_spi_flash.o: ../src/winc1500/src/wf_spi_flash.c  .generated_files/flags/DSP_TU2/97dcc2cd45a41f8218243bf3ac1883e431911361 .generated_files/flags/DSP_TU2/81bc5fc5a660e0b86762e654f4f91d7af1decfb7
-	@${MKDIR} "${OBJECTDIR}/_ext/1360932806" 
-	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_spi_flash.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_spi_flash.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -O2 -I"../src" -I"../src/config/DSP_TU2" -I"../src/winc1500" -I"../src/winc1500/src" -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360932806/wf_spi_flash.o.d" -o ${OBJECTDIR}/_ext/1360932806/wf_spi_flash.o ../src/winc1500/src/wf_spi_flash.c    -DXPRJ_DSP_TU2=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
-	
-${OBJECTDIR}/_ext/1360932806/wf_utils.o: ../src/winc1500/src/wf_utils.c  .generated_files/flags/DSP_TU2/9ca5e4504544e1e00859e8dbdccb5b6f15fbd152 .generated_files/flags/DSP_TU2/81bc5fc5a660e0b86762e654f4f91d7af1decfb7
-	@${MKDIR} "${OBJECTDIR}/_ext/1360932806" 
-	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_utils.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_utils.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -O2 -I"../src" -I"../src/config/DSP_TU2" -I"../src/winc1500" -I"../src/winc1500/src" -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360932806/wf_utils.o.d" -o ${OBJECTDIR}/_ext/1360932806/wf_utils.o ../src/winc1500/src/wf_utils.c    -DXPRJ_DSP_TU2=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
-	
-${OBJECTDIR}/_ext/1360932806/wf_wifi.o: ../src/winc1500/src/wf_wifi.c  .generated_files/flags/DSP_TU2/a75262fadf540ab3c232de1227b5d76ce5b1bfa4 .generated_files/flags/DSP_TU2/81bc5fc5a660e0b86762e654f4f91d7af1decfb7
-	@${MKDIR} "${OBJECTDIR}/_ext/1360932806" 
-	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_wifi.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_wifi.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE) -g -D__DEBUG -D__MPLAB_DEBUGGER_PK3=1  -fframe-base-loclist  -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -O2 -I"../src" -I"../src/config/DSP_TU2" -I"../src/winc1500" -I"../src/winc1500/src" -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360932806/wf_wifi.o.d" -o ${OBJECTDIR}/_ext/1360932806/wf_wifi.o ../src/winc1500/src/wf_wifi.c    -DXPRJ_DSP_TU2=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
-	
 else
 ${OBJECTDIR}/_ext/302168295/plib_adchs.o: ../src/config/DSP_TU2/peripheral/adchs/plib_adchs.c  .generated_files/flags/DSP_TU2/bac09279a5e757546afd778227a56d9c2f73ec90 .generated_files/flags/DSP_TU2/81bc5fc5a660e0b86762e654f4f91d7af1decfb7
 	@${MKDIR} "${OBJECTDIR}/_ext/302168295" 
@@ -467,6 +473,60 @@ ${OBJECTDIR}/_ext/1994557280/exceptions.o: ../src/config/DSP_TU2/exceptions.c  .
 	@${RM} ${OBJECTDIR}/_ext/1994557280/exceptions.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1994557280/exceptions.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -O2 -I"../src" -I"../src/config/DSP_TU2" -I"../src/winc1500" -I"../src/winc1500/src" -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1994557280/exceptions.o.d" -o ${OBJECTDIR}/_ext/1994557280/exceptions.o ../src/config/DSP_TU2/exceptions.c    -DXPRJ_DSP_TU2=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	
+${OBJECTDIR}/_ext/1360932806/wf_asic.o: ../src/winc1500/src/wf_asic.c  .generated_files/flags/DSP_TU2/dbcbba36590a35064e1ea20da599c8ee12f1bec6 .generated_files/flags/DSP_TU2/81bc5fc5a660e0b86762e654f4f91d7af1decfb7
+	@${MKDIR} "${OBJECTDIR}/_ext/1360932806" 
+	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_asic.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_asic.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -O2 -I"../src" -I"../src/config/DSP_TU2" -I"../src/winc1500" -I"../src/winc1500/src" -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360932806/wf_asic.o.d" -o ${OBJECTDIR}/_ext/1360932806/wf_asic.o ../src/winc1500/src/wf_asic.c    -DXPRJ_DSP_TU2=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	
+${OBJECTDIR}/_ext/1360932806/wf_hif.o: ../src/winc1500/src/wf_hif.c  .generated_files/flags/DSP_TU2/63d592c4a71a1ca1078d5953dddf215f5ccf4a2e .generated_files/flags/DSP_TU2/81bc5fc5a660e0b86762e654f4f91d7af1decfb7
+	@${MKDIR} "${OBJECTDIR}/_ext/1360932806" 
+	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_hif.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_hif.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -O2 -I"../src" -I"../src/config/DSP_TU2" -I"../src/winc1500" -I"../src/winc1500/src" -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360932806/wf_hif.o.d" -o ${OBJECTDIR}/_ext/1360932806/wf_hif.o ../src/winc1500/src/wf_hif.c    -DXPRJ_DSP_TU2=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	
+${OBJECTDIR}/_ext/1360932806/wf_ota.o: ../src/winc1500/src/wf_ota.c  .generated_files/flags/DSP_TU2/556e073d3286ad2c882fdbb7c6e9d04f6a62d380 .generated_files/flags/DSP_TU2/81bc5fc5a660e0b86762e654f4f91d7af1decfb7
+	@${MKDIR} "${OBJECTDIR}/_ext/1360932806" 
+	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_ota.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_ota.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -O2 -I"../src" -I"../src/config/DSP_TU2" -I"../src/winc1500" -I"../src/winc1500/src" -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360932806/wf_ota.o.d" -o ${OBJECTDIR}/_ext/1360932806/wf_ota.o ../src/winc1500/src/wf_ota.c    -DXPRJ_DSP_TU2=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	
+${OBJECTDIR}/_ext/1360932806/wf_socket.o: ../src/winc1500/src/wf_socket.c  .generated_files/flags/DSP_TU2/fd08622aeaca740154bade6ce2d753e763a2895 .generated_files/flags/DSP_TU2/81bc5fc5a660e0b86762e654f4f91d7af1decfb7
+	@${MKDIR} "${OBJECTDIR}/_ext/1360932806" 
+	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_socket.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_socket.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -O2 -I"../src" -I"../src/config/DSP_TU2" -I"../src/winc1500" -I"../src/winc1500/src" -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360932806/wf_socket.o.d" -o ${OBJECTDIR}/_ext/1360932806/wf_socket.o ../src/winc1500/src/wf_socket.c    -DXPRJ_DSP_TU2=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	
+${OBJECTDIR}/_ext/1360932806/wf_spi.o: ../src/winc1500/src/wf_spi.c  .generated_files/flags/DSP_TU2/d07b0b8082d6c26d559a6e7ef78f7d2e362f86dc .generated_files/flags/DSP_TU2/81bc5fc5a660e0b86762e654f4f91d7af1decfb7
+	@${MKDIR} "${OBJECTDIR}/_ext/1360932806" 
+	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_spi.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_spi.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -O2 -I"../src" -I"../src/config/DSP_TU2" -I"../src/winc1500" -I"../src/winc1500/src" -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360932806/wf_spi.o.d" -o ${OBJECTDIR}/_ext/1360932806/wf_spi.o ../src/winc1500/src/wf_spi.c    -DXPRJ_DSP_TU2=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	
+${OBJECTDIR}/_ext/1360932806/wf_spi_flash.o: ../src/winc1500/src/wf_spi_flash.c  .generated_files/flags/DSP_TU2/b4b2d7d88fcc3c3e8333b5b3b8fafa33012e9c .generated_files/flags/DSP_TU2/81bc5fc5a660e0b86762e654f4f91d7af1decfb7
+	@${MKDIR} "${OBJECTDIR}/_ext/1360932806" 
+	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_spi_flash.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_spi_flash.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -O2 -I"../src" -I"../src/config/DSP_TU2" -I"../src/winc1500" -I"../src/winc1500/src" -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360932806/wf_spi_flash.o.d" -o ${OBJECTDIR}/_ext/1360932806/wf_spi_flash.o ../src/winc1500/src/wf_spi_flash.c    -DXPRJ_DSP_TU2=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	
+${OBJECTDIR}/_ext/1360932806/wf_utils.o: ../src/winc1500/src/wf_utils.c  .generated_files/flags/DSP_TU2/44f81dcc2b9e26952009165e1847decd361ffa51 .generated_files/flags/DSP_TU2/81bc5fc5a660e0b86762e654f4f91d7af1decfb7
+	@${MKDIR} "${OBJECTDIR}/_ext/1360932806" 
+	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_utils.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_utils.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -O2 -I"../src" -I"../src/config/DSP_TU2" -I"../src/winc1500" -I"../src/winc1500/src" -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360932806/wf_utils.o.d" -o ${OBJECTDIR}/_ext/1360932806/wf_utils.o ../src/winc1500/src/wf_utils.c    -DXPRJ_DSP_TU2=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	
+${OBJECTDIR}/_ext/1360932806/wf_wifi.o: ../src/winc1500/src/wf_wifi.c  .generated_files/flags/DSP_TU2/cee9996be4a455c0d20f503dc9a0f20dd99adafd .generated_files/flags/DSP_TU2/81bc5fc5a660e0b86762e654f4f91d7af1decfb7
+	@${MKDIR} "${OBJECTDIR}/_ext/1360932806" 
+	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_wifi.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_wifi.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -O2 -I"../src" -I"../src/config/DSP_TU2" -I"../src/winc1500" -I"../src/winc1500/src" -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360932806/wf_wifi.o.d" -o ${OBJECTDIR}/_ext/1360932806/wf_wifi.o ../src/winc1500/src/wf_wifi.c    -DXPRJ_DSP_TU2=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
+	
+${OBJECTDIR}/_ext/1236603035/wf_mcu_driver_stub.o: ../src/winc1500/wf_mcu_driver_stub.c  .generated_files/flags/DSP_TU2/f7820be36fff3b7e21cad55b8cb9f507b911163c .generated_files/flags/DSP_TU2/81bc5fc5a660e0b86762e654f4f91d7af1decfb7
+	@${MKDIR} "${OBJECTDIR}/_ext/1236603035" 
+	@${RM} ${OBJECTDIR}/_ext/1236603035/wf_mcu_driver_stub.o.d 
+	@${RM} ${OBJECTDIR}/_ext/1236603035/wf_mcu_driver_stub.o 
+	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -O2 -I"../src" -I"../src/config/DSP_TU2" -I"../src/winc1500" -I"../src/winc1500/src" -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1236603035/wf_mcu_driver_stub.o.d" -o ${OBJECTDIR}/_ext/1236603035/wf_mcu_driver_stub.o ../src/winc1500/wf_mcu_driver_stub.c    -DXPRJ_DSP_TU2=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
 	
 ${OBJECTDIR}/_ext/1360937237/main.o: ../src/main.c  .generated_files/flags/DSP_TU2/a68b8e1035bfe6d55caf0b3d4aba4939c70ddadf .generated_files/flags/DSP_TU2/81bc5fc5a660e0b86762e654f4f91d7af1decfb7
 	@${MKDIR} "${OBJECTDIR}/_ext/1360937237" 
@@ -599,54 +659,6 @@ ${OBJECTDIR}/_ext/1360937237/PowerLineNoise.o: ../src/PowerLineNoise.c  .generat
 	@${RM} ${OBJECTDIR}/_ext/1360937237/PowerLineNoise.o.d 
 	@${RM} ${OBJECTDIR}/_ext/1360937237/PowerLineNoise.o 
 	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -O2 -I"../src" -I"../src/config/DSP_TU2" -I"../src/winc1500" -I"../src/winc1500/src" -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360937237/PowerLineNoise.o.d" -o ${OBJECTDIR}/_ext/1360937237/PowerLineNoise.o ../src/PowerLineNoise.c    -DXPRJ_DSP_TU2=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
-	
-${OBJECTDIR}/_ext/1360932806/wf_asic.o: ../src/winc1500/src/wf_asic.c  .generated_files/flags/DSP_TU2/dbcbba36590a35064e1ea20da599c8ee12f1bec6 .generated_files/flags/DSP_TU2/81bc5fc5a660e0b86762e654f4f91d7af1decfb7
-	@${MKDIR} "${OBJECTDIR}/_ext/1360932806" 
-	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_asic.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_asic.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -O2 -I"../src" -I"../src/config/DSP_TU2" -I"../src/winc1500" -I"../src/winc1500/src" -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360932806/wf_asic.o.d" -o ${OBJECTDIR}/_ext/1360932806/wf_asic.o ../src/winc1500/src/wf_asic.c    -DXPRJ_DSP_TU2=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
-	
-${OBJECTDIR}/_ext/1360932806/wf_hif.o: ../src/winc1500/src/wf_hif.c  .generated_files/flags/DSP_TU2/63d592c4a71a1ca1078d5953dddf215f5ccf4a2e .generated_files/flags/DSP_TU2/81bc5fc5a660e0b86762e654f4f91d7af1decfb7
-	@${MKDIR} "${OBJECTDIR}/_ext/1360932806" 
-	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_hif.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_hif.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -O2 -I"../src" -I"../src/config/DSP_TU2" -I"../src/winc1500" -I"../src/winc1500/src" -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360932806/wf_hif.o.d" -o ${OBJECTDIR}/_ext/1360932806/wf_hif.o ../src/winc1500/src/wf_hif.c    -DXPRJ_DSP_TU2=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
-	
-${OBJECTDIR}/_ext/1360932806/wf_ota.o: ../src/winc1500/src/wf_ota.c  .generated_files/flags/DSP_TU2/556e073d3286ad2c882fdbb7c6e9d04f6a62d380 .generated_files/flags/DSP_TU2/81bc5fc5a660e0b86762e654f4f91d7af1decfb7
-	@${MKDIR} "${OBJECTDIR}/_ext/1360932806" 
-	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_ota.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_ota.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -O2 -I"../src" -I"../src/config/DSP_TU2" -I"../src/winc1500" -I"../src/winc1500/src" -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360932806/wf_ota.o.d" -o ${OBJECTDIR}/_ext/1360932806/wf_ota.o ../src/winc1500/src/wf_ota.c    -DXPRJ_DSP_TU2=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
-	
-${OBJECTDIR}/_ext/1360932806/wf_socket.o: ../src/winc1500/src/wf_socket.c  .generated_files/flags/DSP_TU2/fd08622aeaca740154bade6ce2d753e763a2895 .generated_files/flags/DSP_TU2/81bc5fc5a660e0b86762e654f4f91d7af1decfb7
-	@${MKDIR} "${OBJECTDIR}/_ext/1360932806" 
-	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_socket.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_socket.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -O2 -I"../src" -I"../src/config/DSP_TU2" -I"../src/winc1500" -I"../src/winc1500/src" -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360932806/wf_socket.o.d" -o ${OBJECTDIR}/_ext/1360932806/wf_socket.o ../src/winc1500/src/wf_socket.c    -DXPRJ_DSP_TU2=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
-	
-${OBJECTDIR}/_ext/1360932806/wf_spi.o: ../src/winc1500/src/wf_spi.c  .generated_files/flags/DSP_TU2/d07b0b8082d6c26d559a6e7ef78f7d2e362f86dc .generated_files/flags/DSP_TU2/81bc5fc5a660e0b86762e654f4f91d7af1decfb7
-	@${MKDIR} "${OBJECTDIR}/_ext/1360932806" 
-	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_spi.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_spi.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -O2 -I"../src" -I"../src/config/DSP_TU2" -I"../src/winc1500" -I"../src/winc1500/src" -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360932806/wf_spi.o.d" -o ${OBJECTDIR}/_ext/1360932806/wf_spi.o ../src/winc1500/src/wf_spi.c    -DXPRJ_DSP_TU2=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
-	
-${OBJECTDIR}/_ext/1360932806/wf_spi_flash.o: ../src/winc1500/src/wf_spi_flash.c  .generated_files/flags/DSP_TU2/b4b2d7d88fcc3c3e8333b5b3b8fafa33012e9c .generated_files/flags/DSP_TU2/81bc5fc5a660e0b86762e654f4f91d7af1decfb7
-	@${MKDIR} "${OBJECTDIR}/_ext/1360932806" 
-	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_spi_flash.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_spi_flash.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -O2 -I"../src" -I"../src/config/DSP_TU2" -I"../src/winc1500" -I"../src/winc1500/src" -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360932806/wf_spi_flash.o.d" -o ${OBJECTDIR}/_ext/1360932806/wf_spi_flash.o ../src/winc1500/src/wf_spi_flash.c    -DXPRJ_DSP_TU2=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
-	
-${OBJECTDIR}/_ext/1360932806/wf_utils.o: ../src/winc1500/src/wf_utils.c  .generated_files/flags/DSP_TU2/44f81dcc2b9e26952009165e1847decd361ffa51 .generated_files/flags/DSP_TU2/81bc5fc5a660e0b86762e654f4f91d7af1decfb7
-	@${MKDIR} "${OBJECTDIR}/_ext/1360932806" 
-	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_utils.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_utils.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -O2 -I"../src" -I"../src/config/DSP_TU2" -I"../src/winc1500" -I"../src/winc1500/src" -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360932806/wf_utils.o.d" -o ${OBJECTDIR}/_ext/1360932806/wf_utils.o ../src/winc1500/src/wf_utils.c    -DXPRJ_DSP_TU2=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
-	
-${OBJECTDIR}/_ext/1360932806/wf_wifi.o: ../src/winc1500/src/wf_wifi.c  .generated_files/flags/DSP_TU2/cee9996be4a455c0d20f503dc9a0f20dd99adafd .generated_files/flags/DSP_TU2/81bc5fc5a660e0b86762e654f4f91d7af1decfb7
-	@${MKDIR} "${OBJECTDIR}/_ext/1360932806" 
-	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_wifi.o.d 
-	@${RM} ${OBJECTDIR}/_ext/1360932806/wf_wifi.o 
-	${MP_CC}  $(MP_EXTRA_CC_PRE)  -g -x c -c -mprocessor=$(MP_PROCESSOR_OPTION)  -ffunction-sections -O2 -I"../src" -I"../src/config/DSP_TU2" -I"../src/winc1500" -I"../src/winc1500/src" -Werror -Wall -MP -MMD -MF "${OBJECTDIR}/_ext/1360932806/wf_wifi.o.d" -o ${OBJECTDIR}/_ext/1360932806/wf_wifi.o ../src/winc1500/src/wf_wifi.c    -DXPRJ_DSP_TU2=$(CND_CONF)    $(COMPARISON_BUILD)  -mdfp="${DFP_DIR}"  
 	
 endif
 

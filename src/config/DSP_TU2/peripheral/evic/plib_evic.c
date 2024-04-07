@@ -44,6 +44,7 @@
 #include "plib_evic.h"
 
 
+EXT_INT_PIN_CALLBACK_OBJ extInt3CbObj;
 // *****************************************************************************
 // *****************************************************************************
 // Section: IRQ Implementation
@@ -56,10 +57,13 @@ void EVIC_Initialize( void )
 
     /* Set up priority and subpriority of enabled interrupts */
     IPC2SET = 0x400 | 0x0;  /* TIMER_2:  Priority 1 / Subpriority 0 */
+    IPC4SET = 0x40000 | 0x0;  /* EXTERNAL_3:  Priority 1 / Subpriority 0 */
     IPC28SET = 0x4 | 0x0;  /* UART1_FAULT:  Priority 1 / Subpriority 0 */
     IPC28SET = 0x400 | 0x0;  /* UART1_RX:  Priority 1 / Subpriority 0 */
     IPC28SET = 0x40000 | 0x0;  /* UART1_TX:  Priority 1 / Subpriority 0 */
 
+    /* Initialize External interrupt 3 callback object */
+    extInt3CbObj.callback = NULL;
 
 
     /* Configure Shadow Register Set */
@@ -139,6 +143,58 @@ void EVIC_INT_Restore( bool state )
     {
         /* restore the state of CP0 Status register before the disable occurred */
         __builtin_enable_interrupts();
+    }
+}
+
+void EVIC_ExternalInterruptEnable( EXTERNAL_INT_PIN extIntPin )
+{
+    IEC0SET = extIntPin;
+}
+
+void EVIC_ExternalInterruptDisable( EXTERNAL_INT_PIN extIntPin )
+{
+    IEC0CLR = extIntPin;
+}
+
+bool EVIC_ExternalInterruptCallbackRegister(
+    EXTERNAL_INT_PIN extIntPin,
+    const EXTERNAL_INT_PIN_CALLBACK callback,
+    uintptr_t context
+)
+{
+    bool status = true;
+    switch  (extIntPin)
+        {
+        case EXTERNAL_INT_3:
+            extInt3CbObj.callback = callback;
+            extInt3CbObj.context  = context;
+            break;
+        default:
+            status = false;
+            break;
+        }
+
+    return status;
+}
+
+
+// *****************************************************************************
+/* Function:
+    void EXTERNAL_3_InterruptHandler(void)
+
+  Summary:
+    Interrupt Handler for External Interrupt pin 3.
+
+  Remarks:
+	It is an internal function called from ISR, user should not call it directly.
+*/
+void EXTERNAL_3_InterruptHandler(void)
+{
+    IFS0CLR = _IFS0_INT3IF_MASK;
+
+    if(extInt3CbObj.callback != NULL)
+    {
+        extInt3CbObj.callback (EXTERNAL_INT_3, extInt3CbObj.context);
     }
 }
 

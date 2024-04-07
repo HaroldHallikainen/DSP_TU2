@@ -12,6 +12,7 @@
 #define FALSE 0
 
 extern volatile int Timer2TimeoutCounter;
+extern volatile uint32_t MillisecondCounter; // Advances every 1 ms. Used by WiFi
 extern int TimeoutCounterMin;              // Minimum timeout value to see if we are servicing audio on time
 extern int16_t FpPollCounter;                // Decrements at 8 kHz telling us when to poll switches and LEDs.
 extern   char StringBuf[100];

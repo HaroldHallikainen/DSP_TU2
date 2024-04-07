@@ -61,6 +61,7 @@
 
 
 void TIMER_2_InterruptHandler( void );
+void EXTERNAL_3_InterruptHandler( void );
 void UART1_FAULT_InterruptHandler( void );
 void UART1_RX_InterruptHandler( void );
 void UART1_TX_InterruptHandler( void );
@@ -71,6 +72,11 @@ void UART1_TX_InterruptHandler( void );
 void __ISR(_TIMER_2_VECTOR, ipl1SRS) TIMER_2_Handler (void)
 {
     TIMER_2_InterruptHandler();
+}
+
+void __ISR(_EXTERNAL_3_VECTOR, ipl1SRS) EXTERNAL_3_Handler (void)
+{
+    EXTERNAL_3_InterruptHandler();
 }
 
 void __ISR(_UART1_FAULT_VECTOR, ipl1SRS) UART1_FAULT_Handler (void)

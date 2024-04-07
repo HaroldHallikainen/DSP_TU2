@@ -62,6 +62,7 @@ static void MyTimer2Isr(uint32_t intCause, uintptr_t context);
 
 // Globals 
 volatile int Timer2TimeoutCounter=0; // Derive 8 kHz from timer 2 80 kHz - Decremented by MyTimer2Isr.
+volatile uint32_t MillisecondCounter=0; // Advances every 1 ms. Used by WiFi
 int TimeoutCounterMin=0;              // Minimum timeout value to see if we are servicing audio on time
 int16_t FpPollCounter=0;                // Decrements at 8 kHz telling us when to poll switches and LEDs.
 // Audio samples at various stages
@@ -291,7 +292,14 @@ static void MyTimer2Isr(uint32_t intCause, uintptr_t context){
     // Decrement a counter. Used to count 10 PWM cycles of 80 kHz to update duty cycle at 8 kHz
     // See https://microchipdeveloper.com/harmony3:pic32mzef-getting-started-training-module-step5
     // for info on interrupt callbacks.
+    static   int CountToMillisecond=0;   //counts 80 timeouts of the 80 kHz timer2 for 1 millisecond
     Timer2TimeoutCounter--;
+    if(CountToMillisecond==0){
+      CountToMillisecond=80;     // Come back in a millisecond
+      MillisecondCounter++;     // Advance the counter for wifi
+    }else{
+      CountToMillisecond--;     // Not a milliseond yet, drop counter
+    }
 }
 /*******************************************************************************
  End of File
