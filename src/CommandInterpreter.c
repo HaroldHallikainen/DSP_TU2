@@ -14,6 +14,9 @@
 #include "ExtFlash.h"
 #include "PowerLineNoise.h"
 #include "biquad.h"
+#include "wf_asic.h"                    // Access to wifi ChipId())
+#include "winc1500_api.h"           // nmi_get_rfrevid()
+
 
 //#define NumCommandBufs NumTcpSockets+3 // Separate command buffers for TCP connections (NumTcpSockets), RS232, ConfigFlash, and HTTPPOST
 #define NumCommandBufs 1 // Separate command buffers for different possible sources
@@ -55,6 +58,7 @@ char *TokenArray[MaxArgs];
 char tokens[4] = "\t\r|"; // tokens for strtok (tab, return) - Don't break on space. Allow it to be in a string arg. Pipe (|) added 6/21/13. hh
 char *NextToken;	// Pointer to next token in command buffer
 int ArgNum=0;                 // Argument number currently storing
+uint8_t mac_addr[6];       // WiFi MAC address used in WfMac
   StringBuf[0]=0;         // Will return stuff in StringBuf
   switch(data){
     default:                   // it was not backspace, escape, or cr
@@ -431,6 +435,17 @@ int ArgNum=0;                 // Argument number currently storing
           }else{
             sprintf(StringBuf,"%f\r\n>",UserConfig.LineFreq);
           }
+          break;
+        case 0xda9f04f4:    // wfChipId - Read the WiFi Chip ID
+          sprintf(StringBuf,"%x\r\n>",(unsigned int)GetChipId());
+          break;
+        case 0x5db8b8c6:    // WfRfRev - Get WiFi RF revision ID
+          sprintf(StringBuf,"%x\r\n>",  (unsigned int)nmi_get_rfrevid());
+          break;
+        case 0x589ce8a3:    //WfMac - Get the MAC address
+          m2m_wifi_get_mac_address(mac_addr);
+          sprintf(StringBuf,"%02X:%02X:%02X:%02X:%02X:%02X\r\n>",
+            mac_addr[0], mac_addr[1], mac_addr[2], mac_addr[3], mac_addr[4], mac_addr[5]);
           break;
       }
     }

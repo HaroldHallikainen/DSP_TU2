@@ -167,6 +167,8 @@
       </logicalFolder>
       <logicalFolder name="f3" displayName="stubs" projectFiles="true">
         <itemPath>../src/winc1500/wf_mcu_driver_stub.c</itemPath>
+        <itemPath>../src/winc1500/socket_event_stub.c</itemPath>
+        <itemPath>../src/winc1500/wifi_event_stub.c</itemPath>
       </logicalFolder>
       <itemPath>../src/main.c</itemPath>
       <itemPath>../src/AfskGen.c</itemPath>
