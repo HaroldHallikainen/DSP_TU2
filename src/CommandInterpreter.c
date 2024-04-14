@@ -447,6 +447,15 @@ uint8_t mac_addr[6];       // WiFi MAC address used in WfMac
           sprintf(StringBuf,"%02X:%02X:%02X:%02X:%02X:%02X\r\n>",
             mac_addr[0], mac_addr[1], mac_addr[2], mac_addr[3], mac_addr[4], mac_addr[5]);
           break;
+        case 0xb48b188e:    // WfScan - Look for access points
+          m2m_wifi_request_scan(M2M_WIFI_CH_ALL); // Request scan
+          sprintf(StringBuf,"Wifi Scan Started");
+          break;
+        case 0x57fa6c54:    // RYcount - Show how many Rs and Ys received, then reset counters
+          sprintf(StringBuf,"%u, %u\r\n>", Rcount, Ycount);
+          Rcount=0;
+          Ycount=0;
+          break;
       }
     }
   }
@@ -565,6 +574,9 @@ PrintRxReport                      Prints the number of received characters\r\n\
 PrintSavedConfig                   No parameters. Prints saved configuration.\r\n\
 Reset                              No parameters. Loops until WDT times out\r\n\
                                    (1.024 seconds), resetting system. \r\n\
+RYcount                            Prints the number of R characters received\r\n\
+                                   followed by the number of Y characters. Both\r\n\
+                                   counters are then reset.\r\n\
 SaveConfig                         No parameters. Saves the current\r\n\
                                    configuration to external flash to be loaded\r\n\
                                    on next power up.\r\n\

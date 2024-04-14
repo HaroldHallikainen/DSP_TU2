@@ -8,6 +8,8 @@
 
 uint32_t CharCount=0;   // How many good start bits we got
 uint32_t BadStopBitCount=0; // How many bad stop bits we got
+uint32_t Rcount=0;        // How many R characters we have received
+uint32_t Ycount=0;        // and how many Y characters we have received
 uint32_t SeqGoodChars=0; // Count how many good characters we got in sequence.
 Fifo8_t  *pAsciiTxFifo;  // Fifo for stuff not coming in uart
 
@@ -144,7 +146,9 @@ char BaudotUartRx(bool MS){
                 ErIndex=0;                  // Start from beginning again
               }
             }                           // Endif we are transmitting  
-          } // endif not null  
+          } // endif not null
+          if(result=='R') Rcount++;     // Count R characters
+          if(result=='Y') Ycount++;     // and count Y characters
           state=0;          // Go back to waiting for start
           break;
         case 8:         // Got framing error. Wait here for mark
