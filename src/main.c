@@ -68,7 +68,7 @@ int16_t FpPollCounter=0;                // Decrements at 8 kHz telling us when t
 // Audio samples at various stages
 uint16_t AdcSample;         // Raw sample from ADC. Converted to AdcSamplef for calculations.
 char StringBuf[100];        // Build strings here
-double samplef, TestSamplef, MarkSample, SpaceSample, MarkDemodOut, SpaceDemodOut, DiscrimOut, DdsOut, Threshold;  // These were originally in main but seemed to get corrupted
+double samplef, TestSamplef, MarkSample, SpaceSample, MarkDemodOut, SpaceDemodOut, DiscrimOut, DdsOut, Threshold, MsLevel;  // These were originally in main but seemed to get corrupted
 // What drives the audio output. Usually dds (AFSK tone), but others for debug.  
 // enum {NONE,ADC, AGC, INPUT_BPF, LIMITER, MARK_FILTER_OUT, SPACE_FILTER_OUT, MARK_DEMOD_OUT, SPACE_DEMOD_OUT, DISCRIM, DDS, THRESHOLD, DISCRIM_LESS_THRESHOLD} AudioOut=DDS;
 AudioOut_t AudioOut=DDS;
@@ -93,10 +93,9 @@ uint32_t MarkHoldReleaseSamples=8000;  // How many samples to disable mark hold 
 
 int main ( void ){
   int n;
+  int DebugCount=0;
   uint32_t n32;
-  int MarkHoldTimer=0;        // How long 'til we mark hold
   int OldTx=0;                // Watch for TX/RX change
-  int TxRxHoldoffSamples=8000;  // Count down timer to enable demod
   uint8_t RxChar;
   WDT_Clear();           // Clear WDT. Prescale is 1024 for timeout in 1.024 seconds
   /* Initialize all modules */
@@ -195,20 +194,14 @@ int main ( void ){
       if(AudioOut==SPACE_DEMOD_OUT) TestSamplef=SpaceDemodOut;
              // DiscrimOut is difference between LPF of full wave rectified of mark and space BPFs
       DiscrimOut=MarkDemodOut-SpaceDemodOut;
-      if(DiscrimOut-Threshold>UserConfig.MarkHoldThresh){  // we have mark instead of space or noise
-        if(TX_LED_Get()){
-          MarkHoldTimer=0;        // Don't set mark hold timeout during tx
-          TxRxHoldoffSamples=(int) (8000*UserConfig.TxRxHoldoff);   // Set TxRx countdown timer
-        }else{                              // In receive. Hold off mark hold if above threshold and not in TxRx transition.
-          if(0==TxRxHoldoffSamples){          // Tx/Rx transition timed out
-            MarkHoldTimer=MarkHoldReleaseSamples;   // Disable mark hold for this many samples
-          }else{
-            TxRxHoldoffSamples--;             // Not timed out yet. Decrement counter
-          }  
-        }  
+      MsLevel=BiQuad(max(MarkDemodOut,SpaceDemodOut),MsLevelLpf);
+      if(DebugCount>=8000){
+        sprintf(StringBuf,"%f\r\n",MsLevel);
+        PrintString(StringBuf);
+        DebugCount=0;
       }else{
-        if(MarkHoldTimer>0) MarkHoldTimer--;
-      } 
+        DebugCount++;
+      }
       if(AudioOut==DISCRIM) TestSamplef=DiscrimOut;
       if(AudioOut==THRESHOLD) TestSamplef=Threshold;
       if(AudioOut==DISCRIM_LESS_THRESHOLD) TestSamplef=DiscrimOut-Threshold;
@@ -231,25 +224,22 @@ int main ( void ){
         PTT_Set();          // Close PTT relay
       }else{                  // Not in tx, let received data key loop
         PTT_Clear();          // Release PTT relay
-        if(MarkHoldTimer>0){     // Not in mark hold, key loop
+        if(MsLevel>UserConfig.MarkHoldThresh){     // Not in mark hold, key loop
           if((DiscrimOut-Threshold)>=0){      // Mark
             LOOP_KEY_Set();     // Loop switch on
             BaudotUartRx(1);
           }else{                  // Space      
-            if(AUTOSTART_LED_Get() && (0==MOTOR_LED_Get())){  // If autostart enabled but motor not,
-              LOOP_KEY_Set();     // Keep loop in mark
-            }else{                // Not autostart or autostart with motor running, key loop
-              LOOP_KEY_Clear();     // Loop switch off
-            }  
+            LOOP_KEY_Clear();
             BaudotUartRx(0);
           } 
         }else{
-          LOOP_KEY_Set();     // Mark hold timed out, so hold mark
+          LOOP_KEY_Set();     // Signal below threshold Mark Hold.
         }
       }       // end else not in transmit 
+
       BaudotUartTx();     // UART data to baudot to BaudotUartTxOut. Run in both
                           // tx and rx so KOS works.
-      AutostartKos(DiscrimOut);       // Handle autostart and Keyboard Operated Send only in mark
+      AutostartKos(MsLevel);       // Handle autostart and Keyboard Operated Send
       if(AudioOut==DDS) TestSamplef=DdsOut*DdsTxGain; // Output DDS with equalization by DdsTxGain
       AudioPwmSet(TestSamplef);   // Output selected test signal or DDS
     } // endif Timer2TimeoutCounter
@@ -316,3 +306,11 @@ void PrintChar(char data){
   UART1_Write((uint8_t*)&data,1); // Send to uart fofp
 }
 
+double max(double x, double y){
+  // Return the maximum value
+  if(x>y){
+    return(x);
+  }else{
+    return(y);
+  }
+}

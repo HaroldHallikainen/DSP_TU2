@@ -67,7 +67,7 @@ char MenuText[][8][17]={
   { // MenuText[2] - Menu 3 Mark Hold
     " Mark Hold Menu ",
     "Threshold       ",        
-    "Disable Secs    ",
+    "                ",
     "                ",
     "                ",
     "                ",
@@ -436,7 +436,7 @@ void menu03(void){  // (Mark Hold)
     if(adjusting==0){           // Not adjusting, change lines
       MenuSelection+=EncoderCount;    // Change selected line
       if(MenuSelection<0) MenuSelection=6;  // Wrap around
-      if(MenuSelection==2) MenuSelection=6;  // Skip blank lines
+      if(MenuSelection==1) MenuSelection=6;  // Skip blank lines
       if(MenuSelection==5) MenuSelection=1;
       MenuSelection=MenuSelection%7;  // Wrap on overflow
       EncoderCount=0;
@@ -451,6 +451,7 @@ void menu03(void){  // (Mark Hold)
           sprintf(StringBuf,"\f\n\017Threshold  \016%.3f",parameter);
           DisplayString(StringBuf); // Send updated line
           break;
+#if 0    
         case 1:                       // Adjusting hold time
           #undef parameter 
           #define parameter UserConfig.MarkHoldDisableSecs
@@ -460,6 +461,7 @@ void menu03(void){  // (Mark Hold)
           sprintf(StringBuf,"\f\n\n\017Disable Secs \016%.1f",parameter);
           DisplayString(StringBuf); // Send updated line        
           break;
+#endif          
       }
     }  
   }
@@ -479,6 +481,7 @@ void menu03(void){  // (Mark Hold)
           }
           DisplayString(StringBuf);
           break;              
+#if 0
         case 1:                       // Release Time. Rewrite line with portion highlighted. Use \f\n\n to get to third line
           #undef parameter
           #define parameter UserConfig.MarkHoldDisableSecs
@@ -490,7 +493,8 @@ void menu03(void){  // (Mark Hold)
             sprintf(StringBuf,"\f\n\n\016Disable Secs \017%.1f",parameter);           
           }
           DisplayString(StringBuf);
-          break;              
+          break; 
+#endif          
         case 6:                     // Exit
           MenuNumber=1;             // Back to first menu
           MenuSelection=6;          // Point to exit in case they want to exit all the way

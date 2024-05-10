@@ -18,6 +18,7 @@ biquad *SpaceFilter[NumBpf]; // Audio BPF for space
 biquad *MarkDataFilter;     // Mark LPF after absolute value "full wave rectification" 
 biquad *SpaceDataFilter;
 biquad *InputBpf;
+biquad *MsLevelLpf;         // Low pass filter used to get the level of both mark and space    
 double MarkFreq, SpaceFreq;
 
 void FiltersInit(void){
@@ -40,6 +41,7 @@ void FiltersInit(void){
   MarkDataFilter=BiQuad_new(LPF, 0.0, UserConfig.DataLpfBwBrMult*UserConfig.BaudRate, 8000.0, 0.707 ); // After rectification data LPF. Cutoff same as baud rate
   SpaceDataFilter=BiQuad_new(LPF, 0.0, UserConfig.DataLpfBwBrMult*UserConfig.BaudRate, 8000.0, 0.707 );
   InputBpf=BiQuad_new(BPF,0.0,InputBpfFreq, 8000.0, InputBpfFreq/InputBpfBW);  // Calculate Q from freq/bw
+  MsLevelLpf=BiQuad_new(LPF,0.0,0.5,8000.0,0.707);       // 0.5 Hz LPF detects max of mark/space level
 }
 
 void PollShiftMarkHi(void){

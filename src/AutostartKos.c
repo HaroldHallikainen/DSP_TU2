@@ -13,9 +13,10 @@
 
 
 
-void AutostartKos(double discrim){
-  // Pass in discriminator level. We will start motor if discrim is above threshold for
-  // at least 2 bit times. For KOS, a lockout timer is set whenever the loop is
+void AutostartKos(double MsLevel){
+  // Pass in net mark space level. We will start motor if discrim is above 
+  // the Mark Hold threshold.
+  // For KOS, a lockout timer is set whenever the loop is
   // keyed by the demodulator. This prevents triggering KOS on loop current interruptions 
   // due to received data. A lockout timer is required instead of just ignoring loop current
   // interruptions when the demodulator keys the loop since there is a slight delay between
@@ -29,7 +30,7 @@ void AutostartKos(double discrim){
     AutostartCounter=8000*UserConfig.AutostartShutdownSeconds;
   }else{                              // Not transmitting        
     if(1==AUTOSTART_LED_Get()){         // Autostart is enabled
-      if((discrim>UserConfig.AutostartThresh)&&(SeqGoodChars>=UserConfig.AutostartSeqGoodChars)){ // above threshold and good characters, reload counter
+      if((MsLevel>UserConfig.AutostartThresh)&&(SeqGoodChars>=UserConfig.AutostartSeqGoodChars)){ // above threshold and good characters, reload counter
         AutostartCounter=8000*UserConfig.AutostartShutdownSeconds;
       }else{
         if(0!=AutostartCounter){

@@ -32,7 +32,7 @@ extern double SpaceFreq;
 
 void PrintString(char *string);     // Send the string to UART1 to USB.
 void PrintChar(char data);          // Print a character
- 
+double max(double x, double y);     // Return the maximum value 
 
 
 #ifdef	__cplusplus
