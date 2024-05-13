@@ -24,7 +24,7 @@ build/DSP_TU2/debug/_ext/1360937237/main.o: ../src/main.c \
  ../src/PollSwitchesLeds.h ../src/PollEncoder.h ../src/UserConfig.h \
  ../src/filters.h ../src/AutostartKos.h ../src/ExtFlash.h \
  ../src/CommandInterpreter.h ../src/Unifont.h ../src/menu.h \
- ../src/PowerLineNoise.h ../src/MarkHold.h
+ ../src/PowerLineNoise.h
 
 ../src/config/DSP_TU2/definitions.h:
 
@@ -105,5 +105,3 @@ build/DSP_TU2/debug/_ext/1360937237/main.o: ../src/main.c \
 ../src/menu.h:
 
 ../src/PowerLineNoise.h:
-
-../src/MarkHold.h:

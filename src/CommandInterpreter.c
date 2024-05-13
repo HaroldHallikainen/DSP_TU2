@@ -344,6 +344,7 @@ uint8_t mac_addr[6];       // WiFi MAC address used in WfMac
             sprintf(StringBuf,"%d\r\n>",UserConfig.AutostartSeqGoodChars);
           }
           break;
+#if 0   // Remove this command  
         case 0x2c9f735:   // MarkHoldDisableSecs
           if(2==ArgNum){  // Set the time
             UserConfig.MarkHoldDisableSecs=atof(TokenArray[1]);
@@ -353,6 +354,7 @@ uint8_t mac_addr[6];       // WiFi MAC address used in WfMac
             sprintf(StringBuf,"%f\r\n>",UserConfig.MarkHoldDisableSecs);
           }
           break;
+#endif
         case 0x4415043:   //DTC
           if(2==ArgNum){
             UserConfig.DTC=atoi(TokenArray[1]); // Enable or disable dynamic threshold control
@@ -425,6 +427,14 @@ uint8_t mac_addr[6];       // WiFi MAC address used in WfMac
             PlnPrintCount=1;
           }  
           break;
+        case 0x5482ccbc:     // MsLevel - Show average mark and space level. 
+          if(2==ArgNum){
+            MsLevelPrintCount=atoi(TokenArray[1]);  // Get how many times to print
+            if(MsLevelPrintCount<0) MsLevelPrintCount=0;  // Disallow negative
+          }else{              // No count specified, use 1
+            MsLevelPrintCount=1;
+          }  
+          break;          
         case 0x3049d8c1:      //LineFreq set line frequency for power line noise measurement
           if(2==ArgNum){
             UserConfig.LineFreq=atof(TokenArray[1]);
@@ -533,15 +543,14 @@ MarkHoldThresh            0.3      Sustained discriminator levels below this\r\n
                                    threshold put the demodulator in mark to\r\n\
                                    avoid printing on noise. If the Input LPF is\r\n\
                                    enabled, this is typically increased to 0.5\r\n\
-MarkHoldDisableSecs       2.0      How many seconds to disable mark hold after\r\n\
-                                   receiving mark above MarkHoldThresh. This\r\n\
-                                   allows a higher threshold to prevent noise\r\n\
-                                   from printing when no signal present, but\r\n\
-                                   keeps mark hold from interfering with\r\n\
-                                   printing during a fade.\r\n\
 modem                              No parameters. Switches USB terminal to the\r\n\
                                    Baudot UART to transmit and receive data. ESC\r\n\
                                    returns to the command interpreter.\r\n\
+MsLevel                   10       Prints the Mark/Space level used by mark hold\r\n\
+                                   and autostart. Parameter tells how many times\r\n\
+                                   to print, once per second. Use this to get an\r\n\
+                                   idea where the mark hold threshold should be\r\n\
+                                   set.\r\n\
 NarrowHfEq                0.0      How many dB to boost the high tone level over\r\n\
                                    the low tone level when running narrow shift.\r\n\
                                    Can be positive or negative.\r\n\

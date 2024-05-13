@@ -18,8 +18,8 @@ const UserConfig_t UserConfigDefault={
   .BaudRate=45.45,                  // Used to determine filter bandwidth and in software uart
   .ToneFilterBwBrMult=1.7,          // Tone filter bandwidth is the baud rate times this number. Make wide enough for minimal attenuation of BR/2 sideband
   .DataLpfBwBrMult=1.0,            // Multiply baud rate by this to get data LPF bandwidth (cutoff freq))
-  .MarkHoldThresh=0.3,              // Minimum discriminator - threshold level to reset mark hold timer.
-  .MarkHoldDisableSecs=2.0,      // Disable mark hold for 2 seconds after valid mark
+  .MarkHoldThresh=0.2,              // Minimum discriminator - threshold level to reset mark hold timer.
+  // .MarkHoldDisableSecs=2.0,      // Disable mark hold for 2 seconds after valid mark
   .AutostartThresh=0.5,             // Minimum discriminator - threshold level to start motor
   .AutostartShutdownSeconds=30.0,   // Keep motor running this may seconds after signal drop
   .AutostartSeqGoodChars=10,        // How many sequential good characters before motor start
@@ -205,12 +205,14 @@ void SavePrintConfig(int print){
   }else{
     NextAddr=StreamProgramExtFlash(NextAddr,strlen(StringBuf),(uint8_t*)StringBuf); // Write to external flash and get next address
   }
+#if 0
   sprintf(StringBuf,"MarkHoldDisableSecs\t%f\r\n",UserConfig.MarkHoldDisableSecs);
   if(1==print){
     PrintString(StringBuf);
   }else{
     NextAddr=StreamProgramExtFlash(NextAddr,strlen(StringBuf),(uint8_t*)StringBuf); // Write to external flash and get next address
   }
+#endif
   sprintf(StringBuf,"DTC\t%d\r\n",UserConfig.DTC);
   if(1==print){
     PrintString(StringBuf);

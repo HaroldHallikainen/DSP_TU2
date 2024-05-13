@@ -64,6 +64,7 @@ static void MyTimer2Isr(uint32_t intCause, uintptr_t context);
 volatile int Timer2TimeoutCounter=0; // Derive 8 kHz from timer 2 80 kHz - Decremented by MyTimer2Isr.
 volatile uint32_t MillisecondCounter=0; // Advances every 1 ms. Used by WiFi
 int TimeoutCounterMin=0;              // Minimum timeout value to see if we are servicing audio on time
+int MsLevelPrintCount=0;
 int16_t FpPollCounter=0;                // Decrements at 8 kHz telling us when to poll switches and LEDs.
 // Audio samples at various stages
 uint16_t AdcSample;         // Raw sample from ADC. Converted to AdcSamplef for calculations.
@@ -88,12 +89,11 @@ char AudioOutString[][17]={ // Each string is 16 bytes long plus null terminator
   "DISCRIM - THRESH"
 };
 UartDest_t UartDest=CLI;   // Where to send UART1 data
-uint32_t MarkHoldReleaseSamples=8000;  // How many samples to disable mark hold after good mark
 
 
 int main ( void ){
   int n;
-  int DebugCount=0;
+  int MsLevelSampleCount=0;
   uint32_t n32;
   int OldTx=0;                // Watch for TX/RX change
   uint8_t RxChar;
@@ -195,13 +195,17 @@ int main ( void ){
              // DiscrimOut is difference between LPF of full wave rectified of mark and space BPFs
       DiscrimOut=MarkDemodOut-SpaceDemodOut;
       MsLevel=BiQuad(max(MarkDemodOut,SpaceDemodOut),MsLevelLpf);
-      if(DebugCount>=8000){
-        sprintf(StringBuf,"%f\r\n",MsLevel);
-        PrintString(StringBuf);
-        DebugCount=0;
-      }else{
-        DebugCount++;
-      }
+      if(MsLevelPrintCount>0){          // Command interpreter telling us to print level used in mark hold
+        if(MsLevelSampleCount>=8000){
+          sprintf(StringBuf,"%f\r\n",MsLevel);
+          PrintString(StringBuf);
+          MsLevelSampleCount=0;
+          MsLevelPrintCount--;
+          if(MsLevelPrintCount==0) PrintString("\r\n>"); // Prompt for next command
+        }else{
+          MsLevelSampleCount++;
+        }
+      }  
       if(AudioOut==DISCRIM) TestSamplef=DiscrimOut;
       if(AudioOut==THRESHOLD) TestSamplef=Threshold;
       if(AudioOut==DISCRIM_LESS_THRESHOLD) TestSamplef=DiscrimOut-Threshold;

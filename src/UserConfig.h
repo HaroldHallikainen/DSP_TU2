@@ -17,7 +17,7 @@ typedef struct{
   double ToneFilterBwBrMult;        // Tone filter bandwidth is the baud rate times this number
   double DataLpfBwBrMult;           // Multiply baud rate by this to get data LPF bandwidth (cutoff freq))
   double MarkHoldThresh;            // Minimum discriminator level to reset mark hold timer.
-  double MarkHoldDisableSecs;       // Seconds to hold off Mark Hold on valid mark
+  // double MarkHoldDisableSecs;       // Seconds to hold off Mark Hold on valid mark
   double AutostartThresh;           // Minimum discriminator level to start motor
   uint32_t AutostartShutdownSeconds; // How many seconda after loss of mark to shut down motor
   uint32_t KosDropSeconds;            // How many seconds after last character to drop transmitter  

@@ -14,11 +14,11 @@
 extern volatile int Timer2TimeoutCounter;
 extern volatile uint32_t MillisecondCounter; // Advances every 1 ms. Used by WiFi
 extern int TimeoutCounterMin;              // Minimum timeout value to see if we are servicing audio on time
+extern int MsLevelPrintCount;               // How many times to print the MarkSpace level used in mark hold
 extern int16_t FpPollCounter;                // Decrements at 8 kHz telling us when to poll switches and LEDs.
 extern   char StringBuf[100];
 typedef enum {CLI, modem} UartDest_t;   // Where to send UART1 data
 extern UartDest_t UartDest;
-extern uint32_t MarkHoldReleaseSamples; // How many samples to disable mark hold after good mark
 extern double MarkDemodOut, SpaceDemodOut;
 typedef enum {NONE,ADC, AGC, INPUT_BPF, LIMITER, MARK_FILTER_OUT, SPACE_FILTER_OUT, MARK_DEMOD_OUT, SPACE_DEMOD_OUT, DISCRIM, DDS, THRESHOLD, DISCRIM_LESS_THRESHOLD} AudioOut_t;
 extern AudioOut_t AudioOut;
