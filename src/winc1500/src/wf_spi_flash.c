@@ -29,6 +29,7 @@ limitations under the License.
 #include "wf_asic.h"
 #include "wf_common.h"
 #include "wf_spi.h"
+#include "main.h"   // access to dprintf
 
 
 

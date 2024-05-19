@@ -49,6 +49,7 @@ limitations under the License.
 #include "wf_utils.h"
 #include "wf_errors.h"
 #include "wf_ota.h"
+#include "main.h"   // access to dprintf
 
 //============================================================================
 // CONSTANTS
@@ -61,7 +62,9 @@ limitations under the License.
 #define M2M_MAC_ADDRESS_LEN  6
 #define M2M_MAX_PRNG_BYTES   16
 
-#define dprintf printf
+// #define dprintf printf
+// #define dprintf(...) sprintf(StringBuf,__VA_ARGS__);PrintString(StringBuf)
+// Moved to main.h         
 //#define dprintf
 
 //============================================================================

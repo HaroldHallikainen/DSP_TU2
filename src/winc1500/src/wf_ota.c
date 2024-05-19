@@ -22,6 +22,7 @@ limitations under the License.
 #include "wf_types.h"
 #include "wf_hif.h"
 #include "wf_drv.h"
+#include "main.h"   // access to dprintf
 
 //==============================================================================
  // LOCAL GLOBALS

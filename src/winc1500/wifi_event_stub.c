@@ -15,6 +15,7 @@ limitations under the License.
 ==============================================================================*/
 
 #include "winc1500_api.h"
+#include "main.h"         // access to dprintf
 // #include "demo_config.h"
 
 // #if defined(USING_AP_SCAN)

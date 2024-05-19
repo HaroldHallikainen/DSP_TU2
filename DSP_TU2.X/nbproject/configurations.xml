@@ -95,6 +95,37 @@
       <itemPath>../src/menu.h</itemPath>
       <itemPath>../src/PowerLineNoise.h</itemPath>
     </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="true">
+      <logicalFolder name="f2" displayName="Bootloader.mhc" projectFiles="true">
+        <itemPath>../../../Bootloader/firmware/src/config/Bootloader/Bootloader.mhc/core.yml</itemPath>
+        <itemPath>../../../Bootloader/firmware/src/config/Bootloader/Bootloader.mhc/core_timer.yml</itemPath>
+        <itemPath>../../../Bootloader/firmware/src/config/Bootloader/Bootloader.mhc/dfp.yml</itemPath>
+        <itemPath>../../../Bootloader/firmware/src/config/Bootloader/Bootloader.mhc/GraphSettings.yml</itemPath>
+        <itemPath>../../../Bootloader/firmware/src/config/Bootloader/Bootloader.mhc/nvm.yml</itemPath>
+        <itemPath>../../../Bootloader/firmware/src/config/Bootloader/Bootloader.mhc/project.yml</itemPath>
+        <itemPath>../../../Bootloader/firmware/src/config/Bootloader/Bootloader.mhc/settings.yml</itemPath>
+        <itemPath>../../../Bootloader/firmware/src/config/Bootloader/Bootloader.mhc/uart1.yml</itemPath>
+        <itemPath>../../../Bootloader/firmware/src/config/Bootloader/Bootloader.mhc/uart_bootloader.yml</itemPath>
+      </logicalFolder>
+      <logicalFolder name="f1" displayName="DSP_TU2.mhc" projectFiles="true">
+        <itemPath>../src/config/DSP_TU2/DSP_TU2.mhc/adchs.yml</itemPath>
+        <itemPath>../src/config/DSP_TU2/DSP_TU2.mhc/core.yml</itemPath>
+        <itemPath>../src/config/DSP_TU2/DSP_TU2.mhc/dfp.yml</itemPath>
+        <itemPath>../src/config/DSP_TU2/DSP_TU2.mhc/GraphSettings.yml</itemPath>
+        <itemPath>../src/config/DSP_TU2/DSP_TU2.mhc/ocmp1.yml</itemPath>
+        <itemPath>../src/config/DSP_TU2/DSP_TU2.mhc/project.yml</itemPath>
+        <itemPath>../src/config/DSP_TU2/DSP_TU2.mhc/settings.yml</itemPath>
+        <itemPath>../src/config/DSP_TU2/DSP_TU2.mhc/spi1.yml</itemPath>
+        <itemPath>../src/config/DSP_TU2/DSP_TU2.mhc/spi2.yml</itemPath>
+        <itemPath>../src/config/DSP_TU2/DSP_TU2.mhc/spi3.yml</itemPath>
+        <itemPath>../src/config/DSP_TU2/DSP_TU2.mhc/tmr2.yml</itemPath>
+        <itemPath>../src/config/DSP_TU2/DSP_TU2.mhc/uart1.yml</itemPath>
+      </logicalFolder>
+      <itemPath>Makefile</itemPath>
+      <itemPath>../src/config/DSP_TU2/harmony-manifest-success.yml</itemPath>
+    </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
                    projectFiles="true">
@@ -169,6 +200,7 @@
         <itemPath>../src/winc1500/wf_mcu_driver_stub.c</itemPath>
         <itemPath>../src/winc1500/socket_event_stub.c</itemPath>
         <itemPath>../src/winc1500/wifi_event_stub.c</itemPath>
+        <itemPath>../src/winc1500/ota_event_stub.c</itemPath>
       </logicalFolder>
       <itemPath>../src/main.c</itemPath>
       <itemPath>../src/AfskGen.c</itemPath>
@@ -193,37 +225,6 @@
       <itemPath>../src/menu.c</itemPath>
       <itemPath>../src/PowerLineNoise.c</itemPath>
     </logicalFolder>
-    <logicalFolder name="ExternalFiles"
-                   displayName="Important Files"
-                   projectFiles="false">
-      <logicalFolder name="f2" displayName="Bootloader.mhc" projectFiles="true">
-        <itemPath>../../../Bootloader/firmware/src/config/Bootloader/Bootloader.mhc/core.yml</itemPath>
-        <itemPath>../../../Bootloader/firmware/src/config/Bootloader/Bootloader.mhc/core_timer.yml</itemPath>
-        <itemPath>../../../Bootloader/firmware/src/config/Bootloader/Bootloader.mhc/dfp.yml</itemPath>
-        <itemPath>../../../Bootloader/firmware/src/config/Bootloader/Bootloader.mhc/GraphSettings.yml</itemPath>
-        <itemPath>../../../Bootloader/firmware/src/config/Bootloader/Bootloader.mhc/nvm.yml</itemPath>
-        <itemPath>../../../Bootloader/firmware/src/config/Bootloader/Bootloader.mhc/project.yml</itemPath>
-        <itemPath>../../../Bootloader/firmware/src/config/Bootloader/Bootloader.mhc/settings.yml</itemPath>
-        <itemPath>../../../Bootloader/firmware/src/config/Bootloader/Bootloader.mhc/uart1.yml</itemPath>
-        <itemPath>../../../Bootloader/firmware/src/config/Bootloader/Bootloader.mhc/uart_bootloader.yml</itemPath>
-      </logicalFolder>
-      <logicalFolder name="f1" displayName="DSP_TU2.mhc" projectFiles="true">
-        <itemPath>../src/config/DSP_TU2/DSP_TU2.mhc/adchs.yml</itemPath>
-        <itemPath>../src/config/DSP_TU2/DSP_TU2.mhc/core.yml</itemPath>
-        <itemPath>../src/config/DSP_TU2/DSP_TU2.mhc/dfp.yml</itemPath>
-        <itemPath>../src/config/DSP_TU2/DSP_TU2.mhc/GraphSettings.yml</itemPath>
-        <itemPath>../src/config/DSP_TU2/DSP_TU2.mhc/ocmp1.yml</itemPath>
-        <itemPath>../src/config/DSP_TU2/DSP_TU2.mhc/project.yml</itemPath>
-        <itemPath>../src/config/DSP_TU2/DSP_TU2.mhc/settings.yml</itemPath>
-        <itemPath>../src/config/DSP_TU2/DSP_TU2.mhc/spi1.yml</itemPath>
-        <itemPath>../src/config/DSP_TU2/DSP_TU2.mhc/spi2.yml</itemPath>
-        <itemPath>../src/config/DSP_TU2/DSP_TU2.mhc/spi3.yml</itemPath>
-        <itemPath>../src/config/DSP_TU2/DSP_TU2.mhc/tmr2.yml</itemPath>
-        <itemPath>../src/config/DSP_TU2/DSP_TU2.mhc/uart1.yml</itemPath>
-      </logicalFolder>
-      <itemPath>Makefile</itemPath>
-      <itemPath>../src/config/DSP_TU2/harmony-manifest-success.yml</itemPath>
-    </logicalFolder>
   </logicalFolder>
   <sourceRootList>
     <Elem>../src</Elem>
@@ -238,11 +239,11 @@
         <targetPluginBoard></targetPluginBoard>
         <platformTool>PICkit3PlatformTool</platformTool>
         <languageToolchain>XC32</languageToolchain>
-        <languageToolchainVersion>4.00</languageToolchainVersion>
+        <languageToolchainVersion>4.40</languageToolchainVersion>
         <platform>3</platform>
       </toolsSet>
       <packs>
-        <pack name="PIC32MZ-EF_DFP" vendor="Microchip" version="1.3.58"/>
+        <pack name="PIC32MZ-EF_DFP" vendor="Microchip" version="1.4.168"/>
       </packs>
       <ScriptingSettings>
       </ScriptingSettings>
@@ -509,8 +510,11 @@
         <property key="debugoptions.debug-startup" value="Use system settings"/>
         <property key="debugoptions.reset-behaviour" value="Use system settings"/>
         <property key="debugoptions.useswbreakpoints" value="false"/>
-        <property key="firmware.download.all" value="false"/>
+        <property key="event.recorder.debugger.behavior" value="Running"/>
+        <property key="event.recorder.enabled" value="false"/>
+        <property key="event.recorder.scvd.files" value=""/>
         <property key="hwtoolclock.frcindebug" value="false"/>
+        <property key="lastid" value=""/>
         <property key="memories.aux" value="false"/>
         <property key="memories.bootflash" value="true"/>
         <property key="memories.configurationmemory" value="true"/>
@@ -1092,6 +1096,9 @@
         <property key="debugoptions.debug-startup" value="Use system settings"/>
         <property key="debugoptions.reset-behaviour" value="Use system settings"/>
         <property key="debugoptions.useswbreakpoints" value="false"/>
+        <property key="event.recorder.debugger.behavior" value="Running"/>
+        <property key="event.recorder.enabled" value="false"/>
+        <property key="event.recorder.scvd.files" value=""/>
         <property key="firmware.download.all" value="false"/>
         <property key="hwtoolclock.frcindebug" value="false"/>
         <property key="lastid" value=""/>

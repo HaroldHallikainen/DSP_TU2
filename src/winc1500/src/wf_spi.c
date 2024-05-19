@@ -4,6 +4,8 @@
 #include "winc1500_api.h"
 #include "wf_common.h"
 #include "wf_spi.h"
+#include "main.h"   // access to dprintf
+
 
 //==============================================================================
 // CONSTANTS

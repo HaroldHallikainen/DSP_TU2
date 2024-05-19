@@ -40,6 +40,7 @@
 *******************************************************************************/
 
 #include "plib_spi2_master.h"
+#include "main.h"   // access dprintf
 
 // *****************************************************************************
 // *****************************************************************************
@@ -272,6 +273,7 @@ bool SPI2_WriteRead(void* pTransmitData, size_t txSize, void* pReceiveData, size
                     else
                     {
                         ((uint8_t*)pReceiveData)[rxCount++]  = receivedData;
+ //                       dprintf("%hx\r\n", (uint8_t) receivedData);
                     }
                 }
             }

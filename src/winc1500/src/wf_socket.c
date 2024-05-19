@@ -23,6 +23,7 @@ INCLUDES
 #include "wf_types.h"
 #include "wf_common.h"
 #include "wf_drv.h"
+#include "main.h"     // access to dprintf
 
 //==============================================================================
 // CONSTANTS
@@ -173,7 +174,7 @@ void SocketInternalEventHandler(uint8_t opCode, uint16_t bufferSize,uint32_t add
                     }
 
                     g_sockets[acceptReply.connectSock].sessionId = g_sessionId;
-                    //dprintf("Socket %d session ID = %d\n",strAcceptReply.connectSock , g_sessionId );        
+                    // dprintf("Socket %d session ID = %d\n",strAcceptReply.connectSock , g_sessionId );        
                 }
                 g_socketEventData.acceptResponse.sock = acceptReply.connectSock;
                 g_socketEventData.acceptResponse.strAddr.sin_family      = AF_INET;

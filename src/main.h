@@ -33,7 +33,16 @@ extern double SpaceFreq;
 void PrintString(char *string);     // Send the string to UART1 to USB.
 void PrintChar(char data);          // Print a character
 double max(double x, double y);     // Return the maximum value 
+void _mon_putc(char c);             // Printf redirection
 
+// Macro for debug printing
+#include <stdio.h>
+
+// Below macro is one way to get dbprintf out uart 1.
+//#define dprintf(...) sprintf(StringBuf,__VA_ARGS__);PrintString(StringBuf)
+
+// Below also sends dprintf to uart 1 using change to write in config/DSP_TU2/stdio/xc32_monitor.c
+#define dprintf printf 
 
 #ifdef	__cplusplus
 extern "C" {

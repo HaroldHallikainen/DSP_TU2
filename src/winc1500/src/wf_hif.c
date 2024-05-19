@@ -21,6 +21,7 @@ limitations under the License.
 #include "wf_asic.h"
 #include "wf_drv.h"
 #include "wf_spi.h"
+#include "main.h"       // access to dprintf
 
 #define NM_EDGE_INTERRUPT
 
@@ -332,7 +333,7 @@ int8_t hif_send(uint8_t  groupId,
     {
         ChipSleep();
         ret = M2M_ERR_MEM_ALLOC;
-        //dprintf("Failed to alloc rx size %d\r\n",ret);
+        dprintf("Failed to alloc rx size %d\r\n",ret);
         goto ERR2;
     }
 

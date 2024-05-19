@@ -24,6 +24,7 @@
 // *****************************************************************************
 // *****************************************************************************
 
+#include <xc.h>
 #include <stddef.h>                     // Defines NULL
 #include <stdbool.h>                    // Defines true
 #include <stdlib.h>                     // Defines EXIT_FAILURE
@@ -51,8 +52,10 @@
 #include "Unifont.h"                    // Send text to display
 #include "menu.h"                       // Handle display menus
 #include "PowerLineNoise.h"             // Measure received power line noise
+#include "winc1500_api.h"               // Wifi API
 
 static void MyTimer2Isr(uint32_t intCause, uintptr_t context);
+
 
 // *****************************************************************************
 // *****************************************************************************
@@ -92,6 +95,7 @@ UartDest_t UartDest=CLI;   // Where to send UART1 data
 
 
 int main ( void ){
+  __XC_UART = 1;
   int n;
   int MsLevelSampleCount=0;
   uint32_t n32;
@@ -127,6 +131,7 @@ int main ( void ){
   sprintf(StringBuf,"External flash ID = %x. Should be ef3013\r\n",ReadExtFlashID());
   PrintString(StringBuf);
   LoadSavedConfig();          // Load config from flash
+  m2m_wifi_init();            // Initialize the wifi driver
   PrintString("\nDSP TU\r\nhttps://w6iwi.org/rttu/DspTU2\r\n");
   PrintString("Build Date: ");
   PrintString(__DATE__);
@@ -141,6 +146,7 @@ int main ( void ){
     WDT_Clear();
     DisplayPoll();
   }
+  setbuf(stdout, NULL);         // Part of printf redirection for debug
   DisplayClear();               // Clear display 
   while ( true ){
     if(Timer2TimeoutCounter<1){        // We have timed out 10 times, so it has been 125 us
@@ -270,7 +276,8 @@ int main ( void ){
           CommandInterpreter(0,(char)RxChar); // Send to command interpreter
           PrintString(StringBuf);     // Print any results
         }
-      }  
+      } 
+      m2m_wifi_task();        // Handle wifi
     }  
     IDLEn_Clear();      // Exiting DSP code, so make RE7 low so we can see how much time spent there.  
     /* Maintain state machines of all polled MPLAB Harmony modules. */
@@ -295,15 +302,39 @@ static void MyTimer2Isr(uint32_t intCause, uintptr_t context){
       CountToMillisecond--;     // Not a milliseond yet, drop counter
     }
 }
-/*******************************************************************************
- End of File
-*/
 
 
 void PrintString(char *string){
   // Send the string to UART1 to USB.
   UART1_Write((uint8_t*)string,strlen(string));   
 }
+#if 0
+int _write(int handle, void *buffer, unsigned int len) {
+  int i;
+  /* Do not try to output an empty string */
+  if (!buffer || (len == 0)) return 0;
+  switch (handle) {
+    case 0:
+    case 1:
+    case 2:
+      for (i = len; i; --i) {
+        /* place code here to write the next byte of buffer to the desired peripheral */
+        PrintChar(*(char*) buffer);
+        buffer++;
+      }
+      break;         
+    default: break;
+  }
+  return (len);
+}
+
+
+void mon_putc(char c){
+  PrintChar(c);
+}
+#endif 
+
+
 
 void PrintChar(char data){
   // Print a character
@@ -318,3 +349,4 @@ double max(double x, double y){
     return(y);
   }
 }
+

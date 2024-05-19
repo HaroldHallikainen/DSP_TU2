@@ -38,6 +38,9 @@
 * THAT YOU HAVE PAID DIRECTLY TO MICROCHIP FOR THIS SOFTWARE.
 *******************************************************************************/
 #include <stddef.h>
+#include "definitions.h"                // SYS function prototypes including plib headers
+
+
 
 extern int read(int handle, void *buffer, unsigned int len);
 extern int write(int handle, void * buffer, size_t count);
@@ -47,8 +50,15 @@ int read(int handle, void *buffer, unsigned int len)
 {
    return -1;
 }
-
+#if 0
 int write(int handle, void * buffer, size_t count)
 {
    return -1;
+}
+#endif
+
+int write(int handle, void * buffer, size_t count)
+{
+  UART1_Write((uint8_t*)buffer,count); // Send count bytes from buffer to UART1. hh 5/17/24
+  return -1;
 }

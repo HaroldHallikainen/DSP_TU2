@@ -21,6 +21,7 @@ limitations under the License.
 #include "wf_utils.h"
 #include "wf_spi.h"
 #include "wf_drv.h"
+#include "main.h"       // access to dprintf
 
 #define NMI_GLB_RESET_0                 (NMI_PERIPH_REG_BASE + 0x400)
 #define NMI_INTR_REG_BASE               (NMI_PERIPH_REG_BASE + 0xa00)
