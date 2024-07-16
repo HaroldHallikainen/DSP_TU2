@@ -15,7 +15,7 @@
     machines of all modules in the system
  *******************************************************************************/
 
-// NOTE - Harmony seems to reset the hash size. Set hash size to 15 kB.
+// NOTE - Harmony seems to reset the heap size. Set heap size to 15 kB.
 
 
 // *****************************************************************************
@@ -53,6 +53,10 @@
 #include "menu.h"                       // Handle display menus
 #include "PowerLineNoise.h"             // Measure received power line noise
 #include "winc1500_api.h"               // Wifi API
+#include "wf_asic.h"                    // Wifi chip id
+#include "WiFiInit.h"                   // Wifi module enable and reset
+#include "wf_hif.h"
+#include "WifiPoll.h"                   // Handle the wifi module
 
 static void MyTimer2Isr(uint32_t intCause, uintptr_t context);
 
@@ -95,8 +99,8 @@ UartDest_t UartDest=CLI;   // Where to send UART1 data
 
 
 int main ( void ){
-  __XC_UART = 1;
   int n;
+  int WifiGood=0;               // Disable polling of wifi module if we did not get chip ID
   int MsLevelSampleCount=0;
   uint32_t n32;
   int OldTx=0;                // Watch for TX/RX change
@@ -108,7 +112,7 @@ int main ( void ){
   TMR2_CallbackRegister(MyTimer2Isr,0);  // Function to call on timer 2 overflow
   TMR2_Start();               // Timer for 80 kHz PWM output
   OCMP1_Enable();             // PWM generator for audio  
-  PrintString("\r\n\nPWM AFSK output initialized\r\n");
+  PrintString("\x11\r\n\nPWM AFSK output initialized\r\n"); // Added XON at start so ensure terminal can send
   BaudotUartInit();
   PrintString("Baudot UART initialized\r\n");
   DynamicThresholdInit();     // Set up LPF used in dynamic threshold
@@ -131,7 +135,16 @@ int main ( void ){
   sprintf(StringBuf,"External flash ID = %x. Should be ef3013\r\n",ReadExtFlashID());
   PrintString(StringBuf);
   LoadSavedConfig();          // Load config from flash
-  m2m_wifi_init();            // Initialize the wifi driver
+  WiFiInit();                 // Enable and reset wifi module
+  // m2m_wifi_init();            // Initialize the wifi driver
+  // hif_chip_wake();  //Wake the chip
+  sprintf(StringBuf,"WIFI Chip ID: %x. Should be 1503a0\r\n",(unsigned int)GetChipId());
+  PrintString(StringBuf);
+  if((unsigned int)GetChipId()==0x1503a0){      // Good chip ID, poll wifi in main loop
+    WifiGood=1;
+  }else{
+    WifiGood=0;
+  }
   PrintString("\nDSP TU\r\nhttps://w6iwi.org/rttu/DspTU2\r\n");
   PrintString("Build Date: ");
   PrintString(__DATE__);
@@ -146,7 +159,6 @@ int main ( void ){
     WDT_Clear();
     DisplayPoll();
   }
-  setbuf(stdout, NULL);         // Part of printf redirection for debug
   DisplayClear();               // Clear display 
   while ( true ){
     if(Timer2TimeoutCounter<1){        // We have timed out 10 times, so it has been 125 us
@@ -276,8 +288,10 @@ int main ( void ){
           CommandInterpreter(0,(char)RxChar); // Send to command interpreter
           PrintString(StringBuf);     // Print any results
         }
-      } 
-      m2m_wifi_task();        // Handle wifi
+      }
+      if(WifiGood){
+        WifiPoll();                   // Go handle wifi module
+      }  
     }  
     IDLEn_Clear();      // Exiting DSP code, so make RE7 low so we can see how much time spent there.  
     /* Maintain state machines of all polled MPLAB Harmony modules. */
@@ -308,31 +322,6 @@ void PrintString(char *string){
   // Send the string to UART1 to USB.
   UART1_Write((uint8_t*)string,strlen(string));   
 }
-#if 0
-int _write(int handle, void *buffer, unsigned int len) {
-  int i;
-  /* Do not try to output an empty string */
-  if (!buffer || (len == 0)) return 0;
-  switch (handle) {
-    case 0:
-    case 1:
-    case 2:
-      for (i = len; i; --i) {
-        /* place code here to write the next byte of buffer to the desired peripheral */
-        PrintChar(*(char*) buffer);
-        buffer++;
-      }
-      break;         
-    default: break;
-  }
-  return (len);
-}
-
-
-void mon_putc(char c){
-  PrintChar(c);
-}
-#endif 
 
 
 

@@ -31,6 +31,9 @@ static bool g_rssiReady;
 static bool g_provisionInfoReady;
 static bool g_wpsReady;
 static bool g_prngReady;
+uint8_t NumAps;
+char SSID[33];
+int WiFiConnected=0;
 
 void m2m_wifi_handle_events(t_m2mWifiEventType eventCode, t_wifiEventData *p_eventData)
 {
@@ -42,17 +45,18 @@ void m2m_wifi_handle_events(t_m2mWifiEventType eventCode, t_wifiEventData *p_eve
             
         case M2M_WIFI_CONN_STATE_CHANGED_EVENT:
             // event data in p_eventData->connState
+            WiFiConnected=(int)p_eventData->connState.u8CurrState;
             g_connectionStateChanged = true;
             break;
             
         case M2M_WIFI_SYS_TIME_EVENT:
             // event data in p_eventData->sysTime
-            dprintf("   EVENT: M2M_WIFI_SYS_TIME_EVENT\n");
+            dprintf("   EVENT: M2M_WIFI_SYS_TIME_EVENT\r\n");
             break;
             
         case M2M_WIFI_CONN_INFO_RESPONSE_EVENT:
             // event data in p_eventData->connInfo
-            dprintf("   EVENT: M2M_WIFI_CONN_INFO_RESPONSE_EVENT\n");
+            dprintf("   EVENT: M2M_WIFI_CONN_INFO_RESPONSE_EVENT\r\n");
             break;
             
         case M2M_WIFI_IP_ADDRESS_ASSIGNED_EVENT:
@@ -60,30 +64,32 @@ void m2m_wifi_handle_events(t_m2mWifiEventType eventCode, t_wifiEventData *p_eve
             // Occurs in SoftAP mode when a client joins the AP network
             
             // event data in p_eventData->ipConfig
-            //dprintf("   EVENT: M2M_WIFI_IP_ADDRESS_ASSIGNED_EVENT\n");
+            dprintf("   EVENT: M2M_WIFI_IP_ADDRESS_ASSIGNED_EVENT. IP Address = %x\r\n", p_eventData->ipConfig.u32StaticIp);
             g_ipAddressAssigned = true;
             break;
             
         case M2M_WIFI_WPS_EVENT:
             // event data in p_eventData->wpsInfo
-            dprintf("   EVENT: M2M_WIFI_WPS_EVENT\n");
+            dprintf("   EVENT: M2M_WIFI_WPS_EVENT\r\n");
             g_wpsReady = true;
             break;
             
         case M2M_WIFI_IP_CONFLICT_EVENT:
             // event data in p_eventData->conflictedIpAddress
-            dprintf("   EVENT: M2M_WIFI_IP_CONFLICT_EVENT\n");
+            dprintf("   EVENT: M2M_WIFI_IP_CONFLICT_EVENT\r\n");
             break;
             
         case M2M_WIFI_SCAN_DONE_EVENT:
             // event data in p_eventData->scanDone
-            //dprintf("   EVENT: M2M_WIFI_SCAN_DONE_EVENT\n");
+            NumAps=p_eventData->scanDone.u8NumofCh;
+            // dprintf("   EVENT: M2M_WIFI_SCAN_DONE_EVENT\r\n");
             g_scanComplete = true;
             break;
             
         case M2M_WIFI_SCAN_RESULT_EVENT:
             // event data in p_eventData->scanResult
-            //dprintf("   EVENT: M2M_WIFI_SCAN_RESULT_EVENT\n");
+            strcpy(SSID,p_eventData->scanResult.au8SSID);
+            // dprintf("   EVENT: M2M_WIFI_SCAN_RESULT_EVENT\r\n");
             g_scanResultReady = true;
             break;
             
@@ -94,30 +100,30 @@ void m2m_wifi_handle_events(t_m2mWifiEventType eventCode, t_wifiEventData *p_eve
             
         case M2M_WIFI_PROVISION_INFO_EVENT:
             // event data in p_eventData->provisionInfo
-            dprintf("   EVENT: M2M_WIFI_PROVISION_INFO_EVENT\n");
+            dprintf("   EVENT: M2M_WIFI_PROVISION_INFO_EVENT\r\n");
             g_provisionInfoReady = true;
             break;
             
         case M2M_WIFI_DEFAULT_CONNNECT_EVENT:
             // event data in p_eventData->defaultConnInfo
-            dprintf("   EVENT: M2M_WIFI_DEFAULT_CONNNECT_EVENT\n");
+            dprintf("   EVENT: M2M_WIFI_DEFAULT_CONNNECT_EVENT\r\n");
             break;
             
         case M2M_WIFI_PRNG_EVENT:
-            dprintf("   EVENT: M2M_WIFI_PRNG_EVENT\n");
+            dprintf("   EVENT: M2M_WIFI_PRNG_EVENT\r\n");
             // event data in p_eventData->prng
             g_prngReady = true;
             break;
             
         default:
-            dprintf("!!!! Unknown Wi-Fi event (%d)\r\n", eventCode);
+            dprintf("!!!! Unknown Wi-Fi event (%d)\r\r\n", eventCode);
             break;
     }
 }
 
 void m2m_error_handle_events(uint32_t errorCode)  // See t_m2mWifiErrorCodes
 {
-    dprintf("   \nERROR EVENT: %lu\n", (long unsigned int)errorCode);
+    dprintf("   \nERROR EVENT: %lu\r\n", (long unsigned int)errorCode);
 }
 
 void ClearWiFiEventStates(void)

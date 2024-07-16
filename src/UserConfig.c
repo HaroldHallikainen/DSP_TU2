@@ -38,7 +38,10 @@ const UserConfig_t UserConfigDefault={
   .NarrowTxHfEq=0.0,              // High tone boost in dB
   .WideTxHfEq=0.0,                 // High tone boost in dB
   .FreqAdjPercent=0.0,             // Adjust PR2 for CPU clock error
-  .LineFreq=60.0                    // Power line frequency used in power line noise measurement
+  .LineFreq=60.0,                    // Power line frequency used in power line noise measurement
+  .SSID="SETUP-5B86",             // Wifi SSID
+  .WfPw="below0677flight",         // Wifi password
+  .WfName="DSP TU"                // NetBios name
 };
 
 

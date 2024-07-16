@@ -28,7 +28,8 @@ build/DSP_TU2/production/_ext/1360937237/main.o: ../src/main.c \
  ../src/winc1500/winc1500_driver_config.h ../src/winc1500/src/wf_types.h \
  ../src/winc1500/src/wf_socket.h ../src/winc1500/src/wf_utils.h \
  ../src/winc1500/src/wf_errors.h ../src/winc1500/src/wf_ota.h \
- ../src/main.h
+ ../src/main.h ../src/winc1500/src/wf_asic.h ../src/WiFiInit.h \
+ ../src/winc1500/src/wf_hif.h ../src/WifiPoll.h
 
 ../src/config/DSP_TU2/definitions.h:
 
@@ -125,3 +126,11 @@ build/DSP_TU2/production/_ext/1360937237/main.o: ../src/main.c \
 ../src/winc1500/src/wf_ota.h:
 
 ../src/main.h:
+
+../src/winc1500/src/wf_asic.h:
+
+../src/WiFiInit.h:
+
+../src/winc1500/src/wf_hif.h:
+
+../src/WifiPoll.h:

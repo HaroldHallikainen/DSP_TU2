@@ -234,7 +234,7 @@ bool SPI2_WriteRead(void* pTransmitData, size_t txSize, void* pReceiveData, size
             }
             else if (dummySize > 0)
             {
-                SPI2BUF = 0xff;
+                SPI2BUF = 0;      // WiFi module requires dummy byte of 0x00. hh 7/15/24. 0xff;
                 dummySize--;
             }
 

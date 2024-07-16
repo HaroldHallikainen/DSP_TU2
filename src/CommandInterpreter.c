@@ -16,6 +16,7 @@
 #include "biquad.h"
 #include "wf_asic.h"                    // Access to wifi ChipId())
 #include "winc1500_api.h"           // nmi_get_rfrevid()
+#include "wf_hif.h"
 
 
 //#define NumCommandBufs NumTcpSockets+3 // Separate command buffers for TCP connections (NumTcpSockets), RS232, ConfigFlash, and HTTPPOST
@@ -87,6 +88,7 @@ uint8_t mac_addr[6];       // WiFi MAC address used in WfMac
       if(NextCharIndex[stream]>MaxCommandSize) MaxCommandSize=NextCharIndex[stream]; // remember max command size
       NextCharIndex[stream]=0;      // next time, start building string at start of buffer
       if(CommandBuf[stream][0]=='#') return;			// get out before doing anything. This is a comment.
+      TokenArray[0]="";                   // Initialize it in case not initialized before hash generation
       NextToken=strtok(CommandBuf[stream],tokens);		// Pointer to start of CommandBuf with delimiter replaced with null
       while(NULL!=NextToken){             // Scan through string getting pointers to each field
         TokenArray[ArgNum++]=NextToken;   // Store pointers to argument and bump index. ArgNum ends up with argument count including command
@@ -344,17 +346,6 @@ uint8_t mac_addr[6];       // WiFi MAC address used in WfMac
             sprintf(StringBuf,"%d\r\n>",UserConfig.AutostartSeqGoodChars);
           }
           break;
-#if 0   // Remove this command  
-        case 0x2c9f735:   // MarkHoldDisableSecs
-          if(2==ArgNum){  // Set the time
-            UserConfig.MarkHoldDisableSecs=atof(TokenArray[1]);
-            MarkHoldReleaseSamples=8000*(uint32_t)UserConfig.MarkHoldDisableSecs; // Convert to samples for use in main loop
-            strcpy(StringBuf,"\r\n>");
-          }else{
-            sprintf(StringBuf,"%f\r\n>",UserConfig.MarkHoldDisableSecs);
-          }
-          break;
-#endif
         case 0x4415043:   //DTC
           if(2==ArgNum){
             UserConfig.DTC=atoi(TokenArray[1]); // Enable or disable dynamic threshold control
@@ -404,8 +395,8 @@ uint8_t mac_addr[6];       // WiFi MAC address used in WfMac
                             // for CPU clock error
           if(2==ArgNum){    // Being set
             UserConfig.FreqAdjPercent=atof(TokenArray[1]);
-            if(UserConfig.FreqAdjPercent>5.0) UserConfig.FreqAdjPercent=5.0; // Limit range
-            if(UserConfig.FreqAdjPercent<-5.0) UserConfig.FreqAdjPercent=-5.0;
+            if(UserConfig.FreqAdjPercent>10.0) UserConfig.FreqAdjPercent=10.0; // Limit range
+            if(UserConfig.FreqAdjPercent<-10.0) UserConfig.FreqAdjPercent=-10.0;
             PR2=(int)1249*(1.0-(UserConfig.FreqAdjPercent/100.0)); // Subtract percent/100 from 1.0
                                                   // from 1.0. Positive percent makes lower PR2 for higher freq.
             strcpy(StringBuf,"\r\n>");
@@ -459,7 +450,10 @@ uint8_t mac_addr[6];       // WiFi MAC address used in WfMac
           break;
         case 0xb48b188e:    // WfScan - Look for access points
           m2m_wifi_request_scan(M2M_WIFI_CH_ALL); // Request scan
-          sprintf(StringBuf,"Wifi Scan Started");
+          // sprintf(StringBuf,"Wifi Scan Started");
+          break;
+        case 0x650b58cc:    // WfConnect - Connects to configured access point
+          m2m_wifi_connect(UserConfig.SSID, sizeof(UserConfig.SSID), M2M_WIFI_SEC_WPA_PSK, UserConfig.WfPw,M2M_WIFI_CH_ALL);
           break;
         case 0x57fa6c54:    // RYcount - Show how many Rs and Ys received, then reset counters
           sprintf(StringBuf,"%u, %u\r\n>", Rcount, Ycount);

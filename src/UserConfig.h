@@ -37,6 +37,9 @@ typedef struct{
   double NarrowTxHfEq;             // Same for narrow shift
   double FreqAdjPercent;            // Adjust PR2 from nominal to change sample rate to correct for CPU clock error
   double LineFreq;                  // Power line frequency. Used in PowerLineNoise measurement
+  char SSID[32];                    // SSID of the WiFi access point we will connect to
+  char WfPw[32];                    // Access point password
+  char WfName[32];                // NetBios name for WiFi
 } UserConfig_t;
 
 void LoadDefaultConfig(void);       // Load default user config (tone frequencies, etc.)

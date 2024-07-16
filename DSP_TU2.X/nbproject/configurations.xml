@@ -71,6 +71,10 @@
           </logicalFolder>
         </logicalFolder>
       </logicalFolder>
+      <logicalFolder name="f3" displayName="stubs" projectFiles="true">
+        <itemPath>../src/WiFiInit.h</itemPath>
+        <itemPath>../src/WifiPoll.h</itemPath>
+      </logicalFolder>
       <itemPath>../src/main.h</itemPath>
       <itemPath>../src/AfskGen.h</itemPath>
       <itemPath>../src/BaudotUart.h</itemPath>
@@ -201,6 +205,8 @@
         <itemPath>../src/winc1500/socket_event_stub.c</itemPath>
         <itemPath>../src/winc1500/wifi_event_stub.c</itemPath>
         <itemPath>../src/winc1500/ota_event_stub.c</itemPath>
+        <itemPath>../src/WiFiInit.c</itemPath>
+        <itemPath>../src/WifiPoll.c</itemPath>
       </logicalFolder>
       <itemPath>../src/main.c</itemPath>
       <itemPath>../src/AfskGen.c</itemPath>
