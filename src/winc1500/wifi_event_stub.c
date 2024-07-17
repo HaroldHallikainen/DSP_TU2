@@ -31,9 +31,15 @@ static bool g_rssiReady;
 static bool g_provisionInfoReady;
 static bool g_wpsReady;
 static bool g_prngReady;
+static bool g_connectionInfoReady;
 uint8_t NumAps;
 char SSID[33];
 int WiFiConnected=0;
+int8_t RSSI;
+uint32_t IpAddress;
+uint32_t DNS;
+uint32_t Gateway;
+uint32_t SubnetMask;
 
 void m2m_wifi_handle_events(t_m2mWifiEventType eventCode, t_wifiEventData *p_eventData)
 {
@@ -56,15 +62,29 @@ void m2m_wifi_handle_events(t_m2mWifiEventType eventCode, t_wifiEventData *p_eve
             
         case M2M_WIFI_CONN_INFO_RESPONSE_EVENT:
             // event data in p_eventData->connInfo
-            dprintf("   EVENT: M2M_WIFI_CONN_INFO_RESPONSE_EVENT\r\n");
-            break;
+            // dprintf("   EVENT: M2M_WIFI_CONN_INFO_RESPONSE_EVENT\r\n");
+            IpAddress=(uint32_t)p_eventData->connInfo.au8IPAddr[3];
+            IpAddress=IpAddress<<8;
+            IpAddress+=(uint32_t)p_eventData->connInfo.au8IPAddr[2];
+            IpAddress=IpAddress<<8;
+            IpAddress+=(uint32_t)p_eventData->connInfo.au8IPAddr[1];
+            IpAddress=IpAddress<<8;
+            IpAddress+=(uint32_t)p_eventData->connInfo.au8IPAddr[0];
+            strcpy(SSID,p_eventData->connInfo.acSSID);
+            RSSI=p_eventData->connInfo.s8RSSI;
+            g_connectionInfoReady=true;
+             break;
             
         case M2M_WIFI_IP_ADDRESS_ASSIGNED_EVENT:
             // Occurs in STA mode when an IP address is assigned to the host MCU
             // Occurs in SoftAP mode when a client joins the AP network
             
             // event data in p_eventData->ipConfig
-            dprintf("   EVENT: M2M_WIFI_IP_ADDRESS_ASSIGNED_EVENT. IP Address = %x\r\n", p_eventData->ipConfig.u32StaticIp);
+            // dprintf("   EVENT: M2M_WIFI_IP_ADDRESS_ASSIGNED_EVENT. IP Address = %x\r\n", p_eventData->ipConfig.u32StaticIp);
+            IpAddress=p_eventData->ipConfig.u32StaticIp;
+            DNS=p_eventData->ipConfig.u32DNS;
+            Gateway=p_eventData->ipConfig.u32Gateway;
+            SubnetMask=p_eventData->ipConfig.u32SubnetMask;
             g_ipAddressAssigned = true;
             break;
             
@@ -89,6 +109,7 @@ void m2m_wifi_handle_events(t_m2mWifiEventType eventCode, t_wifiEventData *p_eve
         case M2M_WIFI_SCAN_RESULT_EVENT:
             // event data in p_eventData->scanResult
             strcpy(SSID,p_eventData->scanResult.au8SSID);
+            RSSI=p_eventData->scanResult.s8Rssi;
             // dprintf("   EVENT: M2M_WIFI_SCAN_RESULT_EVENT\r\n");
             g_scanResultReady = true;
             break;
@@ -187,6 +208,16 @@ bool isProvisionInfoReady(void)
     g_provisionInfoReady = false;
     return res;
 }
+
+
+
+bool isConnectionInfoReady(void)
+{
+    bool res = g_connectionInfoReady;
+    g_connectionInfoReady = false;
+    return res;
+}
+
 
 bool isWpsReady(void)
 {

@@ -148,17 +148,22 @@ int main ( void ){
   PrintString("\nDSP TU\r\nhttps://w6iwi.org/rttu/DspTU2\r\n");
   PrintString("Build Date: ");
   PrintString(__DATE__);
-  PrintString("\r\n\r\n>");
+  PrintString("\r\n\r\n");
   DisplayClear();     // Clear display
   DisplayString("\fW6IWI DSP TU\r\n");
   DisplayString("Build\r\n");
   DisplayString(__DATE__);
   DisplayString("\r\nw6iwi.org/\r\n");
   DisplayString("rtty/DspTU2\r\n");
+  if(WifiGood) PrintString("WiFi Module Info\r\n");
   for(n32=0;n32<0xffffff;n32++){    // Send to display and wait
     WDT_Clear();
     DisplayPoll();
+    if(WifiGood){
+        WifiPoll();         // Go handle wifi module while waiting
+    }  
   }
+  PrintString("\r\n>");
   DisplayClear();               // Clear display 
   while ( true ){
     if(Timer2TimeoutCounter<1){        // We have timed out 10 times, so it has been 125 us

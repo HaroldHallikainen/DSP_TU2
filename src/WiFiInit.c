@@ -22,5 +22,7 @@ void WiFiInit(void){
   MillisecondCounter=0;       // Wait at least 5 ms
   while(MillisecondCounter<6);  // Loop here for 6 ms
   m2m_wifi_init();            // Initialize the wifi driver
+  MillisecondCounter=0;       // Wait at least 5 ms
+  while(MillisecondCounter<6);  // Loop here for 6 ms
   m2m_wifi_set_device_name(UserConfig.WfName, strlen(UserConfig.WfName)); // Set net bios name
 }
