@@ -165,6 +165,7 @@ int main ( void ){
   }
   PrintString("\r\n>");
   DisplayClear();               // Clear display 
+  TimeoutCounterMin=0;          // Set to zero so we ignore excessive time in above stuff
   while ( true ){
     if(Timer2TimeoutCounter<1){        // We have timed out 10 times, so it has been 125 us
       IDLEn_Set();                  // CPU not idle, so set RE7 so we can time it

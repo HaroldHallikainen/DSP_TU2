@@ -39,8 +39,6 @@ const UserConfig_t UserConfigDefault={
   .WideTxHfEq=0.0,                 // High tone boost in dB
   .FreqAdjPercent=0.0,             // Adjust PR2 for CPU clock error
   .LineFreq=60.0,                    // Power line frequency used in power line noise measurement
-  .SSID="SETUP-5B86",             // Wifi SSID
-  .WfPw="below0677flight",         // Wifi password
   .WfName="DSP TU"                // NetBios name
 };
 
@@ -208,14 +206,6 @@ void SavePrintConfig(int print){
   }else{
     NextAddr=StreamProgramExtFlash(NextAddr,strlen(StringBuf),(uint8_t*)StringBuf); // Write to external flash and get next address
   }
-#if 0
-  sprintf(StringBuf,"MarkHoldDisableSecs\t%f\r\n",UserConfig.MarkHoldDisableSecs);
-  if(1==print){
-    PrintString(StringBuf);
-  }else{
-    NextAddr=StreamProgramExtFlash(NextAddr,strlen(StringBuf),(uint8_t*)StringBuf); // Write to external flash and get next address
-  }
-#endif
   sprintf(StringBuf,"DTC\t%d\r\n",UserConfig.DTC);
   if(1==print){
     PrintString(StringBuf);
@@ -258,7 +248,18 @@ void SavePrintConfig(int print){
   }else{
     NextAddr=StreamProgramExtFlash(NextAddr,strlen(StringBuf),(uint8_t*)StringBuf); // Write to external flash and get next address
   }   
- 
+  sprintf(StringBuf,"WfSsid\t%s\r\n",UserConfig.SSID);
+   if(1==print){
+    PrintString(StringBuf);
+  }else{
+    NextAddr=StreamProgramExtFlash(NextAddr,strlen(StringBuf),(uint8_t*)StringBuf); // Write to external flash and get next address
+  } 
+  sprintf(StringBuf,"WfPw\t%s\r\n",UserConfig.WfPw);  
+  if(1==print){
+    PrintString(StringBuf);
+  }else{
+    NextAddr=StreamProgramExtFlash(NextAddr,strlen(StringBuf),(uint8_t*)StringBuf); // Write to external flash and get next address
+  } 
 }
 
   

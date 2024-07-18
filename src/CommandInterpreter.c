@@ -449,12 +449,44 @@ uint8_t mac_addr[6];       // WiFi MAC address used in WfMac
             mac_addr[0], mac_addr[1], mac_addr[2], mac_addr[3], mac_addr[4], mac_addr[5]);
           break;
         case 0xb48b188e:    // WfScan - Look for access points
+          sprintf(StringBuf,"\r\nIndex | RSSI | SSID\r\n");
           m2m_wifi_request_scan(M2M_WIFI_CH_ALL); // Request scan
-          // sprintf(StringBuf,"Wifi Scan Started");
           break;
         case 0x650b58cc:    // WfConnect - Connects to configured access point
-          m2m_wifi_connect(UserConfig.SSID, sizeof(UserConfig.SSID), M2M_WIFI_SEC_WPA_PSK, UserConfig.WfPw,M2M_WIFI_CH_ALL);
+          if(strlen(UserConfig.SSID)==0){
+            sprintf(StringBuf,"SSID not set. Use WfSsid\r\n>");
+          }else{
+            if(strlen(UserConfig.WfPw)==0){
+              sprintf(StringBuf,"WiFi password not set. Use WfPw\r\n>");
+            }else{
+              sprintf(StringBuf, "Connecting to %s, %s\r\n>",UserConfig.SSID, UserConfig.WfPw);
+              m2m_wifi_connect(UserConfig.SSID, sizeof(UserConfig.SSID), M2M_WIFI_SEC_WPA_PSK, UserConfig.WfPw,M2M_WIFI_CH_ALL);
+            }
+          }
           break;
+        case 0xb48b5984:    // WfSsid
+          if(2==ArgNum){    // Setting SSID
+            if(strlen(TokenArray[1])<sizeof(UserConfig.SSID)){
+              strcpy(UserConfig.SSID,TokenArray[1]);
+            }else{
+              sprintf(StringBuf,"SSID too long");
+            }  
+          }else{
+            sprintf(StringBuf,"%s\r\n>",UserConfig.SSID);
+          }  
+          break;
+        case 0x57665077:    // WfPw
+          if(2==ArgNum){    // Setting password
+            if(strlen(TokenArray[1])<sizeof(UserConfig.WfPw)){
+              strcpy(UserConfig.WfPw,TokenArray[1]);
+            }else{
+              sprintf(StringBuf,"Password too long");
+            }  
+          }else{
+            sprintf(StringBuf,"%s\r\n>",UserConfig.WfPw);
+          }  
+          break;
+          
         case 0x57fa6c54:    // RYcount - Show how many Rs and Ys received, then reset counters
           sprintf(StringBuf,"%u, %u\r\n>", Rcount, Ycount);
           Rcount=0;

@@ -30,13 +30,12 @@ void WifiPoll(void){
       if(isConnectionInfoReady()) state=20; // Show IP address
       break;
     case 1:
-      // printf("\r\nIndex | RSSI | SSID\r\n");
       m2m_wifi_req_scan_result(scan_request_index); // Request it
       state=2;      // Go wait for results
       break;
     case 2:
       if(isScanResultReady()){
-        printf("   %d | %d | %s\r\n", scan_request_index, RSSI,  SSID);
+        printf("   %2d | %3d  | %s\r\n", scan_request_index, RSSI,  SSID);
         scan_request_index++;
         if(scan_request_index>=NumAps){
           scan_request_index=0;     // Get ready for next time

@@ -31,9 +31,9 @@
 #define M2M_ENABLE_ERROR_CHECKING        // error checking code
 #define M2M_ENABLE_PRNG                  // prng (psuedo-random number) code
 #define M2M_ENABLE_SOFT_AP_MODE          // SoftAP feature
-#define M2M_ENABLE_WPS                   // WPS feature
+// #define M2M_ENABLE_WPS                   // WPS feature
 #define M2M_WIFI_ENABLE_P2P                    // P2P feature
-#define M2M_ENABLE_HTTP_PROVISION_MODE   // HTTP provisioning mode
+// #define M2M_ENABLE_HTTP_PROVISION_MODE   // HTTP provisioning mode
 #define M2M_ENABLE_SCAN_MODE             // Wi-Fi scanning
 #define M2M_ENABLE_SPI_FLASH             // supports host firmware update utility
 
