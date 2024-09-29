@@ -102,7 +102,6 @@ int main ( void ){
   int n;
   int WifiGood=0;               // Disable polling of wifi module if we did not get chip ID
   int MsLevelSampleCount=0;
-  uint32_t n32;
   int OldTx=0;                // Watch for TX/RX change
   uint8_t RxChar;
   WDT_Clear();           // Clear WDT. Prescale is 1024 for timeout in 1.024 seconds
@@ -156,10 +155,11 @@ int main ( void ){
   DisplayString("\r\nw6iwi.org/\r\n");
   DisplayString("rtty/DspTU2\r\n");
   if(WifiGood) PrintString("WiFi Module Info\r\n");
-  for(n32=0;n32<0xffffff;n32++){    // Send to display and wait
-    WDT_Clear();
-    DisplayPoll();
-    if(WifiGood){
+    MillisecondCounter=0;             // Use the WiFi millisecond counter to time the flash display
+    while(MillisecondCounter<5000){ // Loop updating the display for 5 seconds
+      WDT_Clear();
+      DisplayPoll();
+      if(WifiGood){
         WifiPoll();         // Go handle wifi module while waiting
     }  
   }
