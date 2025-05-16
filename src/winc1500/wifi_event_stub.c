@@ -58,6 +58,11 @@ void m2m_wifi_handle_events(t_m2mWifiEventType eventCode, t_wifiEventData *p_eve
         case M2M_WIFI_SYS_TIME_EVENT:
             // event data in p_eventData->sysTime
             dprintf("   EVENT: M2M_WIFI_SYS_TIME_EVENT\r\n");
+            dprintf("WiFi System Time: ");
+            dprintf("%u-%02hi-%02huT%02hu:%02hu:%02hu\r\n>",p_eventData->sysTime.u16Year, 
+              p_eventData->sysTime.u8Month, p_eventData->sysTime.u8Day,
+              p_eventData->sysTime.u8Hour, p_eventData->sysTime.u8Minute,
+              p_eventData->sysTime.u8Second);
             break;
             
         case M2M_WIFI_CONN_INFO_RESPONSE_EVENT:

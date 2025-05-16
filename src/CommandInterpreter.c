@@ -418,12 +418,17 @@ uint8_t mac_addr[6];       // WiFi MAC address used in WfMac
             PlnPrintCount=1;
           }  
           break;
-        case 0x5482ccbc:     // MsLevel - Show average mark and space level. 
-          if(2==ArgNum){
-            MsLevelPrintCount=atoi(TokenArray[1]);  // Get how many times to print
-            if(MsLevelPrintCount<0) MsLevelPrintCount=0;  // Disallow negative
-          }else{              // No count specified, use 1
-            MsLevelPrintCount=1;
+        case 0x5482ccbc:     // MsLevel - Show average mark and space level.
+          MsLevelSampleInterval=8000;     // Default to once per second
+          MsLevelPrintCount=1;                 // Default to printing once
+          switch(ArgNum){
+            case 3:                       // Interval and count specified
+              MsLevelSampleInterval=8*atoi(TokenArray[2]);  // Convert milliseconds to samples
+              if (MsLevelSampleInterval<8) MsLevelSampleInterval=8; // Disallow really small intervals
+                // No break. Drop into getting number of times to print
+            case 2: 
+              MsLevelPrintCount=atoi(TokenArray[1]);  // Get how many times to print
+              if(MsLevelPrintCount<0) MsLevelPrintCount=0;  // Disallow negative
           }  
           break;          
         case 0x3049d8c1:      //LineFreq set line frequency for power line noise measurement
@@ -491,6 +496,22 @@ uint8_t mac_addr[6];       // WiFi MAC address used in WfMac
           sprintf(StringBuf,"%u, %u\r\n>", Rcount, Ycount);
           Rcount=0;
           Ycount=0;
+          break;
+        case 0x66b1151:     // AudioSource - Defaults to analog. USB is option
+          if(2==ArgNum){
+            switch(HashGenerate(TokenArray[1])){
+              case 0x751cc62:   // usb
+                UartDest=audio; // Set uart destination to audio
+                break;
+              default:
+              case 0x6119063:   // adc
+                UartDest=CLI;   // Send uart back to command line interpreter
+                break;   
+            }
+          }else{
+            if(UartDest==audio) strcpy(StringBuf,"usb\r\n>");
+            else strcpy(StringBuf,"adc\r\n>");
+          }
           break;
       }
     }
@@ -572,11 +593,14 @@ MarkHoldThresh            0.3      Sustained discriminator levels below this\r\n
 modem                              No parameters. Switches USB terminal to the\r\n\
                                    Baudot UART to transmit and receive data. ESC\r\n\
                                    returns to the command interpreter.\r\n\
-MsLevel                   10       Prints the Mark/Space level used by mark hold\r\n\
-                                   and autostart. Parameter tells how many times\r\n\
-                                   to print, once per second. Use this to get an\r\n\
-                                   idea where the mark hold threshold should be\r\n\
-                                   set.\r\n\
+MsLevel                   1000 1   Prints the mark and space demodulator output\r\n\
+                                   levels with a comma delimiter. The first\r\n\
+                                   optional argument is the number of times to\r\b\
+                                   print. The second is the number of\r\n\
+                                   milliseconds between samples. If the second\r\n\
+                                   argument is deleted, data is sample and\r\n\
+                                   printed once a second. If the first argument\r\n\
+                                   is deleted, the data is printed once.\r\n\
 NarrowHfEq                0.0      How many dB to boost the high tone level over\r\n\
                                    the low tone level when running narrow shift.\r\n\
                                    Can be positive or negative.\r\n\
@@ -637,6 +661,23 @@ UseInputBpf               1        1 enables the input bandpass filter; 0\r\n\
 UseLimiter                0        1 enables the limiter; 0 disables it. Users\r\n\
                                    may choose to use the limiter (FM\r\n\
                                    demodulation) or the AGC (AM demodulation).\r\n\
+wfChipId                           No parameters. Reads the Chip ID of the \r\n\
+                                   WiFi module.\r\n\
+WfConnect                          No parameters. Connects to the access point\r\n\
+                                   with the SSID and password (see WfSsid and\r\n\
+                                   WfPw). Runs DHCP to get IP address. Runs NTP\r\n\
+                                   to get time.\r\n\
+WfRfRev                            No parameters. Reads the RF revision of the\r\n\
+                                   WiFi module.\r\n\
+WfMac                              No parameters. Reads the MAC address of the\r\n\
+                                   WiFi module.\r\n\
+WfPw                               Set or read the password used to connect to\r\n\
+                                   the WiFi access point (see WfConnect).\r\n\
+WfScan                             No parameters. Scans for WiFi access points.\r\n\
+                                   Prints index, RSSI, and SSID for each found\r\n\
+                                   access point.\r\n\
+WfSsid                             Set or read the SSID of the access point to\r\n\
+                                   connect to (see WfConnect).\r\n\
 WideHfEq                  0.0      How many dB to boost the high tone level over\r\n\
                                    the low tone level when running wide shift.\r\n\
                                    Can be positive or negative.\r\n\

@@ -183,6 +183,15 @@ void PollMenu(void){
         EncoderCount=0;           // Clear it so we can see changes
         if(0==OldS7) MenuNumber=1; // Advance to first menu
         DrawMenu();               // Display it
+      }else{                      // Encoder switch not closed. See if encoder count changed
+        if(EncoderCount!=0){      // If no menu up, let encoder adjust mark hold threshold. hh 5/15/25
+          #undef parameter        // Get ready to redefine 
+          #define parameter UserConfig.MarkHoldThresh
+          parameter+=.001*(double)EncoderCount; // Adjust it
+          EncoderCount=0;             // Reset for next call
+          sprintf(StringBuf,"\f\017Mark Hold\r\nThreshold  \016%.3f",parameter);
+          DisplayString(StringBuf); // Send updated line
+        }  
       }
       break;
     case 1:             // Showing menu 1 - Autostart through limiter
@@ -450,18 +459,7 @@ void menu03(void){  // (Mark Hold)
           EncoderCount=0;             // Reset for next call
           sprintf(StringBuf,"\f\n\017Threshold  \016%.3f",parameter);
           DisplayString(StringBuf); // Send updated line
-          break;
-#if 0    
-        case 1:                       // Adjusting hold time
-          #undef parameter 
-          #define parameter UserConfig.MarkHoldDisableSecs
-          parameter+=0.1*(double)EncoderCount; // Adjust it
-          if(parameter<0.1) parameter=0.1; // Limit minimum
-          EncoderCount=0;             // Reset for next call
-          sprintf(StringBuf,"\f\n\n\017Disable Secs \016%.1f",parameter);
-          DisplayString(StringBuf); // Send updated line        
-          break;
-#endif          
+          break;  
       }
     }  
   }

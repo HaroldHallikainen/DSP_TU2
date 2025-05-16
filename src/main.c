@@ -71,7 +71,8 @@ static void MyTimer2Isr(uint32_t intCause, uintptr_t context);
 volatile int Timer2TimeoutCounter=0; // Derive 8 kHz from timer 2 80 kHz - Decremented by MyTimer2Isr.
 volatile uint32_t MillisecondCounter=0; // Advances every 1 ms. Used by WiFi
 int TimeoutCounterMin=0;              // Minimum timeout value to see if we are servicing audio on time
-int MsLevelPrintCount=0;
+int MsLevelPrintCount=0;              // How many mark/space levels to print
+int MsLevelSampleInterval=8000;            // How many samples between printing mark/space levels
 int16_t FpPollCounter=0;                // Decrements at 8 kHz telling us when to poll switches and LEDs.
 // Audio samples at various stages
 uint16_t AdcSample;         // Raw sample from ADC. Converted to AdcSamplef for calculations.
@@ -103,6 +104,7 @@ int main ( void ){
   int WifiGood=0;               // Disable polling of wifi module if we did not get chip ID
   int MsLevelSampleCount=0;
   int OldTx=0;                // Watch for TX/RX change
+  char LastHandshakeSent=0;   // Keep track of XON/XOFF transmission for USB audio
   uint8_t RxChar;
   WDT_Clear();           // Clear WDT. Prescale is 1024 for timeout in 1.024 seconds
   /* Initialize all modules */
@@ -173,10 +175,32 @@ int main ( void ){
       WDT_Clear();           // Clear WDT. Prescale is 1024 for timeout in 1.024 seconds
       FpPollCounter--;                // Decrement at 8 kHz so we can poll front panel now and then
       Timer2TimeoutCounter+=10;    // come back in 125 us. PWM frequency is 80 kHz, so change every 10 cycles
-      AdcSample=ADCHS_ChannelResultGet(2);      // Get sample as uint16_t
-      samplef=(double)(AdcSample-2048)/2048.0;   // Convert to double with mid-scale=0.0
-      PowerLineSample(samplef);                 // Send ADC to power line noise measurrement
-      ADCHS_ChannelConversionStart(2);              // Start next ADC conversion 
+      if(UartDest==audio){
+        if(UART1_ReadCountGet()<UART1_ReadBufferSizeGet()/4){ // OK to send if buffer N25%
+          if(LastHandshakeSent!=XON){  // Not already sent
+            PrintChar(XON);         // XON/XOFF handshake. ok to send now
+            LastHandshakeSent=XON;  // Remember it
+          }
+        }else{
+          if(UART1_ReadCountGet()>3*UART1_ReadBufferSizeGet()/4){  // Stop send if buffer>75%
+            if(LastHandshakeSent!=XOFF){    // Not already sent
+              PrintChar(XOFF);        // Not ok to send now
+              LastHandshakeSent=XOFF; // Remember that we sent it
+            }
+          }  
+        }
+        if(UART1_ReadCountGet()>0){
+          UART1_Read(&RxChar,1);  // Get one character from uart fifo) and put in RxChar
+          samplef=((double)(RxChar-127))/128.0; // remove 127 bias (8 bit wav is unsigned) and convert to double)
+        }else{
+          samplef=0.0;      // Silence if no data
+        }  
+      }else{
+        AdcSample=ADCHS_ChannelResultGet(2);      // Get sample as uint16_t
+        samplef=(double)(AdcSample-2048)/2048.0;   // Convert to double with mid-scale=0.0
+        PowerLineSample(samplef);                 // Send ADC to power line noise measurrement
+        ADCHS_ChannelConversionStart(2);              // Start next ADC conversion 
+      }  
       if((1==UserConfig.NoLoop)||Fifo8Full(pAsciiTxFifo)){ // If NoLoop or transmittting error report, ignore lack of loop current
         AfskGen(BaudotUartTxOut);
       }else{
@@ -220,8 +244,8 @@ int main ( void ){
       DiscrimOut=MarkDemodOut-SpaceDemodOut;
       MsLevel=BiQuad(max(MarkDemodOut,SpaceDemodOut),MsLevelLpf);
       if(MsLevelPrintCount>0){          // Command interpreter telling us to print level used in mark hold
-        if(MsLevelSampleCount>=8000){
-          sprintf(StringBuf,"%f\r\n",MsLevel);
+        if(MsLevelSampleCount>=MsLevelSampleInterval){
+          sprintf(StringBuf,"%f, %f\r\n",MarkDemodOut,SpaceDemodOut);
           PrintString(StringBuf);
           MsLevelSampleCount=0;
           MsLevelPrintCount--;

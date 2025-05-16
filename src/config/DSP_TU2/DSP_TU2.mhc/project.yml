@@ -75,7 +75,7 @@ files:
   physicalPath: peripheral/spi/spi_master
   security: NON_SECURE
   type: SOURCE
-  userChecksum: 9DC4B554AA1E8AEBFEB5929203691CA8
+  userChecksum: B59149C8F0C2C1D6469848E042A93118
 - generatedChecksum: 08716FF7166065F986497EE9C6428E57
   logicalPath: config/DSP_TU2/peripheral/spi/spi_master
   name: plib_spi3_master.c
@@ -110,7 +110,7 @@ files:
   physicalPath: stdio
   security: NON_SECURE
   type: SOURCE
-  userChecksum: 71352EF41F6688AD8408E42970B50B66
+  userChecksum: 05C2588B355AD928752079E4F76F65F7
 - generatedChecksum: D0E60C33D6199E5232203D93C4E3A5FC
   logicalPath: config/DSP_TU2
   name: definitions.h

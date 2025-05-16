@@ -3,8 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/winc1500/wifi_event_stub.c</file>
-            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/config/DSP_TU2/peripheral/spi/spi_master/plib_spi2_master.c</file>
+            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/biquad.h</file>
+            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/dds.c</file>
+            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/biquad.c</file>
+            <file>file:/C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/src/main.c</file>
         </group>
     </open-files>
 </project-private>
