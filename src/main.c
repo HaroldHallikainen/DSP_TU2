@@ -305,6 +305,9 @@ int main ( void ){
         PollMenu();           // Update and act on menu selections
         if(TX_LED_Get()!=OldTx){  // TX/RX mode changed
           OldTx=TX_LED_Get();     // Remember the new value
+          if(0==MenuNumber){      // Showing xy scope
+            DisplayClear();     // Clear display of garbage or perhaps mark hold threshold
+          }
           if(0==OldTx){           // We changed from transmit to receive
             CharCount=0;
             BadStopBitCount=0;    // Reset counters in BaudotUart.
