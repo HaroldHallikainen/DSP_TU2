@@ -323,6 +323,7 @@ int main ( void ){
         if(UART1_ReadCountGet()>0){   // There is a character waiting from UART1
           UART1_Read(&RxChar,1);      // Get one character from uart fifo
           CommandInterpreter(0,(char)RxChar); // Send to command interpreter
+          if(UserConfig.UsbEcho!=0) PrintChar(RxChar);  //Echo if echo enabled
           PrintString(StringBuf);     // Print any results
         }
       }

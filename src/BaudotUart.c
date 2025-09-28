@@ -280,6 +280,7 @@ void BaudotUartTx(void){
           AsciiChar=0;          // Use non-null as flag that we have something
           if(0!=UART1_ReadCountGet()){  // There is something to transmit
             UART1_Read(&AsciiChar,1);    // Get 1 character to AsciiChar
+            if(UserConfig.UsbEcho!=0) PrintChar(AsciiChar);  // If echo enabled, send back to uart
           }  
           if(0!=Fifo8Full(pAsciiTxFifo)){ // Fifo has data
             AsciiChar=Fifo8Get(pAsciiTxFifo);

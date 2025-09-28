@@ -20,7 +20,7 @@ typedef struct{
   // double MarkHoldDisableSecs;       // Seconds to hold off Mark Hold on valid mark
   double AutostartThresh;           // Minimum discriminator level to start motor
   uint32_t AutostartShutdownSeconds; // How many seconda after loss of mark to shut down motor
-  uint32_t KosDropSeconds;            // How many seconds after last character to drop transmitter  
+  double KosDropSeconds;            // How many seconds after last character to drop transmitter  
   double AgcTargetLevel;            // Desired AGC output level
   double AgcLpfF;                   // Cutoff frequency in AGC control.
   int UseInputBpf;                  // True if we want to use input bpf
@@ -31,6 +31,7 @@ typedef struct{
   int AfskOutputContinuous;         // If non-zero, output AFSK continuously. Otherwise, only in transmit
   int AutostartSeqGoodChars;        // How many good characters before motor start
   int DTC;                          // 1= Enable Dynamic Threshold Control
+  int UsbEcho;                      // 1 enables echo over USB serial port, 0 disables
   double TxRxHoldoff;               // How many seconds to disable demod on Tx to Rx transition
   double AgcMaxGain;                // Maximum gain of AGC in V/V
   double WideTxHfEq;                // dB to boost high frequency (or cut low if positive) in dB for wide shift

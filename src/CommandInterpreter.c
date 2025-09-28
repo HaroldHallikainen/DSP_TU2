@@ -189,10 +189,10 @@ uint8_t mac_addr[6];       // WiFi MAC address used in WfMac
           break;  
         case 0xbe5a4ba3:            // KosDropSeconds
           if(2==ArgNum){            // There is a parameter
-            UserConfig.KosDropSeconds = atoi(TokenArray[1]);
+            UserConfig.KosDropSeconds = atof(TokenArray[1]);
             strcpy(StringBuf,"\r\n>");
           }else{
-            sprintf(StringBuf,"%d\r\n>",UserConfig.KosDropSeconds);
+            sprintf(StringBuf,"%f\r\n>",UserConfig.KosDropSeconds);
           }
           break;  
         case 0x8b184ea0:            // AgcTargetLevel
@@ -513,6 +513,14 @@ uint8_t mac_addr[6];       // WiFi MAC address used in WfMac
             else strcpy(StringBuf,"adc\r\n>");
           }
           break;
+        case 0x5c96b9ef:    // UsbEcho
+          if(2==ArgNum){
+            UserConfig.UsbEcho=atoi(TokenArray[1]);
+            strcpy(StringBuf,"\r\n>");
+          }else{
+            sprintf(StringBuf,"%d\r\n>", UserConfig.UsbEcho);            
+          }
+          break;
       }
     }
   }
@@ -647,6 +655,8 @@ ToneFilterBwBrMult        1.7      The BaudRate is multiplied by this value to\r
                                    is set to the lowest value possible that\r\n\
                                    results in full discriminator swing in 1/2\r\n\
                                    bit time\r\n\
+UsbEcho                   0        0 disables echo on USB (half duplex), 1\r\n\
+                                   enables (full duplex).\r\n\
 UseAgc                    1        0 disables AGC. 1 enables AGC sampling input\r\n\
                                    data to set gain. Users may choose to use the\r\n\
                                    limiter instead of the AGC. With either the\r\n\

@@ -39,7 +39,8 @@ const UserConfig_t UserConfigDefault={
   .WideTxHfEq=0.0,                 // High tone boost in dB
   .FreqAdjPercent=0.0,             // Adjust PR2 for CPU clock error
   .LineFreq=60.0,                    // Power line frequency used in power line noise measurement
-  .WfName="DSP TU"                // NetBios name
+  .WfName="DSP TU",                // NetBios name
+  .UsbEcho=0                       // Default to half duplex        
 };
 
 
@@ -128,7 +129,7 @@ void SavePrintConfig(int print){
   }else{
     NextAddr=StreamProgramExtFlash(NextAddr,strlen(StringBuf),(uint8_t*)StringBuf); // Write to external flash and get next address
   }
-  sprintf(StringBuf,"KosDropSeconds\t%d\r\n",UserConfig.KosDropSeconds);
+  sprintf(StringBuf,"KosDropSeconds\t%f\r\n",UserConfig.KosDropSeconds);
   if(1==print){
     PrintString(StringBuf);
   }else{
@@ -260,6 +261,12 @@ void SavePrintConfig(int print){
   }else{
     NextAddr=StreamProgramExtFlash(NextAddr,strlen(StringBuf),(uint8_t*)StringBuf); // Write to external flash and get next address
   } 
+  sprintf(StringBuf,"UsbEcho\t%d\r\n",UserConfig.UsbEcho);  
+  if(1==print){
+    PrintString(StringBuf);
+  }else{
+    NextAddr=StreamProgramExtFlash(NextAddr,strlen(StringBuf),(uint8_t*)StringBuf); // Write to external flash and get next address
+  }   
 }
 
   
