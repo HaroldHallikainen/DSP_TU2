@@ -21,7 +21,7 @@
 
 //#define NumCommandBufs NumTcpSockets+3 // Separate command buffers for TCP connections (NumTcpSockets), RS232, ConfigFlash, and HTTPPOST
 #define NumCommandBufs 1 // Separate command buffers for different possible sources
-#define CommandBufSize 150 
+#define CommandBufSize 50 
 #define MaxArgs 10 
 
 
@@ -521,6 +521,24 @@ uint8_t mac_addr[6];       // WiFi MAC address used in WfMac
             sprintf(StringBuf,"%d\r\n>", UserConfig.UsbEcho);            
           }
           break;
+        case 0x5c9688b4:    //UsbBaud
+          if(2==ArgNum){    // Setting baud rate
+            UserConfig.UsbBaud=atol(TokenArray[1]);   // Save it
+            UartSpeedSet(UserConfig.UsbBaud);         // Set up the uart
+            strcpy(StringBuf,"\r\n>");
+          }else{
+            sprintf(StringBuf,"%u\r\n>",UserConfig.UsbBaud);    // Show current setting
+          }
+          break;
+        case 0x66f6d01:   // BootToModem
+          if(2==ArgNum){    // Setting baud rate
+            UserConfig.BootToModem=atoi(TokenArray[1]);   // Save it
+            strcpy(StringBuf,"\r\n>");
+          }else{
+            sprintf(StringBuf,"%u\r\n>",UserConfig.BootToModem);    // Show current setting
+          }
+          break;
+           
       }
     }
   }
@@ -573,6 +591,8 @@ AutostartThresh           0.5      Discriminator threshold (mark level minus\r\n
 BaudRate                  45.45    The transmit baud rate in bits per second.\r\n\
                                    Used to set the speed of the Baudot UART and\r\n\
                                    tone filter bandwidths.\r\n\
+BootToModem               0        If nonzero, goes to modem mode instead of\r\n\
+                                   CLE. Escape to return to CLI.\r\n\
 DataLpfBwBrMult           1.0      Multiply this by Baud Rate to get the\r\n\
                                    bandwidth (cutoff frequency) of the data low\r\n\
                                    pass filters (one eacj for mark amd s[ace).\r\n\
@@ -655,6 +675,7 @@ ToneFilterBwBrMult        1.7      The BaudRate is multiplied by this value to\r
                                    is set to the lowest value possible that\r\n\
                                    results in full discriminator swing in 1/2\r\n\
                                    bit time\r\n\
+UsbBaud                   921600   Set or read  bit rate for USB UART\r\n\
 UsbEcho                   0        0 disables echo on USB (half duplex), 1\r\n\
                                    enables (full duplex).\r\n\
 UseAgc                    1        0 disables AGC. 1 enables AGC sampling input\r\n\

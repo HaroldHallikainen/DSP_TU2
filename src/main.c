@@ -137,7 +137,12 @@ int main ( void ){
   PrintString("AFSK generator initialized\r\n");
   sprintf(StringBuf,"External flash ID = %x. Should be ef3013\r\n",ReadExtFlashID());
   PrintString(StringBuf);
-  LoadSavedConfig();          // Load config from flash
+  if(1==SHIFT_TOGGLEn_Get()){ // Shift button not down, load saved config
+    LoadSavedConfig();          // Load config from flash
+    PrintString("Saved config loaded\r\n");
+  }else{
+    PrintString("Saved config not loaded. Using default config.");
+  }
   WiFiInit();                 // Enable and reset wifi module
   // m2m_wifi_init();            // Initialize the wifi driver
   // hif_chip_wake();  //Wake the chip
@@ -158,6 +163,8 @@ int main ( void ){
   DisplayString(__DATE__);
   DisplayString("\r\nw6iwi.org/\r\n");
   DisplayString("rtty/DspTU2\r\n");
+  sprintf(StringBuf,"USB Baud: %u\r\n", UserConfig.UsbBaud);
+  DisplayString(StringBuf);
   if(WifiGood) PrintString("WiFi Module Info\r\n");
     MillisecondCounter=0;             // Use the WiFi millisecond counter to time the flash display
     while(MillisecondCounter<5000){ // Loop updating the display for 5 seconds
@@ -377,3 +384,18 @@ double max(double x, double y){
   }
 }
 
+void UartSpeedSet(uint32_t baud){
+  // Change baud rate and nothing else.
+  uint32_t srcClkFreq; 
+  int32_t uxbrg;            // Calculate brg here
+  srcClkFreq = UART1_FrequencyGet();  // Get peripheral clock frequency
+  uxbrg = (((srcClkFreq >> 4) + (baud >> 1)) / baud ) - 1; // Calculate for brgh=0
+  if(uxbrg<=UINT16_MAX){    // BRGH=0 works
+    U1MODEbits.BRGH=0;
+    U1BRG=(uint16_t)uxbrg;  // Set the brg
+  }else{                    // Did not fit in brg with brgh=0
+    uxbrg = (((srcClkFreq >> 2) + (baud >> 1)) / baud ) - 1; // Calculate for BRGH=1;
+    U1MODEbits.BRGH=1;
+    U1BRG=(uint16_t)uxbrg;  // Set brg with brgh=1
+  }  
+}  

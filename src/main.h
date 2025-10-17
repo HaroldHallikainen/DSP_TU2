@@ -38,7 +38,7 @@ void PrintString(char *string);     // Send the string to UART1 to USB.
 void PrintChar(char data);          // Print a character
 double max(double x, double y);     // Return the maximum value 
 void _mon_putc(char c);             // Printf redirection
-
+void UartSpeedSet(uint32_t baud);    // Change baud rate and nothing else.
 // Macro for debug printing
 #include <stdio.h>
 

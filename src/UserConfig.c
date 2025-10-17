@@ -19,9 +19,9 @@ const UserConfig_t UserConfigDefault={
   .ToneFilterBwBrMult=1.7,          // Tone filter bandwidth is the baud rate times this number. Make wide enough for minimal attenuation of BR/2 sideband
   .DataLpfBwBrMult=1.0,            // Multiply baud rate by this to get data LPF bandwidth (cutoff freq))
   .MarkHoldThresh=0.2,              // Minimum discriminator - threshold level to reset mark hold timer.
-  // .MarkHoldDisableSecs=2.0,      // Disable mark hold for 2 seconds after valid mark
   .AutostartThresh=0.5,             // Minimum discriminator - threshold level to start motor
-  .AutostartShutdownSeconds=30.0,   // Keep motor running this may seconds after signal drop
+  .AutostartShutdownSeconds=30,     // Keep motor running this may seconds after signal drop
+  .UsbBaud=921600,                  // Default baud rate
   .AutostartSeqGoodChars=10,        // How many sequential good characters before motor start
   .KosDropSeconds=3.0,              // Drop transmitter 5 seconds after last character
   .AgcTargetLevel=0.6,               // AGC adjusts to this level
@@ -40,7 +40,8 @@ const UserConfig_t UserConfigDefault={
   .FreqAdjPercent=0.0,             // Adjust PR2 for CPU clock error
   .LineFreq=60.0,                    // Power line frequency used in power line noise measurement
   .WfName="DSP TU",                // NetBios name
-  .UsbEcho=0                       // Default to half duplex        
+  .UsbEcho=0,                       // Default to half duplex  
+  .BootToModem=0                  // By default, boot to CLI        
 };
 
 
@@ -266,7 +267,21 @@ void SavePrintConfig(int print){
     PrintString(StringBuf);
   }else{
     NextAddr=StreamProgramExtFlash(NextAddr,strlen(StringBuf),(uint8_t*)StringBuf); // Write to external flash and get next address
-  }   
+  } 
+  sprintf(StringBuf,"UsbBaud\t%u\r\n",UserConfig.UsbBaud);  
+  if(1==print){
+    PrintString(StringBuf);
+  }else{
+    NextAddr=StreamProgramExtFlash(NextAddr,strlen(StringBuf),(uint8_t*)StringBuf); // Write to external flash and get next address
+  }
+  if(0!=UserConfig.BootToModem){      // We want to boot to modem 
+    strcpy(StringBuf,"BootToModem\t1\r\nmodem\r\n");
+    if(1==print){
+      PrintString(StringBuf);
+    }else{
+      NextAddr=StreamProgramExtFlash(NextAddr,strlen(StringBuf),(uint8_t*)StringBuf); // Write to external flash and get next address
+    }
+  }  
 }
 
   

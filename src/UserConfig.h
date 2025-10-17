@@ -20,6 +20,7 @@ typedef struct{
   // double MarkHoldDisableSecs;       // Seconds to hold off Mark Hold on valid mark
   double AutostartThresh;           // Minimum discriminator level to start motor
   uint32_t AutostartShutdownSeconds; // How many seconda after loss of mark to shut down motor
+  uint32_t UsbBaud;                 // Bitrate for USB uart
   double KosDropSeconds;            // How many seconds after last character to drop transmitter  
   double AgcTargetLevel;            // Desired AGC output level
   double AgcLpfF;                   // Cutoff frequency in AGC control.
@@ -32,6 +33,7 @@ typedef struct{
   int AutostartSeqGoodChars;        // How many good characters before motor start
   int DTC;                          // 1= Enable Dynamic Threshold Control
   int UsbEcho;                      // 1 enables echo over USB serial port, 0 disables
+  int BootToModem;                  // 1 causes us to switch to modem mode on boot. 0 causes us to remain in caommand interpreter
   double TxRxHoldoff;               // How many seconds to disable demod on Tx to Rx transition
   double AgcMaxGain;                // Maximum gain of AGC in V/V
   double WideTxHfEq;                // dB to boost high frequency (or cut low if positive) in dB for wide shift
