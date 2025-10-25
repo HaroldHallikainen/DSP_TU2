@@ -41,7 +41,8 @@ const UserConfig_t UserConfigDefault={
   .LineFreq=60.0,                    // Power line frequency used in power line noise measurement
   .WfName="DSP TU",                // NetBios name
   .UsbEcho=0,                       // Default to half duplex  
-  .BootToModem=0                  // By default, boot to CLI        
+  .BootToModem=0,                  // By default, boot to CLI
+  .LoopSenseLpfBrMult=0.5            // Loop sense LPF cutoff freq is 0.5 times baud rate
 };
 
 
@@ -274,6 +275,12 @@ void SavePrintConfig(int print){
   }else{
     NextAddr=StreamProgramExtFlash(NextAddr,strlen(StringBuf),(uint8_t*)StringBuf); // Write to external flash and get next address
   }
+  sprintf(StringBuf,"LoopSenseLpfBrMult\t%f\r\n",UserConfig.LoopSenseLpfBrMult);
+  if(1==print){
+    PrintString(StringBuf);
+  }else{
+    NextAddr=StreamProgramExtFlash(NextAddr,strlen(StringBuf),(uint8_t*)StringBuf); // Write to external flash and get next address
+  } 
   if(0!=UserConfig.BootToModem){      // We want to boot to modem 
     strcpy(StringBuf,"BootToModem\t1\r\nmodem\r\n");
     if(1==print){

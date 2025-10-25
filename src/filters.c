@@ -18,7 +18,8 @@ biquad *SpaceFilter[NumBpf]; // Audio BPF for space
 biquad *MarkDataFilter;     // Mark LPF after absolute value "full wave rectification" 
 biquad *SpaceDataFilter;
 biquad *InputBpf;
-biquad *MsLevelLpf;         // Low pass filter used to get the level of both mark and space    
+biquad *MsLevelLpf;         // Low pass filter used to get the level of both mark and space 
+biquad *LoopSenseLpf;       // Debounce the loop sense
 double MarkFreq, SpaceFreq;
 
 void FiltersInit(void){
@@ -42,6 +43,7 @@ void FiltersInit(void){
   SpaceDataFilter=BiQuad_new(LPF, 0.0, UserConfig.DataLpfBwBrMult*UserConfig.BaudRate, 8000.0, 0.707 );
   InputBpf=BiQuad_new(BPF,0.0,InputBpfFreq, 8000.0, InputBpfFreq/InputBpfBW);  // Calculate Q from freq/bw
   MsLevelLpf=BiQuad_new(LPF,0.0,0.5,8000.0,0.707);       // 0.5 Hz LPF detects max of mark/space level
+  LoopSenseLpf=BiQuad_new(LPF,0.0,5.0*UserConfig.BaudRate,8000,0.707);  // Loop sense LPF at 4 * baud rate
 }
 
 void PollShiftMarkHi(void){
@@ -87,5 +89,6 @@ void UpdateDemodFilters(void){
   BiQuad_modify(SpaceDataFilter, LPF, 0.0, UserConfig.DataLpfBwBrMult*UserConfig.BaudRate, 8000.0, 0.707 ); // According to https://arachnoid.com/BiQuadDesigner/index.html , 22 Hz is down .014 dB
   InputBpfFreq=sqrt(MarkFreq*SpaceFreq);     // Input BPF center freq
   BiQuad_modify(InputBpf, BPF,0.0,InputBpfFreq, 8000.0, InputBpfFreq/InputBpfBW);  // Calculate Q from freq/bw
+  BiQuad_modify(LoopSenseLpf, LPF,0.0,UserConfig.LoopSenseLpfBrMult*UserConfig.BaudRate,8000,0.707);  //Update loop sense debounce filter
   AdjustTxHfEq();                 // Adjusts gain of mark and space transmit
 }

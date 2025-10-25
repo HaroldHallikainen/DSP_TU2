@@ -24,6 +24,7 @@ typedef struct{
   double KosDropSeconds;            // How many seconds after last character to drop transmitter  
   double AgcTargetLevel;            // Desired AGC output level
   double AgcLpfF;                   // Cutoff frequency in AGC control.
+  double LoopSenseLpfBrMult;        // What to multiply baud rate by to get loop sense LPF cutoff frequency
   int UseInputBpf;                  // True if we want to use input bpf
   double InputBpfBwShiftMult;       // Input BPF bandwidth is shift times this number
   int UseLimiter;                   // True if we want to use the limiter

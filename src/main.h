@@ -24,11 +24,13 @@ extern   char StringBuf[100];
 typedef enum {CLI, modem, audio} UartDest_t;   // Where to send UART1 data
 extern UartDest_t UartDest;
 extern double MarkDemodOut, SpaceDemodOut;
-typedef enum {NONE,ADC, AGC, INPUT_BPF, LIMITER, MARK_FILTER_OUT, SPACE_FILTER_OUT, MARK_DEMOD_OUT, SPACE_DEMOD_OUT, DISCRIM, DDS, THRESHOLD, DISCRIM_LESS_THRESHOLD} AudioOut_t;
+typedef enum {NONE,ADC, AGC, INPUT_BPF, LIMITER, MARK_FILTER_OUT, SPACE_FILTER_OUT, MARK_DEMOD_OUT, SPACE_DEMOD_OUT, 
+        DISCRIM, DDS, THRESHOLD, DISCRIM_LESS_THRESHOLD, LOOP_SENSE_LPF} AudioOut_t;
 extern AudioOut_t AudioOut;
 extern char AudioOutString[][17];       // Each string is 16 bytes long plus null terminator
 extern double MarkFreq;
 extern double SpaceFreq;
+extern double LoopSenseLpfOut;
 
 #define LoopSenseMark (0==LOOP_SENSE_Get()) // If loop mark, sense opto output low
 

@@ -1091,10 +1091,10 @@ void menu11(void){      // Debug Audio Output
       switch(MenuSelection){
         case 0:                       // Change audio out selection
           if((AudioOut==0)&&(EncoderCount<0)){  // enum does not go negative
-            AudioOut=12;
+            AudioOut=13;
           }else{                          // Deal with positive values  
             AudioOut+=EncoderCount;
-            if(AudioOut>12)AudioOut=0;      // Limit selection range
+            if(AudioOut>13)AudioOut=0;      // Limit selection range
             DisplayString("\f\n\n\n\n");
             DisplayString(AudioOutString[AudioOut]);
           }

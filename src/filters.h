@@ -18,6 +18,8 @@ extern biquad *SpaceDataFilter;
 extern biquad *InputBpf;
 extern biquad *MsLevelLpf;         // Low pass filter used to get the level of both mark and space    
 extern double MarkFreq, SpaceFreq;
+extern biquad *LoopSenseLpf;       // Debounce the loop sense
+
 
 void FiltersInit(void);      // Create and put initial settings in filters.
 void PollShiftMarkHi(void);  // See if we need to reload filters due to a change in shift or MarkHi

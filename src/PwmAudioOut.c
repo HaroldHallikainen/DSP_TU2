@@ -9,5 +9,7 @@
 
 void AudioPwmSet(double sample){
     // Pass in audio sample as -1.0 to +1.0 to set duty cycle to 0% to 100%
+  if(sample<-1.0) sample=-1.0;    // Limit full scale
+  if(sample>1.0) sample=1.0;
     OCMP1_CompareSecondaryValueSet((int)(((1.0+sample)/2)*(double)PR2));
 }

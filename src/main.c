@@ -73,6 +73,7 @@ volatile uint32_t MillisecondCounter=0; // Advances every 1 ms. Used by WiFi
 int TimeoutCounterMin=0;              // Minimum timeout value to see if we are servicing audio on time
 int MsLevelPrintCount=0;              // How many mark/space levels to print
 int MsLevelSampleInterval=8000;            // How many samples between printing mark/space levels
+int FilteredLoopSenseInt=1;           // 1 for mark, 0 for space
 int16_t FpPollCounter=0;                // Decrements at 8 kHz telling us when to poll switches and LEDs.
 // Audio samples at various stages
 uint16_t AdcSample;         // Raw sample from ADC. Converted to AdcSamplef for calculations.
@@ -81,6 +82,7 @@ double samplef, TestSamplef, MarkSample, SpaceSample, MarkDemodOut, SpaceDemodOu
 // What drives the audio output. Usually dds (AFSK tone), but others for debug.  
 // enum {NONE,ADC, AGC, INPUT_BPF, LIMITER, MARK_FILTER_OUT, SPACE_FILTER_OUT, MARK_DEMOD_OUT, SPACE_DEMOD_OUT, DISCRIM, DDS, THRESHOLD, DISCRIM_LESS_THRESHOLD} AudioOut=DDS;
 AudioOut_t AudioOut=DDS;
+double LoopSenseLpfOut=1.0; // Output of LoopSense LPF. 1.0=mark, -1.0=space
 char AudioOutString[][17]={ // Each string is 16 bytes long plus null terminator
   "NONE            ",
   "ADC             ",
@@ -94,7 +96,8 @@ char AudioOutString[][17]={ // Each string is 16 bytes long plus null terminator
   "DISCRIM         ",
   "DDS             ", 
   "THRESHOLD       ",
-  "DISCRIM - THRESH"
+  "DISCRIM - THRESH",
+  "LOOP_SENSE_LPF  "
 };
 UartDest_t UartDest=CLI;   // Where to send UART1 data
 
@@ -184,6 +187,16 @@ int main ( void ){
       WDT_Clear();           // Clear WDT. Prescale is 1024 for timeout in 1.024 seconds
       FpPollCounter--;                // Decrement at 8 kHz so we can poll front panel now and then
       Timer2TimeoutCounter+=10;    // come back in 125 us. PWM frequency is 80 kHz, so change every 10 cycles
+      if(1==LoopSenseMark){
+        LoopSenseLpfOut=BiQuad(1.0,LoopSenseLpf);  // if loop is mark, pass 1.0 into LPF
+      }else{
+        LoopSenseLpfOut=BiQuad(-1.0,LoopSenseLpf); // if space pass -1.0
+      }
+      if(LoopSenseLpfOut>0){        // A debounced loop sense. 1=mark, 0=space
+        FilteredLoopSenseInt=1;
+      }else{
+        FilteredLoopSenseInt=0;
+      }
       if(UartDest==audio){
         if(UART1_ReadCountGet()<UART1_ReadBufferSizeGet()/4){ // OK to send if buffer N25%
           if(LastHandshakeSent!=XON){  // Not already sent
@@ -214,10 +227,11 @@ int main ( void ){
         AfskGen(BaudotUartTxOut);
         LATBbits.LATB0=BaudotUartTxOut;                   // Send software uart data out RB0. hh 9/13/25
       }else{
-        AfskGen(LoopSenseMark && BaudotUartTxOut);     // Adjust DDS frequency based on loop condition and software uart
-        LATBbits.LATB0=(LoopSenseMark && BaudotUartTxOut); // Send both software uart and loop sense to LATB0 to directly key transmtter. hh 9/13/25
+        AfskGen(FilteredLoopSenseInt && BaudotUartTxOut);     // Adjust DDS frequency based on loop condition and software uart
+        LATBbits.LATB0=(FilteredLoopSenseInt && BaudotUartTxOut); // Send both software uart and loop sense to LATB0 to directly key transmtter. hh 9/13/25
       }
       TestSamplef=0.0;                // Output silence if nothing selected
+      if(AudioOut==LOOP_SENSE_LPF) TestSamplef=LoopSenseLpfOut; // Show output of loop sense LPF
       if(AudioOut==ADC) TestSamplef=samplef;
       if(UserConfig.UseInputBpf==TRUE){
         samplef=BiQuad(samplef,InputBpf);

@@ -538,6 +538,15 @@ uint8_t mac_addr[6];       // WiFi MAC address used in WfMac
             sprintf(StringBuf,"%u\r\n>",UserConfig.BootToModem);    // Show current setting
           }
           break;
+        case 0x171e868:   // LoopSenseLpfBrMult - Set cutoff as multiple of baud rate
+          if(2==ArgNum){
+            UserConfig.LoopSenseLpfBrMult=atof(TokenArray[1]); // Save user value
+            UpdateDemodFilters();   // Update all filters
+            strcpy(StringBuf,"\r\n>");
+          }else{
+            sprintf(StringBuf,"%f\r\n>",UserConfig.LoopSenseLpfBrMult);
+          }
+          break;
            
       }
     }
@@ -614,6 +623,9 @@ char HelpString1[]="\
 LoadDefaultConfig                  No parameters. Loads default configuration.\r\n\
 LoadSavedConfig                    No parameters. Loads the configuration saved\r\n\
                                    to external flash.\r\n\
+LoopSenseLpfBrMult        5.0      Baud rate is multiplied by this to set the\r\n\
+                                   cutoff frequency of the loop sense LPF which\r\n\
+                                   debounces the sensed loop current.\r\n\
 MarkHoldThresh            0.3      Sustained discriminator levels below this\r\n\
                                    threshold put the demodulator in mark to\r\n\
                                    avoid printing on noise. If the Input LPF is\r\n\
