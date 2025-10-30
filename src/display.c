@@ -129,73 +129,6 @@ void DisplayInit(void){
   DataWrite(0x0b);
   ComWrite(0xb6); // Set Second Pre-charge Period
   DataWrite(0x01);
-  /* - Try without gamma table
-  ComWrite(0xb8); //Set Gray Table
-  DataWrite(0); //0
-  DataWrite(2); //1
-  DataWrite(3); //2
-  DataWrite(4); //3
-  DataWrite(5); //4
-  DataWrite(6); //5
-  DataWrite(7); //6
-  DataWrite(8); //7
-  DataWrite(9); //8
-  DataWrite(10); //9
-  DataWrite(11); //10
-  DataWrite(12); //11
-  DataWrite(13); //12
-  DataWrite(14); //13
-  DataWrite(15); //14
-  DataWrite(16); //15
-  DataWrite(17); //16
-  DataWrite(18); //17
-  DataWrite(19); //18
-  DataWrite(21); //19
-  DataWrite(23); //20
-  DataWrite(25); //21
-  DataWrite(27); //22
-  DataWrite(29); //23
-  DataWrite(31); //24
-  DataWrite(33); //25
-  DataWrite(35); //26
-  DataWrite(37); //27
-  DataWrite(39); //28
-  DataWrite(42); //29
-  DataWrite(45); //30
-  DataWrite(48); //31
-  DataWrite(51); //32
-  DataWrite(54); //33
-  DataWrite(57); //34
-  DataWrite(60); //35
-  DataWrite(63); //36
-  DataWrite(66); //37
-  DataWrite(69); //38
-  DataWrite(72); //39
-  DataWrite(76); //40
-  DataWrite(80); //41
-  DataWrite(84); //42
-  DataWrite(88); //43
-  DataWrite(92); //44
-  DataWrite(96); //45
-  DataWrite(100); //46
-  DataWrite(104); //47
-  DataWrite(108); //48
-  DataWrite(112); //49
-  DataWrite(116); //50
-  DataWrite(120); //51
-  DataWrite(125); //52
-  DataWrite(130); //53
-  DataWrite(135); //54
-  DataWrite(140); //55
-  DataWrite(145); //56
-  DataWrite(150); //57
-  DataWrite(155); //58
-  DataWrite(160); //59
-  DataWrite(165); //60
-  DataWrite(170); //61
-  DataWrite(175); //62
-  DataWrite(180); //63
-  */
   ComWrite(0xbb); // Set pre-charge voltage of color A B C
   DataWrite(0x17);
   ComWrite(0xbe); // Set VcomH
@@ -279,6 +212,7 @@ void DisplayWritePixel(uint8_t x, uint8_t y, uint8_t r, uint8_t g, uint8_t b){
     DisplayCSN();
 }
 
+#if 1
 void DisplayClear(void){
     // Write black pixels to entire display
     int n;
@@ -288,6 +222,18 @@ void DisplayClear(void){
     }    
     DisplayCSN();
 }
+
+#else
+
+void DisplayClear(void){
+  int n;
+  ComWrite(0x5c);
+  for(n=0;n<2*128*128; n++){
+    DataWrite(0);
+  }
+  DisplayCSN();
+}
+#endif
 
 void DisplayTest(void){
   int n;

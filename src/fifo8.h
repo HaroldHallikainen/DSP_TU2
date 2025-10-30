@@ -25,6 +25,7 @@ typedef struct {
 // Function Prototypes
 Fifo8_t *Fifo8Create(uint32_t size);	// create and initialize the 8 bit wide Fifo
 uint16_t Fifo8Put(Fifo8_t *fifo, char data);	// Put data in the specified fifo. Return 0 on success. Nonzero on error.
+uint16_t Fifo8PutString(Fifo8_t *fifo, char *string);  // Put a string in the specified FIFO. Return non-zero if we did not have enough room
 char Fifo8Get(Fifo8_t *fifo);         // Get a character from the specified fifo. Returns 0 if nothing available. 
 uint32_t Fifo8Full(Fifo8_t *fifo);          // How many words are in the fifo
 uint32_t Fifo8Free(Fifo8_t *fifo);          // How many words are available in the fifo

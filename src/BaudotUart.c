@@ -5,6 +5,8 @@
 #include "UserConfig.h"
 #include <stdio.h>
 #include "fifo8.h"      // Buffer locally generated ascii for transmission
+#include <string.h>
+#include <ctype.h>
 
 uint32_t CharCount=0;   // How many good start bits we got
 uint32_t BadStopBitCount=0; // How many bad stop bits we got
@@ -15,17 +17,23 @@ Fifo8_t  *pAsciiTxFifo;  // Fifo for stuff not coming in uart
 
 void BaudotUartInit(void){
   // Actually initializes stuff to send error count report.
-  pAsciiTxFifo=Fifo8Create(200);  // Create a 200 byte fifo
+  pAsciiTxFifo=Fifo8Create(400);  // Create a 400 byte fifo
+}
+
+void TxW6iwiCQ(void){
+  char CqLine[]="\r\x07\x07\x07\x07\x07 CQ CQ CQ CQ CQ CQ CQ CQ CQ CQ CQ CQ CQ CQ DE w6iwi W6IWI W6IWI TUCSON AZ";
+  int LineCount=0;
+  for(LineCount=0;LineCount<5;LineCount++){
+    Fifo8PutString(pAsciiTxFifo,CqLine);
+  }
+  Fifo8PutString(pAsciiTxFifo,"\r\r");
 }
 
 void TxErrorReport(void){
   // Send error report if enabled on new transmission
-  char *pStringBuf = StringBuf;  // Point to StringBuf
+//  char *pStringBuf = StringBuf;  // Point to StringBuf
   GenerateErrorCountReport();    // Makes report in StringBuf
-  while(*pStringBuf!=0){
-    Fifo8Put(pAsciiTxFifo, *pStringBuf); // Put a character info fifo for tex
-    pStringBuf++;
-  }
+  Fifo8PutString(pAsciiTxFifo,StringBuf);   // Send to ASCII TX buffer to convert to Baudot and send.
 }
 
 void GenerateErrorCountReport(void){
@@ -37,6 +45,26 @@ void GenerateErrorCountReport(void){
 char BaudotLtrs[]="~E\nA SIU\rDRJNFCKTZLWHYPQOBG~MXV~";  // 0x03 to shift to figs, 0x0f to ltrs
 char BaudotFigs[]="~3\n- \a87\r$4',!:(5\")2#6019?&~./;~"; // ~ characters not translated
 
+void BaudotCommandCheck(char c){
+  // Pass in a character. Move each character in buffer down 1, then append c.
+  // Run substring check for command sequence, then run command if found.
+  // static char buf[5]={0,0,0,0,0};
+  int n;
+  static char bcbuf[6]={1,1,1,1,1,0}; // Initialize string with non-null so strstr searches whole string. Null at end to stop search
+  // char *found;    // Non-null if we found the command substring in bcbuf
+  for(n=1;n<5;n++){
+    bcbuf[n-1]=bcbuf[n]; // Delete oldest and move all down.
+  }
+  bcbuf[4]=(char)toupper(c);         // Insert latest character converted to upper case
+  if(NULL!=strstr(bcbuf,"!ER")){
+    TxErrorReport();
+    bcbuf[4]=1;         // Make sure we don't find it again
+  }  
+  if(NULL!=strstr(bcbuf,"!Q")){
+    TxW6iwiCQ();
+    bcbuf[4]=1; // Get rid of last character of string so we don't find it again
+  }  
+}
 
 //TODO: Change timing to use BaudRate
 char BaudotUartRx(bool MS){
@@ -49,8 +77,6 @@ char BaudotUartRx(bool MS){
   static uint8_t RxChar=0;
   static bool FIGS=false;
   char result=0;
-  const char ER[]="!ER";     // Sequence to request error report
-  static int ErIndex=0;      // Next position to check
   if(CallCounter!=0){        // Not time yet
     CallCounter--;           // decrement and get out
   }else{                     // CallCounter==0, time to do something
@@ -136,15 +162,7 @@ char BaudotUartRx(bool MS){
           }
           if(result!=0){                // Throw out nulls
             if(1==TX_LED_Get()){        // Only send error report if we are transmitting
-              if(result==ER[ErIndex]){      // Check for error report request
-                ErIndex++;
-                if(0==ER[ErIndex]){     // We got whole command
-                  TxErrorReport();          // Send it
-                  ErIndex=0;                // Start looking for first char
-                }
-              }else{                        // Character did not match
-                ErIndex=0;                  // Start from beginning again
-              }
+              BaudotCommandCheck(result);     // Check for baudot commands
             }                           // Endif we are transmitting  
           } // endif not null
           if(result=='R') Rcount++;     // Count R characters
@@ -164,7 +182,7 @@ const uint8_t AsciiToBaudotTable[]={
 // LSB first. MSB is set if FIGS is required.
   0x00,       // ASCII null. Send blank key
   0x00,       // ASCII SOH, send blank key 
-  0x00,       // ASCII STX, send blank key
+  0x1f,       // ASCII STX, send blank key - Send LTRS
   0x00,       // ASCII ETX, send blank key
   0x00,       // ASCII EOT
   0x00,       // ASCII ENQ. semd blank key
@@ -267,8 +285,8 @@ void BaudotUartTx(void){
   static uint32_t CallCount=0;
   static uint32_t BitTimeCallCount;
   static int Figs=0;          // non-zero if we are in FIGS
-  const char ER[]="!ER";     // Sequence to request error report
-  static int ErIndex=0;      // Next position to check
+ // const char ER[]="!ER";     // Sequence to request error report
+ // static int ErIndex=0;      // Next position to check
   if((UartDest==modem)||(Fifo8Full(pAsciiTxFifo))){ // Use UART RX data here instead of command interp
                               // or we have some locally generated stuff to transmit
     if(CallCount>0){
@@ -281,25 +299,22 @@ void BaudotUartTx(void){
           if(0!=UART1_ReadCountGet()){  // There is something to transmit
             UART1_Read(&AsciiChar,1);    // Get 1 character to AsciiChar
             if(UserConfig.UsbEcho!=0) PrintChar(AsciiChar);  // If echo enabled, send back to uart
-          }  
-          if(0!=Fifo8Full(pAsciiTxFifo)){ // Fifo has data
-            AsciiChar=Fifo8Get(pAsciiTxFifo);
-          }
-          if(0!=AsciiChar){       // We got something!  
-            if(AsciiChar==ER[ErIndex]){      // Check for error report request
-              ErIndex++;
-              if(0==ER[ErIndex]){     // We got whole command
-                TxErrorReport();          // Send it
-                ErIndex=0;                // Start looking for first char
-              }
-            }else{                        // Character did not match
-              ErIndex=0;                  // Start from beginning again
+          }else{  
+            if(0!=Fifo8Full(pAsciiTxFifo)){ // Fifo has data
+              AsciiChar=Fifo8Get(pAsciiTxFifo);
             }
+          }  
+          if(0!=AsciiChar){       // We got something!
+            LOOP_KEY_Set();     // Make sure loop keyer not holding us in space.
+            BaudotCommandCheck(AsciiChar);  // See if it is part of a command    
             BitTimeCallCount=(uint32_t)(8000.0/UserConfig.BaudRate);    // How many calls for one bit time
             if(AsciiChar>0x60) AsciiChar-=0x20; // Shift lower case to upper case
             if(AsciiChar<sizeof(AsciiToBaudotTable)){    // Prevent running off end of array
               if(AsciiChar==0x1b){                      // Escape
                 UartDest=CLI;                           // Go back to command interpreter
+                while(0!=UART1_ReadCountGet()){         // Dump buffer with data from usb uart
+                  UART1_Read(&AsciiChar,1);    // Get 1 character to AsciiChar
+                }
                 PrintString("\r\n\nReturning to CLI\r\n\n>");
               }else{
                 BaudotChar=AsciiToBaudotTable[AsciiChar]; // Get baudot code
@@ -354,9 +369,11 @@ void BaudotUartTx(void){
         case 106:                // Send stop bit
           BaudotUartTxOut = 1;
           if(BaudotChar==0x08){   // It was CR, append LF
-            PrintChar('\n');      // Send newline to terminal
+            if(UserConfig.UsbEcho!=0) PrintChar('\n');      // Send newline to terminalif we are echoing
             BaudotChar=2;         // Baudot line feed
             state=100;            // Go send it
+            CallCount=10*BitTimeCallCount; // Give CR extra time
+            break;                // Get out here before setting CallCount for normal stop bit
           }else{
             state=0;              // Go back to waiting for next character
           }  

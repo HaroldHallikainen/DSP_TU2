@@ -55,7 +55,7 @@ void AutostartKos(double MsLevel){
     }else{
       if(0!=KosLockout)KosLockout--;  // Decrement lockout if not keyed by receive data
     }
-    if(0==KosLockout){                 // KOS not locked out by receive data
+    if((0==KosLockout)||(0==BaudotUartTxOut)){ // KOS not locked out by receive data or we have data from usb
       if(OldLoopSense!=LOOP_SENSE_Get()){ // Loop changed, so key up or stay keyed up - Don't need to check NoLoop since looking for change instead of space. 
         OldLoopSense=LOOP_SENSE_Get();    // Remember new value
         KosCounter=(uint32_t)(8000.0*UserConfig.KosDropSeconds);  // Reset counter to drop out later

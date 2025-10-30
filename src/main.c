@@ -156,7 +156,7 @@ int main ( void ){
   }else{
     WifiGood=0;
   }
-  PrintString("\nDSP TU\r\nhttps://w6iwi.org/rttu/DspTU2\r\n");
+  PrintString("\nDSP TU\r\nhttps://w6iwi.org/rttu/DspTU3\r\n");
   PrintString("Build Date: ");
   PrintString(__DATE__);
   PrintString("\r\n\r\n");
@@ -165,7 +165,7 @@ int main ( void ){
   DisplayString("Build\r\n");
   DisplayString(__DATE__);
   DisplayString("\r\nw6iwi.org/\r\n");
-  DisplayString("rtty/DspTU2\r\n");
+  DisplayString("rtty/DspTU3\r\n");
   sprintf(StringBuf,"USB Baud: %u\r\n", UserConfig.UsbBaud);
   DisplayString(StringBuf);
   if(WifiGood) PrintString("WiFi Module Info\r\n");
@@ -197,20 +197,8 @@ int main ( void ){
       }else{
         FilteredLoopSenseInt=0;
       }
+
       if(UartDest==audio){
-        if(UART1_ReadCountGet()<UART1_ReadBufferSizeGet()/4){ // OK to send if buffer N25%
-          if(LastHandshakeSent!=XON){  // Not already sent
-            PrintChar(XON);         // XON/XOFF handshake. ok to send now
-            LastHandshakeSent=XON;  // Remember it
-          }
-        }else{
-          if(UART1_ReadCountGet()>3*UART1_ReadBufferSizeGet()/4){  // Stop send if buffer>75%
-            if(LastHandshakeSent!=XOFF){    // Not already sent
-              PrintChar(XOFF);        // Not ok to send now
-              LastHandshakeSent=XOFF; // Remember that we sent it
-            }
-          }  
-        }
         if(UART1_ReadCountGet()>0){
           UART1_Read(&RxChar,1);  // Get one character from uart fifo) and put in RxChar
           samplef=((double)(RxChar-127))/128.0; // remove 127 bias (8 bit wav is unsigned) and convert to double)
@@ -331,11 +319,19 @@ int main ( void ){
         if(TX_LED_Get()!=OldTx){  // TX/RX mode changed
           OldTx=TX_LED_Get();     // Remember the new value
           if(0==MenuNumber){      // Showing xy scope
-            DisplayClear();     // Clear display of garbage or perhaps mark hold threshold
+             DisplayClear();     // Clear display of garbage or perhaps mark hold threshold
           }
           if(0==OldTx){           // We changed from transmit to receive
             CharCount=0;
             BadStopBitCount=0;    // Reset counters in BaudotUart.
+          }
+          if(UartDest==modem){    // We are in modem mode, and Tx state changed
+            if(1==TX_LED_Get()){   // We started transmitting
+              Fifo8Clear(pAsciiTxFifo); // Get rid of any garbage 
+              PrintChar(STX);
+            }else{
+              PrintChar(EOT);
+            }
           }
         }
         FpPollCounter+=10;  // Each pass is 125us. Come back in 1.25ms
@@ -351,7 +347,20 @@ int main ( void ){
       if(WifiGood){
         WifiPoll();                   // Go handle wifi module
       }  
-    }  
+    }
+    if(UART1_ReadCountGet()<UART1_ReadBufferSizeGet()/4){ // OK to send if buffer N25%
+      if(LastHandshakeSent!=XON){  // Not already sent
+        PrintChar(XON);         // XON/XOFF handshake. ok to send now
+        LastHandshakeSent=XON;  // Remember it
+      }
+    }else{
+      if(UART1_ReadCountGet()>3*UART1_ReadBufferSizeGet()/4){  // Stop send if buffer>75%
+        if(LastHandshakeSent!=XOFF){    // Not already sent
+          PrintChar(XOFF);        // Not ok to send now
+          LastHandshakeSent=XOFF; // Remember that we sent it
+        }
+      }  
+    }
     IDLEn_Clear();      // Exiting DSP code, so make RE7 low so we can see how much time spent there.  
     /* Maintain state machines of all polled MPLAB Harmony modules. */
     SYS_Tasks ( );

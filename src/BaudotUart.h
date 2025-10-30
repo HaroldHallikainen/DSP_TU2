@@ -19,6 +19,7 @@ extern Fifo8_t  *pAsciiTxFifo;  // Fifo for stuff not coming in uart
 void GenerateErrorCountReport(void);
   // Put receive error report in StringBuf and clear counters;
 
+void BaudotCommandCheck(char c);    // Look for command sequences in data received over baudot uart
 
 char BaudotUartRx(bool MS);// Call with MS being the state of the loop (mark=1). 
     // Receives Baudot and translate to ASCII. Returns ASCII character when available. Otherwise

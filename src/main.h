@@ -11,6 +11,8 @@
 #define TRUE 1
 #define FALSE 0
 
+#define STX  0x02
+#define EOT  0x04
 #define XON  0x11
 #define XOFF 0x13
 

@@ -36,6 +36,16 @@ uint16_t Fifo8Put(Fifo8_t *fifo, char data){
   	return(result);  
 }
 
+uint16_t Fifo8PutString(Fifo8_t *fifo, char *string){
+  // Put a string in the specified FIFO. Return non-zero if we did not have enough room
+  uint16_t result=0;
+  while(*string!=0){    // Loop until null end of string indicator
+    result+=Fifo8Put(fifo, *string);  // Send a character to the fifo
+    string++;                 // Point to next character
+  }
+  return result;  // Return sum of errors from Fifo8Put
+}
+
 char Fifo8Get(Fifo8_t *fifo){
 	// Get a char from the specified fifo. Returns 0 if nothing available
   char result;	
