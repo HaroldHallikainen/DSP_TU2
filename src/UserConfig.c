@@ -42,6 +42,7 @@ const UserConfig_t UserConfigDefault={
   .WfName="DSP TU",                // NetBios name
   .UsbEcho=0,                       // Default to half duplex  
   .BootToModem=0,                  // By default, boot to CLI
+  .UsbToBaudotAppendLf=1,           // Append line feed to CR received over USB
   .LoopSenseLpfBrMult=0.5            // Loop sense LPF cutoff freq is 0.5 times baud rate
 };
 
@@ -288,7 +289,13 @@ void SavePrintConfig(int print){
     }else{
       NextAddr=StreamProgramExtFlash(NextAddr,strlen(StringBuf),(uint8_t*)StringBuf); // Write to external flash and get next address
     }
-  }  
+  }
+  sprintf(StringBuf,"UsbToBaudotAppendLf\t%d\r\n",UserConfig.UsbToBaudotAppendLf);  
+  if(1==print){
+    PrintString(StringBuf);
+  }else{
+    NextAddr=StreamProgramExtFlash(NextAddr,strlen(StringBuf),(uint8_t*)StringBuf); // Write to external flash and get next address
+  }   
 }
 
   

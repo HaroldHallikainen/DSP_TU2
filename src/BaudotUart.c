@@ -368,7 +368,7 @@ void BaudotUartTx(void){
           break;
         case 106:                // Send stop bit
           BaudotUartTxOut = 1;
-          if(BaudotChar==0x08){   // It was CR, append LF
+          if((BaudotChar==0x08)&&(UserConfig.UsbToBaudotAppendLf!=0)){   // It was CR, append LF if user wants it.
             if(UserConfig.UsbEcho!=0) PrintChar('\n');      // Send newline to terminalif we are echoing
             BaudotChar=2;         // Baudot line feed
             state=100;            // Go send it

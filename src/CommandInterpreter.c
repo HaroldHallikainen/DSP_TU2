@@ -547,6 +547,14 @@ uint8_t mac_addr[6];       // WiFi MAC address used in WfMac
             sprintf(StringBuf,"%f\r\n>",UserConfig.LoopSenseLpfBrMult);
           }
           break;
+        case 0x2f6f0ce:       // UsbToBaudotAppendLf 
+          if(2==ArgNum){
+            UserConfig.UsbToBaudotAppendLf=atoi(TokenArray[1]);   // Save value
+            strcpy(StringBuf,"\r\n>");            
+          }else{
+            sprintf(StringBuf,"%d\r\n>", UserConfig.UsbToBaudotAppendLf); // Show current value
+          }
+          break;
            
       }
     }
@@ -690,6 +698,8 @@ ToneFilterBwBrMult        1.7      The BaudRate is multiplied by this value to\r
 UsbBaud                   921600   Set or read  bit rate for USB UART\r\n\
 UsbEcho                   0        0 disables echo on USB (half duplex), 1\r\n\
                                    enables (full duplex).\r\n\
+UsbToBaudotAppendLf       1        Nonzero appends LF to CR received over USB\r\n\
+                                   sent to Buadot (in modem mode).\r\n\
 UseAgc                    1        0 disables AGC. 1 enables AGC sampling input\r\n\
                                    data to set gain. Users may choose to use the\r\n\
                                    limiter instead of the AGC. With either the\r\n\

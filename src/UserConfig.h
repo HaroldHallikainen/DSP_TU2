@@ -35,6 +35,7 @@ typedef struct{
   int DTC;                          // 1= Enable Dynamic Threshold Control
   int UsbEcho;                      // 1 enables echo over USB serial port, 0 disables
   int BootToModem;                  // 1 causes us to switch to modem mode on boot. 0 causes us to remain in caommand interpreter
+  int UsbToBaudotAppendLf;          // If nonzero, append line feed to carriage return received over USB
   double TxRxHoldoff;               // How many seconds to disable demod on Tx to Rx transition
   double AgcMaxGain;                // Maximum gain of AGC in V/V
   double WideTxHfEq;                // dB to boost high frequency (or cut low if positive) in dB for wide shift
