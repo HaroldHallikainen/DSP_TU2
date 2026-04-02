@@ -255,7 +255,7 @@ int main ( void ){
       if(AudioOut==SPACE_DEMOD_OUT) TestSamplef=SpaceDemodOut;
              // DiscrimOut is difference between LPF of full wave rectified of mark and space BPFs
       DiscrimOut=MarkDemodOut-SpaceDemodOut;
-      MsLevel=BiQuad(max(MarkDemodOut,SpaceDemodOut),MsLevelLpf);
+      MsLevel=BiQuad(fabs(DiscrimOut),MsLevelLpf);  // Run asbolute value of mark minus space through LPF
       if(MsLevelPrintCount>0){          // Command interpreter telling us to print level used in mark hold
         if(MsLevelSampleCount>=MsLevelSampleInterval){
           sprintf(StringBuf,"%f, %f\r\n",MarkDemodOut,SpaceDemodOut);

@@ -585,34 +585,29 @@ AgcMaxGain                15.0     The maximum gain the AGC will achieve with no
                                    input signal\r\n\
 AgcTargetLevel            0.6      The AGC adjusts its gain to yield this output\r\n\
                                    level to the remainder of the demodulator\r\n\
-Autostart                 1        1 enables autostart. 0 disables autostart. If\r\n\
-                                   autostart is enabled, loop will not be keyed\r\n\
-                                   unless motor LED is lit due to presence of\r\n\
-                                   qualified signal (above MarkHoldThresh and\r\n\
-                                   AutostartGoodChars received).\r\n\
-AutostartGoodChars        10       How many sequential good characters to trigger\r\n\
-                                   autostart\r\n\
+Autostart                 1        1 enables autostart. 0 disables autostart.\r\n\
+AutostartGoodChars        10       How many sequential good characters to\r\n\
+                                   trigger autostart\r\n\
 AutostartShutdownSeconds  30       Integer number of seconds after loss of mark\r\n\
-                                   tone when motor is shut down\r\n\
-AutostartThresh           0.5      Discriminator threshold (mark level minus\r\n\
-                                   space level) that will start motor. Too low a\r\n\
-                                   level can give false starts on noise. Too\r\n\
-                                   high a level can keep the motor from starting\r\n\
-                                   on a weak signal. If the Input BPF is enabled\r\n\
-                                   this is typically set to 0.5. This level can\r\n\
-                                   be set low if AutostartGoodChars is greater\r\n\
-                                   than 5 or so since noise will cause a bad \r\n\
-                                   character (bad stop bit) keeping the required\r\n\
-                                   number of good sequential characters to not be\r\n\
-                                   met.\r\n\
+                                   or space tone when motor is shut down\r\n\
+AutostartThresh           0.5      Mark or space level that will start motor.\r\n\
+                                   Too low a level can give false starts on\r\n\
+                                   noise. Too high a level can keep the motor\r\n\
+                                   from starting  on a weak signal. If the\r\n\
+                                   Input BPF is enabled this is typically set\r\n\
+                                   to 0.5. This level can be set low if\r\n\
+                                   AutostartGoodChars is greater than 5 or so\r\n\
+                                   since noise will cause a bad character (bad\r\n\
+                                   stop bit) keeping the required number of good\r\n\
+                                   sequential characters to not be met.\r\n\
 BaudRate                  45.45    The transmit baud rate in bits per second.\r\n\
                                    Used to set the speed of the Baudot UART and\r\n\
                                    tone filter bandwidths.\r\n\
 BootToModem               0        If nonzero, goes to modem mode instead of\r\n\
-                                   CLE. Escape to return to CLI.\r\n\
+                                   CLI. Escape to return to CLI.\r\n\
 DataLpfBwBrMult           1.0      Multiply this by Baud Rate to get the\r\n\
                                    bandwidth (cutoff frequency) of the data low\r\n\
-                                   pass filters (one eacj for mark amd s[ace).\r\n\
+                                   pass filters (one each for mark amd s[ace).\r\n\
 DTC                       1        1 enables Dynamic Threshold Control; 0\r\n\
                                    disables. Enable for \"AM Demodulation\",\r\n\
                                    where the limiter is disabled.\r\n\
@@ -631,7 +626,7 @@ char HelpString1[]="\
 LoadDefaultConfig                  No parameters. Loads default configuration.\r\n\
 LoadSavedConfig                    No parameters. Loads the configuration saved\r\n\
                                    to external flash.\r\n\
-LoopSenseLpfBrMult        5.0      Baud rate is multiplied by this to set the\r\n\
+LoopSenseLpfBrMult        0.5      Baud rate is multiplied by this to set the\r\n\
                                    cutoff frequency of the loop sense LPF which\r\n\
                                    debounces the sensed loop current.\r\n\
 MarkHoldThresh            0.3      Sustained discriminator levels below this\r\n\
