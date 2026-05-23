@@ -10,6 +10,7 @@
 
 void WiFiInit(void){
   TRISEbits.TRISE3=0;         // Make sure wifi resetn is an output
+  TRISEbits.TRISE4=0;         // Make sure enable is an output
   MillisecondCounter=0;
   WIFI_EN_Clear();
   WIFI_RESETn_Clear();

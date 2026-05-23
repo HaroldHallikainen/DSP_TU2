@@ -42,7 +42,7 @@ void FiltersInit(void){
   MarkDataFilter=BiQuad_new(LPF, 0.0, UserConfig.DataLpfBwBrMult*UserConfig.BaudRate, 8000.0, 0.707 ); // After rectification data LPF. Cutoff same as baud rate
   SpaceDataFilter=BiQuad_new(LPF, 0.0, UserConfig.DataLpfBwBrMult*UserConfig.BaudRate, 8000.0, 0.707 );
   InputBpf=BiQuad_new(BPF,0.0,InputBpfFreq, 8000.0, InputBpfFreq/InputBpfBW);  // Calculate Q from freq/bw
-  MsLevelLpf=BiQuad_new(LPF,0.0,0.5,8000.0,0.707);       // 0.5 Hz LPF detects max of mark/space level
+  MsLevelLpf=BiQuad_new(LPF,0.0,0.1,8000.0,0.707);       // 0.1 Hz LPF detects max of mark/space level
   LoopSenseLpf=BiQuad_new(LPF,0.0,5.0*UserConfig.BaudRate,8000,0.707);  // Loop sense LPF at 4 * baud rate
 }
 

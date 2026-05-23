@@ -98,6 +98,7 @@
       <itemPath>../src/Unifont.h</itemPath>
       <itemPath>../src/menu.h</itemPath>
       <itemPath>../src/PowerLineNoise.h</itemPath>
+      <itemPath>../src/RTC.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -230,6 +231,7 @@
       <itemPath>../src/Unifont.c</itemPath>
       <itemPath>../src/menu.c</itemPath>
       <itemPath>../src/PowerLineNoise.c</itemPath>
+      <itemPath>../src/RTC.c</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
@@ -243,7 +245,7 @@
         <targetDevice>PIC32MZ0512EFE064</targetDevice>
         <targetHeader></targetHeader>
         <targetPluginBoard></targetPluginBoard>
-        <platformTool>PICkit3PlatformTool</platformTool>
+        <platformTool>snap</platformTool>
         <languageToolchain>XC32</languageToolchain>
         <languageToolchainVersion>4.40</languageToolchainVersion>
         <platform>3</platform>

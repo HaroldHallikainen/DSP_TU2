@@ -19,7 +19,11 @@ build/DSP_TU2/debug/_ext/1360937237/AutostartKos.o: ../src/AutostartKos.c \
  ../src/config/DSP_TU2/peripheral/ocmp/plib_ocmp_common.h \
  ../src/config/DSP_TU2/peripheral/spi/spi_master/plib_spi2_master.h \
  ../src/config/DSP_TU2/peripheral/spi/spi_master/plib_spi1_master.h \
- ../src/main.h ../src/BaudotUart.h ../src/fifo8.h
+ ../src/main.h ../src/BaudotUart.h ../src/fifo8.h ../src/RTC.h \
+ ../src/winc1500/winc1500_api.h ../src/winc1500/winc1500_driver_config.h \
+ ../src/winc1500/src/wf_types.h ../src/winc1500/src/wf_socket.h \
+ ../src/winc1500/src/wf_utils.h ../src/winc1500/src/wf_errors.h \
+ ../src/winc1500/src/wf_ota.h ../src/main.h
 
 ../src/UserConfig.h:
 
@@ -68,3 +72,21 @@ build/DSP_TU2/debug/_ext/1360937237/AutostartKos.o: ../src/AutostartKos.c \
 ../src/BaudotUart.h:
 
 ../src/fifo8.h:
+
+../src/RTC.h:
+
+../src/winc1500/winc1500_api.h:
+
+../src/winc1500/winc1500_driver_config.h:
+
+../src/winc1500/src/wf_types.h:
+
+../src/winc1500/src/wf_socket.h:
+
+../src/winc1500/src/wf_utils.h:
+
+../src/winc1500/src/wf_errors.h:
+
+../src/winc1500/src/wf_ota.h:
+
+../src/main.h:

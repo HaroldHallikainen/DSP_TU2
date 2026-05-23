@@ -5,6 +5,6 @@
 
 
 void CommandInterpreter(uint8_t stream, char data);   // Pass in stream (command buffer number) and character.)
-
+void StringToCommandInterpreter(char *pString);  // Send a string to the command interpreter.
 
 #endif

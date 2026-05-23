@@ -15,7 +15,8 @@ limitations under the License.
 ==============================================================================*/
 
 #include "winc1500_api.h"
-#include "main.h"         // access to dprintf
+#include "main.h"         // access to dprintf and StreingBuf
+#include "RTC.h"          // Code to set RTC based on NTP
 // #include "demo_config.h"
 
 // #if defined(USING_AP_SCAN)
@@ -63,6 +64,11 @@ void m2m_wifi_handle_events(t_m2mWifiEventType eventCode, t_wifiEventData *p_eve
               p_eventData->sysTime.u8Month, p_eventData->sysTime.u8Day,
               p_eventData->sysTime.u8Hour, p_eventData->sysTime.u8Minute,
               p_eventData->sysTime.u8Second);
+            if ( p_eventData != NULL && p_eventData->sysTime.u16Year > 2000) {
+              // Safe, immediate memory copy outside of critical loops
+              memcpy(&g_last_validated_ntp_time, &p_eventData->sysTime, sizeof(tstrSystemTime));
+              g_time_valid = true; // Mark that the buffer contains fresh data
+            }
             break;
             
         case M2M_WIFI_CONN_INFO_RESPONSE_EVENT:

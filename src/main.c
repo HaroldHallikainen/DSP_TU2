@@ -57,6 +57,7 @@
 #include "WiFiInit.h"                   // Wifi module enable and reset
 #include "wf_hif.h"
 #include "WifiPoll.h"                   // Handle the wifi module
+#include "RTC.h"                        // RtcTimeStamp and functions
 
 static void MyTimer2Isr(uint32_t intCause, uintptr_t context);
 
@@ -147,8 +148,6 @@ int main ( void ){
     PrintString("Saved config not loaded. Using default config.");
   }
   WiFiInit();                 // Enable and reset wifi module
-  // m2m_wifi_init();            // Initialize the wifi driver
-  // hif_chip_wake();  //Wake the chip
   sprintf(StringBuf,"WIFI Chip ID: %x. Should be 1503a0\r\n",(unsigned int)GetChipId());
   PrintString(StringBuf);
   if((unsigned int)GetChipId()==0x1503a0){      // Good chip ID, poll wifi in main loop
@@ -178,6 +177,7 @@ int main ( void ){
     }  
   }
   PrintString("\r\n>");
+//  StringToCommandInterpreter("\rWfConnect\r");  // Tell WiFi to connect if SSID and PW set
   DisplayClear();               // Clear display 
   TimeoutCounterMin=0;          // Set to zero so we ignore excessive time in above stuff
   while ( true ){
@@ -197,7 +197,6 @@ int main ( void ){
       }else{
         FilteredLoopSenseInt=0;
       }
-
       if(UartDest==audio){
         if(UART1_ReadCountGet()>0){
           UART1_Read(&RxChar,1);  // Get one character from uart fifo) and put in RxChar
@@ -258,7 +257,7 @@ int main ( void ){
       MsLevel=BiQuad(fabs(DiscrimOut),MsLevelLpf);  // Run asbolute value of mark minus space through LPF
       if(MsLevelPrintCount>0){          // Command interpreter telling us to print level used in mark hold
         if(MsLevelSampleCount>=MsLevelSampleInterval){
-          sprintf(StringBuf,"%f, %f\r\n",MarkDemodOut,SpaceDemodOut);
+          sprintf(StringBuf,"%f, %f, %f\r\n",MarkDemodOut,SpaceDemodOut, MsLevel);
           PrintString(StringBuf);
           MsLevelSampleCount=0;
           MsLevelPrintCount--;
@@ -277,6 +276,7 @@ int main ( void ){
         AFSK_OUT_EN_Clear();  // Disable AFSK output
       }
       if(TX_LED_Get()){     // Transmit selected
+        LOOP_KEY_Set();     // Don't let demodulator key loop when we are transmitting.
         if(Fifo8Full(pAsciiTxFifo)>0){       // Don't send locally generated stuff to swuart (like error report))
           if(BaudotUartTxOut){
             LOOP_KEY_Set();
@@ -289,7 +289,9 @@ int main ( void ){
         PTT_Set();          // Close PTT relay
       }else{                  // Not in tx, let received data key loop
         PTT_Clear();          // Release PTT relay
-        if(MsLevel>UserConfig.MarkHoldThresh){     // Not in mark hold, key loop
+        if(MsLevel>UserConfig.MarkHoldThresh){     // Not in mark hold, 
+            //key loop. MsLevel is heavily filtered absolute value of mark level
+            // minus space level. indicating one of the tones is above the other.
           if((DiscrimOut-Threshold)>=0){      // Mark
             LOOP_KEY_Set();     // Loop switch on
             BaudotUartRx(1);

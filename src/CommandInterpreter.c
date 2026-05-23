@@ -17,6 +17,8 @@
 #include "wf_asic.h"                    // Access to wifi ChipId())
 #include "winc1500_api.h"           // nmi_get_rfrevid()
 #include "wf_hif.h"
+#include "winc1500/winc1500_api.h"
+
 
 
 //#define NumCommandBufs NumTcpSockets+3 // Separate command buffers for TCP connections (NumTcpSockets), RS232, ConfigFlash, and HTTPPOST
@@ -465,7 +467,24 @@ uint8_t mac_addr[6];       // WiFi MAC address used in WfMac
               sprintf(StringBuf,"WiFi password not set. Use WfPw\r\n>");
             }else{
               sprintf(StringBuf, "Connecting to %s, %s\r\n>",UserConfig.SSID, UserConfig.WfPw);
-              m2m_wifi_connect(UserConfig.SSID, sizeof(UserConfig.SSID), M2M_WIFI_SEC_WPA_PSK, UserConfig.WfPw,M2M_WIFI_CH_ALL);
+              // https://share.google/aimode/XFmA9fgG5QkXw580N
+              // 1. Declare a flat array sized exactly to the maximum WINC WPA PSK length (64 bytes)
+              // This provides a safe memory block independent of shifting struct definitions.
+              uint8_t raw_auth_buffer[64];
+              memset(raw_auth_buffer, 0, sizeof(raw_auth_buffer));
+              // 2. Copy your user password securely into this byte array
+              strncpy((char*)raw_auth_buffer, UserConfig.WfPw, sizeof(raw_auth_buffer) - 1);
+              // 3. Trigger connection by casting the byte buffer address directly to void*
+              // This satisfies the 4th argument pointer without triggering structure layout check errors.
+              m2m_wifi_connect(
+                (char*)UserConfig.SSID,      // Pointer to SSID string
+                strlen(UserConfig.SSID),     // Length of your SSID
+                M2M_WIFI_SEC_WPA_PSK,        // Security flag macro identifier
+                (void*)raw_auth_buffer,      // Bypass type validation by casting to a void pointer
+                M2M_WIFI_CH_ALL              // Channel scanning profile mask
+              );
+
+              
             }
           }
           break;
@@ -560,6 +579,13 @@ uint8_t mac_addr[6];       // WiFi MAC address used in WfMac
     }
   }
 
+void StringToCommandInterpreter(char *pString){
+  // Send a string to the command interpreter.
+  while(*pString!=0){
+    CommandInterpreter(0,*pString++); // Send a byte to the command interpreter and bump the pointer
+  }
+}
+
 /*
          1         2         3         4         5         6         7         8
 12345678901234567890123456789012345678901234567890123456789012345678901234567890
@@ -637,7 +663,9 @@ modem                              No parameters. Switches USB terminal to the\r
                                    Baudot UART to transmit and receive data. ESC\r\n\
                                    returns to the command interpreter.\r\n\
 MsLevel                   1000 1   Prints the mark and space demodulator output\r\n\
-                                   levels with a comma delimiter. The first\r\n\
+                                   levels followed by Mark-Space through an LPF\r\n\
+                                   that is used for autostart and mark hold.\r\r\
+                                   Each field is comma delimited. The first\r\n\
                                    optional argument is the number of times to\r\b\
                                    print. The second is the number of\r\n\
                                    milliseconds between samples. If the second\r\n\
