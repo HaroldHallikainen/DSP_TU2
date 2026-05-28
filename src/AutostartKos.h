@@ -8,7 +8,7 @@
 
 
 void AutostartKos(double discrim);    // Call 8,000 times a second with discriminator value
-
-  
+#define TimeStampInterval   15           // Print time stamp this number of seconds before autostart times out
+extern uint32_t AutostartCounter;    // Used to time shutdown and startup  
   
 #endif  

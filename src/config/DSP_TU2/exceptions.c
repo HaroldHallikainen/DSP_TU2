@@ -49,6 +49,10 @@
 #include "device.h"
 #include "definitions.h"
 #include <stdio.h>
+#include <xc.h>
+#include <stdint.h>
+#include "main.h"// definition of dprintf
+
 
 
 // *****************************************************************************
@@ -106,6 +110,8 @@ static excep_code _excep_code;
     Refer to the XC32 User's Guide for additional information.
  */
 
+
+#if 0 // Old exception handler
 void __attribute__((noreturn)) _general_exception_handler ( void )
 {
     /* Mask off the ExcCode Field from the Cause Register
@@ -120,6 +126,45 @@ void __attribute__((noreturn)) _general_exception_handler ( void )
         #endif
     }
 }
+#endif // old exception handler
+
+
+// Array to translate raw Cause codes to human-readable text strings
+static const char *exception_reasons[] = {
+    "Interrupt", "TLB Modified", "TLB Miss (Load/Fetch)", "TLB Miss (Store)",
+    "Address Error (Load/Fetch)", "Address Error (Store)", "Bus Error (Instruction Fetch)", "Bus Error (Data Load/Store)",
+    "Syscall", "Breakpoint", "Reserved Instruction", "Coprocessor Unusable",
+    "Arithmetic Overflow", "Trap", "MSA Floating Point", "Implementation Specific",
+    "CorExtend Unusable", "Coprocessor 2 Exception", "Reserved (18)", "Reserved (19)",
+    "TLB Execute Inhibit", "Reserved (21)", "Reserved (22)", "WATCH Exception",
+    "Machine Check", "Reserved (25)", "Reserved (26)", "Reserved (27)",
+    "Reserved (28)", "Reserved (29)", "Cache Error", "Reserved (31)"
+};
+
+void _general_exception_handler(void)
+{
+    // 1. Read CP0 Cause and EPC registers instantly
+    uint32_t _excep_code = (_CP0_GET_CAUSE() & 0x0000007C) >> 2;
+    uint32_t _excep_addr = _CP0_GET_EPC();
+    
+    // 2. Shut down interrupts immediately to prevent cascade crashes
+    __builtin_disable_interrupts();
+    
+    // 3. Print the text layout directly to your active serial interface
+    dprintf("\r\n!!! CRITICAL HARDWARE EXCEPTION !!!\r\n");
+    if (_excep_code < 32) {
+        dprintf("CAUSE: %s (Code: %u)\r\n", exception_reasons[_excep_code], _excep_code);
+    } else {
+        dprintf("CAUSE: Unknown Exception (%u)\r\n", _excep_code);
+    }
+    dprintf("ADDRESS (EPC): 0x%08X\r\n", _excep_addr);
+    
+    // 4. Force flash the buffers and enter a dead loop for debugger connection
+    while (1) {
+        Nop();
+    }
+}
+
 
 /*******************************************************************************
   Function:

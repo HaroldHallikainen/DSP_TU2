@@ -2,7 +2,8 @@
 
 #include <stdio.h>
 #include <time.h>
-#include "winc1500_api.h"
+#include "driver/include/m2m_wifi.h"   // Handles connection, scans, and status
+#include "socket/include/socket.h"
 #include "fifo8.h"
 #include "BaudotUart.h"   // pAsciiTxFifo
 
@@ -80,6 +81,21 @@ void fifo_push_u8_ascii(uint8_t value) {
     Fifo8Put(pAsciiTxFifo, (value % 10) + '0'); // Ones digit
 }
 
+void fifo_push_year_ascii(uint16_t value) {
+    // 1000s digit
+    Fifo8Put(pAsciiTxFifo, (value / 1000) + '0');
+    
+    // 100s digit
+    Fifo8Put(pAsciiTxFifo, ((value % 1000) / 100) + '0');
+    
+    // 10s digit
+    Fifo8Put(pAsciiTxFifo, ((value % 100) / 10) + '0');
+    
+    // 1s digit
+    Fifo8Put(pAsciiTxFifo, (value % 10) + '0');
+}
+
+
 /**
  * Call this inside your low-priority 3-second KOS timeout block.
  * It stages the text directly behind whatever the user typed.
@@ -87,14 +103,20 @@ void fifo_push_u8_ascii(uint8_t value) {
 void append_time_to_tx_fifo(void) {
   // Only append if the WINC1500 callback successfully returned fresh data
   if (g_time_valid) {
-    Fifo8PutString(pAsciiTxFifo,"\r\n\n");   
+    Fifo8PutString(pAsciiTxFifo,"\r\rPrinter started at ");  // Baudot conversion converts CR to CRLF 
+    fifo_push_year_ascii(g_last_validated_ntp_time.u16Year );
+    Fifo8PutString(pAsciiTxFifo,"-");
+    fifo_push_u8_ascii(g_last_validated_ntp_time.u8Month);
+    Fifo8PutString(pAsciiTxFifo,"-");
+    fifo_push_u8_ascii(g_last_validated_ntp_time.u8Day);
+    Fifo8PutString(pAsciiTxFifo,"T");
     // Format: HH:MM:SS
     fifo_push_u8_ascii(g_last_validated_ntp_time.u8Hour);
     Fifo8Put(pAsciiTxFifo,':');
     fifo_push_u8_ascii(g_last_validated_ntp_time.u8Minute);
     Fifo8Put(pAsciiTxFifo,':');
     fifo_push_u8_ascii(g_last_validated_ntp_time.u8Second);
-    Fifo8PutString(pAsciiTxFifo,"Z\r\n\n\n"); // Trailing Z for zulu, then crcrlflf 
+    Fifo8PutString(pAsciiTxFifo," UTC\r\r\r\r"); // 
     // Clear flag so this specific time snapshot isn't sent twice
     g_time_valid = false; 
   }

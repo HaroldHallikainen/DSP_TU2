@@ -52,10 +52,8 @@
 #include "Unifont.h"                    // Send text to display
 #include "menu.h"                       // Handle display menus
 #include "PowerLineNoise.h"             // Measure received power line noise
-#include "winc1500_api.h"               // Wifi API
-#include "wf_asic.h"                    // Wifi chip id
+#include "driver/include/m2m_wifi.h"  // For initialization and connection   
 #include "WiFiInit.h"                   // Wifi module enable and reset
-#include "wf_hif.h"
 #include "WifiPoll.h"                   // Handle the wifi module
 #include "RTC.h"                        // RtcTimeStamp and functions
 
@@ -147,10 +145,14 @@ int main ( void ){
   }else{
     PrintString("Saved config not loaded. Using default config.");
   }
+ // __builtin_enable_interrupts();  // Enable interrupts
+  PrintString("\r\n\nWifi module initialization\r\n");
   WiFiInit();                 // Enable and reset wifi module
-  sprintf(StringBuf,"WIFI Chip ID: %x. Should be 1503a0\r\n",(unsigned int)GetChipId());
+  // 1. Declare the driver's native low-level chip ID function prototype
+  extern uint32_t nmi_get_chipid(void);
+  sprintf(StringBuf, "WIFI Chip ID: %x. Should be 1503a0\r\n", (unsigned int)nmi_get_chipid());
   PrintString(StringBuf);
-  if((unsigned int)GetChipId()==0x1503a0){      // Good chip ID, poll wifi in main loop
+  if((unsigned int)nmi_get_chipid()==0x1503a0){      // Good chip ID, poll wifi in main loop
     WifiGood=1;
   }else{
     WifiGood=0;
@@ -167,17 +169,10 @@ int main ( void ){
   DisplayString("rtty/DspTU3\r\n");
   sprintf(StringBuf,"USB Baud: %u\r\n", UserConfig.UsbBaud);
   DisplayString(StringBuf);
-  if(WifiGood) PrintString("WiFi Module Info\r\n");
-    MillisecondCounter=0;             // Use the WiFi millisecond counter to time the flash display
-    while(MillisecondCounter<5000){ // Loop updating the display for 5 seconds
-      WDT_Clear();
-      DisplayPoll();
-      if(WifiGood){
-        WifiPoll();         // Go handle wifi module while waiting
-    }  
+  if(0!=UserConfig.WfConnectOnBoot){
+    PrintString("Connecting to configured SSID");
+    WiFiConnect();        // Connect to configured SSID on boot
   }
-  PrintString("\r\n>");
-//  StringToCommandInterpreter("\rWfConnect\r");  // Tell WiFi to connect if SSID and PW set
   DisplayClear();               // Clear display 
   TimeoutCounterMin=0;          // Set to zero so we ignore excessive time in above stuff
   while ( true ){
@@ -299,8 +294,16 @@ int main ( void ){
             LOOP_KEY_Clear();
             BaudotUartRx(0);
           } 
-        }else{
-          LOOP_KEY_Set();     // Signal below threshold Mark Hold.
+        }else{                // in mark hold
+          if((AutostartCounter==0)||(AutostartCounter>TimeStampInterval*8000)){ // We are not in the timestamp interval
+            LOOP_KEY_Set();   // stay in mark hold
+          }else{              // we are in time stamp interval (typically last 5 seconds of autostart))
+            if(BaudotUartTxOut){
+              LOOP_KEY_Set();
+            }else{
+              LOOP_KEY_Clear();
+            }
+          }
         }
       }       // end else not in transmit 
 

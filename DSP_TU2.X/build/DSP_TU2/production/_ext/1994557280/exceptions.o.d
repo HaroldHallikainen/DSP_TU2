@@ -18,7 +18,8 @@ build/DSP_TU2/production/_ext/1994557280/exceptions.o: \
  ../src/config/DSP_TU2/peripheral/ocmp/plib_ocmp1.h \
  ../src/config/DSP_TU2/peripheral/ocmp/plib_ocmp_common.h \
  ../src/config/DSP_TU2/peripheral/spi/spi_master/plib_spi2_master.h \
- ../src/config/DSP_TU2/peripheral/spi/spi_master/plib_spi1_master.h
+ ../src/config/DSP_TU2/peripheral/spi/spi_master/plib_spi1_master.h \
+ ../src/main.h
 
 ../src/config/DSP_TU2/device.h:
 
@@ -59,3 +60,5 @@ build/DSP_TU2/production/_ext/1994557280/exceptions.o: \
 ../src/config/DSP_TU2/peripheral/spi/spi_master/plib_spi2_master.h:
 
 ../src/config/DSP_TU2/peripheral/spi/spi_master/plib_spi1_master.h:
+
+../src/main.h:

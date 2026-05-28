@@ -24,12 +24,15 @@ build/DSP_TU2/debug/_ext/1360937237/main.o: ../src/main.c \
  ../src/PollSwitchesLeds.h ../src/PollEncoder.h ../src/UserConfig.h \
  ../src/filters.h ../src/AutostartKos.h ../src/ExtFlash.h \
  ../src/CommandInterpreter.h ../src/Unifont.h ../src/menu.h \
- ../src/PowerLineNoise.h ../src/winc1500/winc1500_api.h \
- ../src/winc1500/winc1500_driver_config.h ../src/winc1500/src/wf_types.h \
- ../src/winc1500/src/wf_socket.h ../src/winc1500/src/wf_utils.h \
- ../src/winc1500/src/wf_errors.h ../src/winc1500/src/wf_ota.h \
- ../src/main.h ../src/winc1500/src/wf_asic.h ../src/WiFiInit.h \
- ../src/winc1500/src/wf_hif.h ../src/WifiPoll.h ../src/RTC.h
+ ../src/PowerLineNoise.h ../src/WINC1500/driver/include/m2m_wifi.h \
+ ../src/WINC1500/common/include/nm_common.h \
+ ../src/WINC1500/bsp/include/nm_bsp.h \
+ ../src/WINC1500/common/include/nm_debug.h \
+ ../src/WINC1500/bsp/include/nm_bsp_internal.h \
+ ../src/WINC1500/bsp/include/nm_bsp_samd21.h \
+ ../src/WINC1500/driver/include/m2m_types.h \
+ ../src/WINC1500/driver/source/nmdrv.h ../src/WiFiInit.h \
+ ../src/WifiPoll.h ../src/RTC.h ../src/WINC1500/socket/include/socket.h
 
 ../src/config/DSP_TU2/definitions.h:
 
@@ -111,28 +114,26 @@ build/DSP_TU2/debug/_ext/1360937237/main.o: ../src/main.c \
 
 ../src/PowerLineNoise.h:
 
-../src/winc1500/winc1500_api.h:
+../src/WINC1500/driver/include/m2m_wifi.h:
 
-../src/winc1500/winc1500_driver_config.h:
+../src/WINC1500/common/include/nm_common.h:
 
-../src/winc1500/src/wf_types.h:
+../src/WINC1500/bsp/include/nm_bsp.h:
 
-../src/winc1500/src/wf_socket.h:
+../src/WINC1500/common/include/nm_debug.h:
 
-../src/winc1500/src/wf_utils.h:
+../src/WINC1500/bsp/include/nm_bsp_internal.h:
 
-../src/winc1500/src/wf_errors.h:
+../src/WINC1500/bsp/include/nm_bsp_samd21.h:
 
-../src/winc1500/src/wf_ota.h:
+../src/WINC1500/driver/include/m2m_types.h:
 
-../src/main.h:
-
-../src/winc1500/src/wf_asic.h:
+../src/WINC1500/driver/source/nmdrv.h:
 
 ../src/WiFiInit.h:
-
-../src/winc1500/src/wf_hif.h:
 
 ../src/WifiPoll.h:
 
 ../src/RTC.h:
+
+../src/WINC1500/socket/include/socket.h:

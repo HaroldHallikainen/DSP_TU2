@@ -14,14 +14,14 @@
 #include "ExtFlash.h"
 #include "PowerLineNoise.h"
 #include "biquad.h"
-#include "wf_asic.h"                    // Access to wifi ChipId())
-#include "winc1500_api.h"           // nmi_get_rfrevid()
-#include "wf_hif.h"
-#include "winc1500/winc1500_api.h"
+#include "driver/include/m2m_wifi.h"   // Handles connection, scans, and status
+#include "socket/include/socket.h"     // Handles TCP/UDP sockets and NTP#include "wf_hif.h"
+#include "CommandInterpreter.h"
 
 
+extern uint32_t nmi_get_chipid(void);
 
-//#define NumCommandBufs NumTcpSockets+3 // Separate command buffers for TCP connections (NumTcpSockets), RS232, ConfigFlash, and HTTPPOST
+
 #define NumCommandBufs 1 // Separate command buffers for different possible sources
 #define CommandBufSize 50 
 #define MaxArgs 10 
@@ -445,10 +445,7 @@ uint8_t mac_addr[6];       // WiFi MAC address used in WfMac
           }
           break;
         case 0xda9f04f4:    // wfChipId - Read the WiFi Chip ID
-          sprintf(StringBuf,"%x\r\n>",(unsigned int)GetChipId());
-          break;
-        case 0x5db8b8c6:    // WfRfRev - Get WiFi RF revision ID
-          sprintf(StringBuf,"%x\r\n>",  (unsigned int)nmi_get_rfrevid());
+          sprintf(StringBuf,"%x\r\n>",(unsigned int)nmi_get_chipid());
           break;
         case 0x589ce8a3:    //WfMac - Get the MAC address
           m2m_wifi_get_mac_address(mac_addr);
@@ -456,37 +453,10 @@ uint8_t mac_addr[6];       // WiFi MAC address used in WfMac
             mac_addr[0], mac_addr[1], mac_addr[2], mac_addr[3], mac_addr[4], mac_addr[5]);
           break;
         case 0xb48b188e:    // WfScan - Look for access points
-          sprintf(StringBuf,"\r\nIndex | RSSI | SSID\r\n");
           m2m_wifi_request_scan(M2M_WIFI_CH_ALL); // Request scan
           break;
         case 0x650b58cc:    // WfConnect - Connects to configured access point
-          if(strlen(UserConfig.SSID)==0){
-            sprintf(StringBuf,"SSID not set. Use WfSsid\r\n>");
-          }else{
-            if(strlen(UserConfig.WfPw)==0){
-              sprintf(StringBuf,"WiFi password not set. Use WfPw\r\n>");
-            }else{
-              sprintf(StringBuf, "Connecting to %s, %s\r\n>",UserConfig.SSID, UserConfig.WfPw);
-              // https://share.google/aimode/XFmA9fgG5QkXw580N
-              // 1. Declare a flat array sized exactly to the maximum WINC WPA PSK length (64 bytes)
-              // This provides a safe memory block independent of shifting struct definitions.
-              uint8_t raw_auth_buffer[64];
-              memset(raw_auth_buffer, 0, sizeof(raw_auth_buffer));
-              // 2. Copy your user password securely into this byte array
-              strncpy((char*)raw_auth_buffer, UserConfig.WfPw, sizeof(raw_auth_buffer) - 1);
-              // 3. Trigger connection by casting the byte buffer address directly to void*
-              // This satisfies the 4th argument pointer without triggering structure layout check errors.
-              m2m_wifi_connect(
-                (char*)UserConfig.SSID,      // Pointer to SSID string
-                strlen(UserConfig.SSID),     // Length of your SSID
-                M2M_WIFI_SEC_WPA_PSK,        // Security flag macro identifier
-                (void*)raw_auth_buffer,      // Bypass type validation by casting to a void pointer
-                M2M_WIFI_CH_ALL              // Channel scanning profile mask
-              );
-
-              
-            }
-          }
+          WiFiConnect();    // Connect to configured access point
           break;
         case 0xb48b5984:    // WfSsid
           if(2==ArgNum){    // Setting SSID
@@ -510,7 +480,14 @@ uint8_t mac_addr[6];       // WiFi MAC address used in WfMac
             sprintf(StringBuf,"%s\r\n>",UserConfig.WfPw);
           }  
           break;
-          
+        case 0x6fdec3a0:    // WfConnectOnBoot  
+          if(2==ArgNum){
+            UserConfig.WfConnectOnBoot=atoi(TokenArray[1]);
+            strcpy(StringBuf,"\r\n>");
+          }else{
+            sprintf(StringBuf,"%d\r\n>",UserConfig.WfConnectOnBoot);
+          }
+          break; 
         case 0x57fa6c54:    // RYcount - Show how many Rs and Ys received, then reset counters
           sprintf(StringBuf,"%u, %u\r\n>", Rcount, Ycount);
           Rcount=0;
@@ -583,6 +560,40 @@ void StringToCommandInterpreter(char *pString){
   // Send a string to the command interpreter.
   while(*pString!=0){
     CommandInterpreter(0,*pString++); // Send a byte to the command interpreter and bump the pointer
+  }
+}
+
+void WiFiConnect(void){
+  // Put connect sequence here so it can be called directly by command interprerer
+  // and elsewhere.
+  if(strlen(UserConfig.SSID)==0){
+    sprintf(StringBuf,"SSID not set. Use WfSsid\r\n>");
+  }else{
+    if(strlen(UserConfig.WfPw)==0){
+      sprintf(StringBuf,"WiFi password not set. Use WfPw\r\n>");
+    }else{
+      sprintf(StringBuf, "Connecting to %s, %s\r\n>",UserConfig.SSID, UserConfig.WfPw);
+      // https://share.google/aimode/XFmA9fgG5QkXw580N
+      // 1. Declare a flat array sized exactly to the maximum WINC WPA PSK length (64 bytes)
+      // This provides a safe memory block independent of shifting struct definitions.
+      uint8_t raw_auth_buffer[64];
+      memset(raw_auth_buffer, 0, sizeof(raw_auth_buffer));
+      // 2. Copy your user password securely into this byte array
+      strncpy((char*)raw_auth_buffer, UserConfig.WfPw, sizeof(raw_auth_buffer) - 1);
+      // 3. Trigger connection by casting the byte buffer address directly to void*
+      // This satisfies the 4th argument pointer without triggering structure layout check errors.
+      MillisecondCounter = 0;
+      while(MillisecondCounter < 5){  // Note this momentarily breaks DSP
+        Nop();
+      } // Give the SPI command frame queue a microsecond to settle (5 milliseconds!)
+      m2m_wifi_connect(
+        (char*)UserConfig.SSID,      // Pointer to SSID string
+        strlen(UserConfig.SSID),     // Length of your SSID
+        M2M_WIFI_SEC_WPA_PSK,        // Security flag macro identifier
+        (char*)UserConfig.WfPw,     // Password
+        M2M_WIFI_CH_ALL              // Channel scanning profile mask
+      );
+    }
   }
 }
 
@@ -743,8 +754,9 @@ WfConnect                          No parameters. Connects to the access point\r
                                    with the SSID and password (see WfSsid and\r\n\
                                    WfPw). Runs DHCP to get IP address. Runs NTP\r\n\
                                    to get time.\r\n\
-WfRfRev                            No parameters. Reads the RF revision of the\r\n\
-                                   WiFi module.\r\n\
+WfConnectOnBoot           1        If parameter nonzero, system will connect to\r\n\
+                                   access point specified in SfSsid on system\r\n\
+                                   boot\r\n\
 WfMac                              No parameters. Reads the MAC address of the\r\n\
                                    WiFi module.\r\n\
 WfPw                               Set or read the password used to connect to\r\n\

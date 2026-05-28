@@ -76,7 +76,18 @@ void __ISR(_TIMER_2_VECTOR, ipl1SRS) TIMER_2_Handler (void)
 
 void __ISR(_EXTERNAL_3_VECTOR, ipl1SRS) EXTERNAL_3_Handler (void)
 {
-    EXTERNAL_3_InterruptHandler();
+  /* Start of User Code */
+    
+    // 1. Force clear the hardware flag immediately to allow register nesting
+    IFS0bits.INT3IF = 0; 
+    
+    // 2. Call your custom BSP bridge to execute the stored 19.4.4 driver handler
+    extern void m2m_wifi_asm_isr(void);
+    m2m_wifi_asm_isr();
+    
+    /* End of User Code */
+
+    
 }
 
 void __ISR(_UART1_FAULT_VECTOR, ipl1SRS) UART1_FAULT_Handler (void)

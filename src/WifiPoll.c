@@ -1,9 +1,14 @@
 // WifiPoll.c
 
 // Stuff to do in the main loop
+#include <xc.h>  
+#include "driver/include/m2m_wifi.h"  // For connection, scanning, and events
+#include "socket/include/socket.h"    // For TCP/UDP netconn network sockets
+#include <stdint.h>    // Defines standard types like uint8_t, uint16_t, uint32_t
+#include <stdbool.h>   // Defines standard bool, true, and false
+#include <stdio.h>
+#include "main.h" // StringBuf
 
-#include "winc1500_api.h"
-// #include "wifi_event_stub.h"  // Declarations in wifi_event_stub.c
 bool isScanComplete(void);
 bool isScanResultReady(void);
 bool isIpAddressAssigned(void);
@@ -18,53 +23,17 @@ extern int8_t RSSI;
 
 
 
-void WifiPoll(void){
-  static int state=0;
-  static uint8_t scan_request_index=0;
-  m2m_wifi_task();        // Handle wifi
-  switch(state){
-    default:
-    case 0:
-      if(isScanComplete()) state=1; // Scan completed, go request results
-      if(isIpAddressAssigned()) state=10;  // Show new IP address
-      if(isConnectionInfoReady()) state=20; // Show IP address
-      break;
-    case 1:
-      m2m_wifi_req_scan_result(scan_request_index); // Request it
-      state=2;      // Go wait for results
-      break;
-    case 2:
-      if(isScanResultReady()){
-        printf("   %2d | %3d  | %s\r\n", scan_request_index, RSSI,  SSID);
-        scan_request_index++;
-        if(scan_request_index>=NumAps){
-          scan_request_index=0;     // Get ready for next time
-          state=0;
-          printf(">");  // Prompt for next command
-        }else{
-          state=1;
-        }  
-      }
-      break;
-    case 10:          // IP Address assigned
-      // inet_ntop4(IpAddress,StringBuf);
-      // printf("\r\nIP Address %s\r\n",StringBuf);
-      // inet_ntop4(DNS,StringBuf);
-      // printf("\r\nDNS %s\r\n",StringBuf);
-      // inet_ntop4(Gateway,StringBuf);
-      // printf("\r\nGateway %s\r\n",StringBuf);
-      // inet_ntop4(SubnetMask,StringBuf);
-      // printf("\r\nSubnet Mask %s\r\n",StringBuf);  
-      // Above stuff does not work. Do connection info request.
-      m2m_wifi_get_connection_info();
-      state=0;
-      break;
-    case 20:          // Connection info ready
-      printf("\r\nConnected to %s . RSSI=%d\r\n",SSID,RSSI);
-      inet_ntop4(IpAddress,StringBuf);
-      printf("\r\nIP Address %s\r\n",StringBuf);
-      state=0;
-      break;
-  }
-}
+void WifiPoll(void)
+{
+   // Read the raw physical digital logic level on pin RF1 (WIFI_IRQn)
+    // 0 = The WINC1500 has pulled the line low and is requesting attention
 
+    if (PORTFbits.RF1 == 0) 
+    {
+        extern void m2m_wifi_asm_isr(void);
+        m2m_wifi_asm_isr(); // Manually fire the driver processing logic
+    }
+  
+      // Now execute the native 19.4.4 execution pump line safely
+    m2m_wifi_handle_events(NULL); 
+}

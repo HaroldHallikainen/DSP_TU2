@@ -40,6 +40,7 @@ const UserConfig_t UserConfigDefault={
   .FreqAdjPercent=0.0,             // Adjust PR2 for CPU clock error
   .LineFreq=60.0,                    // Power line frequency used in power line noise measurement
   .WfName="DSP TU",                // NetBios name
+  .WfConnectOnBoot=0,               // By default, do not connect on boot
   .UsbEcho=0,                       // Default to half duplex  
   .BootToModem=0,                  // By default, boot to CLI
   .UsbToBaudotAppendLf=1,           // Append line feed to CR received over USB
@@ -289,6 +290,12 @@ void SavePrintConfig(int print){
     }else{
       NextAddr=StreamProgramExtFlash(NextAddr,strlen(StringBuf),(uint8_t*)StringBuf); // Write to external flash and get next address
     }
+  }
+  sprintf(StringBuf,"WfConnectOnBoot\t%d\r\n",UserConfig.WfConnectOnBoot);  // Build command for WfConnectOnBoot  
+  if(1==print){
+    PrintString(StringBuf);
+  }else{
+    NextAddr=StreamProgramExtFlash(NextAddr,strlen(StringBuf),(uint8_t*)StringBuf); // Write to external flash and get next address
   }
   sprintf(StringBuf,"UsbToBaudotAppendLf\t%d\r\n",UserConfig.UsbToBaudotAppendLf);  
   if(1==print){

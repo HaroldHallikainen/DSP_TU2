@@ -11,6 +11,7 @@
 #include "RTC.h"      // Stuff to capture autostart time and print it.
 
 
+uint32_t AutostartCounter=8000;    // Used to time shutdown and startup
 
 
 
@@ -22,7 +23,6 @@ void AutostartKos(double MsLevel){
   // due to received data. A lockout timer is required instead of just ignoring loop current
   // interruptions when the demodulator keys the loop since there is a slight delay between
   // the loop being keyed and it being sensed (probably mostly due to the opto isolator).
-  static uint32_t AutostartCounter=8000;    // Used to time shutdown and startup
   static uint32_t KosCounter=8000;          // Counts down Kos dropout
   static uint32_t LoopMismatchCounter=0;  // How long loop sense is not same as loop key
   // static uint32_t KosLockout=8000;       // Ignore loop sensor for a period of time after loop keyer sends space
@@ -33,18 +33,18 @@ void AutostartKos(double MsLevel){
   }else{                              // Not transmitting        
     if(1==AUTOSTART_LED_Get()){         // Autostart is enabled
       if((MsLevel>UserConfig.AutostartThresh)&&(SeqGoodChars>=UserConfig.AutostartSeqGoodChars)){ // above threshold and good characters, reload counter
-        AutostartCounter=8000*UserConfig.AutostartShutdownSeconds;
-        if(g_time_valid==false){  // Time not yet captured
-          // CaptureTime();          // Capture the time we detected autostart        
+        if((0==AutostartCounter)&&(g_time_valid==false)){  // Newly started and Time not yet captured
+          CaptureTime();          // Capture the time we detected autostart        
         }
+        AutostartCounter=8000*UserConfig.AutostartShutdownSeconds;  // Set the timer on each qualification
       }else{
         if(0!=AutostartCounter){
           AutostartCounter--;       // Decrement the counter
         }
       }
-      if(AutostartCounter<5*8000){  // Less than 5 seconds til we time out
+      if(AutostartCounter<TimeStampInterval*8000){  // Less than TimeStampInterval (typ 5 seconds) til we time out
         if(g_time_valid==true){     // We have a vlid time not yet printed
-          // append_time_to_tx_fifo(); // Print it. Should not hit KOS since loop key and sense will match.
+          append_time_to_tx_fifo(); // Print it. Should not hit KOS since loop key and sense will match.
           g_time_valid=false;       // Prevent reprinting.
         }  
       }
@@ -65,45 +65,32 @@ void AutostartKos(double MsLevel){
     if(UserConfig.NoLoop==0){           // User oes not have loop disabled, check for key/sense mismatch
       // Check for mismatch between loop keyer and loop sense that is longer than 19 ms. If so, go to tx
       if(LOOP_KEY_Get()==LOOP_SENSE_Get()){   // Loop mismatch such as keyer wants loop current but sense is not seeing any
-        LoopMismatchCounter++;
+        if(LoopMismatchCounter<=8000){    // Stop counting after 1 second
+          LoopMismatchCounter++;          // Incrementing on mismatch
+        }  
       }else{            // They match
         LoopMismatchCounter=0;          // Clear the counter
       }
-      if(LoopMismatchCounter>80){       // Mismatch greater than 10 ms
-        KosCounter=(uint32_t)(8000.0*UserConfig.KosDropSeconds);  // Reset counter to drop out later   
+      if(LoopMismatchCounter>=1600){     // Mismatch longer than 200 ms, loop probably open. Don't transmit
+        KosCounter=0;
+      }else{   // Mismatch not due to open loop
+        if(LoopMismatchCounter>80){       // Mismatch greater than 10 ms
+          KosCounter=(uint32_t)(8000.0*UserConfig.KosDropSeconds);  // Reset counter to drop out later   
+        }
+      }  
+    } // endif NoLoop==0
+    if((AutostartCounter==0)||(AutostartCounter>TimeStampInterval*8000)){  // Disallow KOS on BaudotUartOut during last few seconds
+      // of autostart so we can print the timestamp without transmitting it
+      if(0==BaudotUartTxOut){       // Set KOS counter on BaudotUart space. This is for data coming in usb.
+        KosCounter=(uint32_t)(8000.0*UserConfig.KosDropSeconds);  // Reset counter to drop out later 
       }
-    } // endif NoLoop==0  
-    if(0==BaudotUartTxOut){       // Set KOS counter on BaudotUart space. This is for data coming in usb.
-      KosCounter=(uint32_t)(8000.0*UserConfig.KosDropSeconds);  // Reset counter to drop out later 
-    }
+    }// End of KOS lockout based on Autostart timer  
     if(0!=KosCounter) KosCounter--;   // Decrement towards zero
     if(KosCounter!=0){              // Transmit if not timed out
       TX_LED_Set();
     }else{
       TX_LED_Clear();               // or stop transmitting if timed out
     }    
-    /*  Old KOS code
-    if(0==LOOP_KEY_Get()){
-      KosLockout=800;               // Lock out KOS for 100 ms if rx data keyed loop
-    }else{
-      if(0!=KosLockout)KosLockout--;  // Decrement lockout if not keyed by receive data
-    }
-    if((0==KosLockout)||(0==BaudotUartTxOut)){ // KOS not locked out by receive data or we have data from usb
-      if(OldLoopSense!=LOOP_SENSE_Get()){ // Loop changed, so key up or stay keyed up - Don't need to check NoLoop since looking for change instead of space. 
-        OldLoopSense=LOOP_SENSE_Get();    // Remember new value
-        KosCounter=(uint32_t)(8000.0*UserConfig.KosDropSeconds);  // Reset counter to drop out later
-      }
-      if(0==BaudotUartTxOut){       // Set KOS counter on BaudotUart space
-        KosCounter=(uint32_t)(8000.0*UserConfig.KosDropSeconds);  // Reset counter to drop out later 
-      }
-      if(0!=KosCounter) KosCounter--;   // Decrement towards zero
-      if(KosCounter!=0){              // Transmit if not timed out
-        TX_LED_Set();
-      }else{
-        TX_LED_Clear();               // or stop transmitting if timed out
-      }
-    }
-    */
   }
   if(1==TX_LED_Get()){               // Transmit LED lit
     PTT_Set();                      // Close PTT

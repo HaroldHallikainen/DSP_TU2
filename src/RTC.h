@@ -7,8 +7,9 @@
 
 #ifndef RTC_H
 #define	RTC_H
-// #include <time.h>
-#include "winc1500_api.h"
+#include "driver/include/m2m_wifi.h"   // Handles connection, scans, and status
+#include "socket/include/socket.h"     // Handles TCP/UDP sockets and NTP
+#include <stdbool.h>   // Defines standard bool, true, and false
 
 void CaptureTime(void); // Capture current time from WiFi module
 void append_time_to_tx_fifo(void); // Append time to ASCII transmit FIFO

@@ -16,6 +16,9 @@
 #define XON  0x11
 #define XOFF 0x13
 
+
+#include <stdint.h>    // Defines standard types like uint32_t, uint8_t, etc.
+
 extern volatile int Timer2TimeoutCounter;
 extern volatile uint32_t MillisecondCounter; // Advances every 1 ms. Used by WiFi
 extern int TimeoutCounterMin;              // Minimum timeout value to see if we are servicing audio on time

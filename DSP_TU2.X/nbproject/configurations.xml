@@ -49,25 +49,40 @@
           <itemPath>../src/config/DSP_TU2/definitions.h</itemPath>
           <itemPath>../src/config/DSP_TU2/interrupts.h</itemPath>
         </logicalFolder>
-        <itemPath>../src/winc1500/winc1500_driver_config.h</itemPath>
       </logicalFolder>
       <logicalFolder name="f2" displayName="framework" projectFiles="true">
         <logicalFolder name="f1" displayName="driver" projectFiles="true">
           <logicalFolder name="f1" displayName="winc1500" projectFiles="true">
-            <itemPath>../src/winc1500/winc1500_api.h</itemPath>
-            <itemPath>../src/winc1500/src/wf_asic.h</itemPath>
-            <itemPath>../src/winc1500/src/wf_common.h</itemPath>
-            <itemPath>../src/winc1500/src/wf_drv.h</itemPath>
-            <itemPath>../src/winc1500/src/wf_errors.h</itemPath>
-            <itemPath>../src/winc1500/src/wf_hif.h</itemPath>
-            <itemPath>../src/winc1500/src/wf_ota.h</itemPath>
-            <itemPath>../src/winc1500/src/wf_socket.h</itemPath>
-            <itemPath>../src/winc1500/src/wf_socket_internal.h</itemPath>
-            <itemPath>../src/winc1500/src/wf_spi.h</itemPath>
-            <itemPath>../src/winc1500/src/wf_spi_flash.h</itemPath>
-            <itemPath>../src/winc1500/src/wf_spi_flash_map.h</itemPath>
-            <itemPath>../src/winc1500/src/wf_types.h</itemPath>
-            <itemPath>../src/winc1500/src/wf_utils.h</itemPath>
+            <logicalFolder name="f5" displayName="bsp" projectFiles="true">
+              <itemPath>../src/WINC1500/bsp/include/nm_bsp.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="f3" displayName="bus_wrapper" projectFiles="true">
+              <itemPath>../src/WINC1500/bus_wrapper/include/nm_bus_wrapper.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="f1" displayName="common" projectFiles="true">
+              <itemPath>../src/WINC1500/common/include/nm_common.h</itemPath>
+              <itemPath>../src/WINC1500/common/include/nm_debug.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="f2" displayName="driver" projectFiles="true">
+              <itemPath>../src/WINC1500/driver/include/m2m_ota.h</itemPath>
+              <itemPath>../src/WINC1500/driver/include/m2m_periph.h</itemPath>
+              <itemPath>../src/WINC1500/driver/include/m2m_types.h</itemPath>
+              <itemPath>../src/WINC1500/driver/include/m2m_wifi.h</itemPath>
+              <itemPath>../src/WINC1500/driver/source/m2m_hif.h</itemPath>
+              <itemPath>../src/WINC1500/driver/source/nmasic.h</itemPath>
+              <itemPath>../src/WINC1500/driver/source/nmbus.h</itemPath>
+              <itemPath>../src/WINC1500/driver/source/nmdrv.h</itemPath>
+              <itemPath>../src/WINC1500/driver/source/nmi2c.h</itemPath>
+              <itemPath>../src/WINC1500/driver/source/nmspi.h</itemPath>
+              <itemPath>../src/WINC1500/driver/source/nmuart.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="f6" displayName="socket" projectFiles="true">
+              <itemPath>../src/WINC1500/socket/include/socket.h</itemPath>
+            </logicalFolder>
+            <logicalFolder name="f4" displayName="spi_flash" projectFiles="true">
+              <itemPath>../src/WINC1500/spi_flash/include/spi_flash.h</itemPath>
+              <itemPath>../src/WINC1500/spi_flash/include/spi_flash_map.h</itemPath>
+            </logicalFolder>
           </logicalFolder>
         </logicalFolder>
       </logicalFolder>
@@ -190,24 +205,28 @@
       <logicalFolder name="f2" displayName="framework" projectFiles="true">
         <logicalFolder name="f1" displayName="driver" projectFiles="true">
           <logicalFolder name="f1" displayName="winc1500" projectFiles="true">
-            <itemPath>../src/winc1500/src/wf_asic.c</itemPath>
-            <itemPath>../src/winc1500/src/wf_hif.c</itemPath>
-            <itemPath>../src/winc1500/src/wf_ota.c</itemPath>
-            <itemPath>../src/winc1500/src/wf_socket.c</itemPath>
-            <itemPath>../src/winc1500/src/wf_spi.c</itemPath>
-            <itemPath>../src/winc1500/src/wf_spi_flash.c</itemPath>
-            <itemPath>../src/winc1500/src/wf_utils.c</itemPath>
-            <itemPath>../src/winc1500/src/wf_wifi.c</itemPath>
+            <itemPath>../src/WINC1500/driver/source/m2m_hif.c</itemPath>
+            <itemPath>../src/WINC1500/driver/source/m2m_periph.c</itemPath>
+            <itemPath>../src/WINC1500/driver/source/m2m_wifi.c</itemPath>
+            <itemPath>../src/WINC1500/driver/source/nmasic.c</itemPath>
+            <itemPath>../src/WINC1500/driver/source/nmbus.c</itemPath>
+            <itemPath>../src/WINC1500/driver/source/nmdrv.c</itemPath>
+            <itemPath>../src/WINC1500/driver/source/nmi2c.c</itemPath>
+            <itemPath>../src/WINC1500/driver/source/nmspi.c</itemPath>
+            <itemPath>../src/WINC1500/driver/source/nmuart.c</itemPath>
+            <itemPath>../src/WINC1500/spi_flash/source/spi_flash.c</itemPath>
+            <itemPath>../src/WINC1500/common/source/nm_common.c</itemPath>
+            <itemPath>../src/WINC1500/bsp/source/nm_bsp.c</itemPath>
+            <itemPath>../src/WINC1500/bus_wrapper/source/nm_bus_wrapper.c</itemPath>
+            <itemPath>../src/WINC1500/socket/source/socket.c</itemPath>
           </logicalFolder>
         </logicalFolder>
       </logicalFolder>
       <logicalFolder name="f3" displayName="stubs" projectFiles="true">
         <itemPath>../src/winc1500/wf_mcu_driver_stub.c</itemPath>
-        <itemPath>../src/winc1500/socket_event_stub.c</itemPath>
-        <itemPath>../src/winc1500/wifi_event_stub.c</itemPath>
-        <itemPath>../src/winc1500/ota_event_stub.c</itemPath>
         <itemPath>../src/WiFiInit.c</itemPath>
         <itemPath>../src/WifiPoll.c</itemPath>
+        <itemPath>../src/WINC1500/wifi_event_stub.c</itemPath>
       </logicalFolder>
       <itemPath>../src/main.c</itemPath>
       <itemPath>../src/AfskGen.c</itemPath>
@@ -295,6 +314,145 @@
         <makeCustomizationEnableLongLines>false</makeCustomizationEnableLongLines>
         <makeCustomizationNormalizeHexFile>false</makeCustomizationNormalizeHexFile>
       </makeCustomizationType>
+      <item path="../src/AutostartKos.c" ex="false" overriding="false">
+        <C32>
+          <property key="additional-warnings" value="true"/>
+          <property key="addresss-attribute-use" value="false"/>
+          <property key="enable-app-io" value="false"/>
+          <property key="enable-omit-frame-pointer" value="false"/>
+          <property key="enable-symbols" value="true"/>
+          <property key="enable-unroll-loops" value="false"/>
+          <property key="exclude-floating-point" value="false"/>
+          <property key="extra-include-directories"
+                    value="../src;../src/config/DSP_TU2;..\src\WINC1500\source;..\src\WINC1500\include;..\src\WINC1500"/>
+          <property key="generate-16-bit-code" value="false"/>
+          <property key="generate-micro-compressed-code" value="false"/>
+          <property key="isolate-each-function" value="true"/>
+          <property key="make-warnings-into-errors" value="true"/>
+          <property key="optimization-level" value=""/>
+          <property key="place-data-into-section" value="false"/>
+          <property key="post-instruction-scheduling" value="default"/>
+          <property key="pre-instruction-scheduling" value="default"/>
+          <property key="preprocessor-macros" value=""/>
+          <property key="strict-ansi" value="false"/>
+          <property key="support-ansi" value="false"/>
+          <property key="tentative-definitions" value=""/>
+          <property key="toplevel-reordering" value=""/>
+          <property key="unaligned-access" value=""/>
+          <property key="use-cci" value="false"/>
+          <property key="use-iar" value="false"/>
+          <property key="use-indirect-calls" value="false"/>
+        </C32>
+        <C32-AR>
+          <property key="additional-options-chop-files" value="false"/>
+        </C32-AR>
+        <C32-AS>
+          <property key="assembler-symbols" value=""/>
+          <property key="enable-symbols" value="true"/>
+          <property key="exclude-floating-point-library" value="false"/>
+          <property key="expand-macros" value="false"/>
+          <property key="extra-include-directories-for-assembler" value=""/>
+          <property key="extra-include-directories-for-preprocessor" value=""/>
+          <property key="false-conditionals" value="false"/>
+          <property key="generate-16-bit-code" value="false"/>
+          <property key="generate-micro-compressed-code" value="false"/>
+          <property key="keep-locals" value="false"/>
+          <property key="list-assembly" value="false"/>
+          <property key="list-source" value="false"/>
+          <property key="list-symbols" value="false"/>
+          <property key="oXC32asm-list-to-file" value="false"/>
+          <property key="omit-debug-dirs" value="false"/>
+          <property key="omit-forms" value="false"/>
+          <property key="preprocessor-macros" value=""/>
+          <property key="warning-level" value=""/>
+        </C32-AS>
+        <C32-CO>
+          <property key="coverage-enable" value=""/>
+          <property key="stack-guidance" value="false"/>
+        </C32-CO>
+        <C32-LD>
+          <property key="additional-options-use-response-files" value="false"/>
+          <property key="additional-options-write-sla" value="false"/>
+          <property key="allocate-dinit" value="false"/>
+          <property key="code-dinit" value="false"/>
+          <property key="ebase-addr" value=""/>
+          <property key="enable-check-sections" value="false"/>
+          <property key="exclude-floating-point-library" value="false"/>
+          <property key="exclude-standard-libraries" value="false"/>
+          <property key="extra-lib-directories" value=""/>
+          <property key="fill-flash-options-addr" value=""/>
+          <property key="fill-flash-options-const" value=""/>
+          <property key="fill-flash-options-how" value="0"/>
+          <property key="fill-flash-options-inc-const" value="1"/>
+          <property key="fill-flash-options-increment" value=""/>
+          <property key="fill-flash-options-seq" value=""/>
+          <property key="fill-flash-options-what" value="0"/>
+          <property key="generate-16-bit-code" value="false"/>
+          <property key="generate-cross-reference-file" value="true"/>
+          <property key="generate-micro-compressed-code" value="false"/>
+          <property key="heap-size" value="15000"/>
+          <property key="input-libraries" value=""/>
+          <property key="kseg-length" value=""/>
+          <property key="kseg-origin" value=""/>
+          <property key="linker-symbols" value=""/>
+          <property key="map-file" value="${DISTDIR}/${PROJECTNAME}.${IMAGE_TYPE}.map"/>
+          <property key="no-device-startup-code" value="true"/>
+          <property key="no-startup-files" value="false"/>
+          <property key="oXC32ld-extra-opts" value=""/>
+          <property key="optimization-level" value=""/>
+          <property key="preprocessor-macros" value=""/>
+          <property key="remove-unused-sections" value="true"/>
+          <property key="report-memory-usage" value="true"/>
+          <property key="serial-length" value=""/>
+          <property key="serial-origin" value=""/>
+          <property key="stack-size" value=""/>
+          <property key="symbol-stripping" value=""/>
+          <property key="trace-symbols" value=""/>
+          <property key="warn-section-align" value="false"/>
+        </C32-LD>
+        <C32CPP>
+          <property key="additional-warnings" value="false"/>
+          <property key="addresss-attribute-use" value="false"/>
+          <property key="check-new" value="false"/>
+          <property key="eh-specs" value="true"/>
+          <property key="enable-app-io" value="false"/>
+          <property key="enable-omit-frame-pointer" value="false"/>
+          <property key="enable-symbols" value="true"/>
+          <property key="enable-unroll-loops" value="false"/>
+          <property key="exceptions" value="true"/>
+          <property key="exclude-floating-point" value="false"/>
+          <property key="extra-include-directories" value="../src;../src/config/DSP_TU2"/>
+          <property key="generate-16-bit-code" value="false"/>
+          <property key="generate-micro-compressed-code" value="false"/>
+          <property key="isolate-each-function" value="true"/>
+          <property key="make-warnings-into-errors" value="false"/>
+          <property key="optimization-level" value="-O1"/>
+          <property key="place-data-into-section" value="false"/>
+          <property key="post-instruction-scheduling" value="default"/>
+          <property key="pre-instruction-scheduling" value="default"/>
+          <property key="preprocessor-macros" value=""/>
+          <property key="rtti" value="true"/>
+          <property key="strict-ansi" value="false"/>
+          <property key="toplevel-reordering" value=""/>
+          <property key="unaligned-access" value=""/>
+          <property key="use-cci" value="false"/>
+          <property key="use-iar" value="false"/>
+          <property key="use-indirect-calls" value="false"/>
+        </C32CPP>
+        <C32Global>
+          <property key="common-include-directories" value=""/>
+          <property key="gp-relative-option" value=""/>
+          <property key="legacy-libc" value="false"/>
+          <property key="mdtcm" value=""/>
+          <property key="mitcm" value=""/>
+          <property key="mstacktcm" value="false"/>
+          <property key="omit-pack-options" value="1"/>
+          <property key="relaxed-math" value="false"/>
+          <property key="save-temps" value="false"/>
+          <property key="stack-smashing" value=""/>
+          <property key="wpo-lto" value="false"/>
+        </C32Global>
+      </item>
       <item path="../src/config/DSP_TU2/p32MZ0512EFE064.ld"
             ex="true"
             overriding="false">
@@ -322,7 +480,7 @@
         <property key="enable-unroll-loops" value="false"/>
         <property key="exclude-floating-point" value="false"/>
         <property key="extra-include-directories"
-                  value="../src;../src/config/DSP_TU2;../src/winc1500;../src/winc1500/src"/>
+                  value="../src;../src/config/DSP_TU2;..\src\WINC1500\source;..\src\WINC1500\include;..\src\WINC1500"/>
         <property key="generate-16-bit-code" value="false"/>
         <property key="generate-micro-compressed-code" value="false"/>
         <property key="isolate-each-function" value="true"/>
@@ -1154,6 +1312,8 @@
         <property key="periphComp5.gte" value="gt"/>
         <property key="periphComp6.gte" value="gt"/>
         <property key="poweroptions.powerenable" value="false"/>
+        <property key="programmerToGoFilePath"
+                  value="C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/DSP_TU2.X/debug/DSP_TU2/DSP_TU2_ptg"/>
         <property key="programmertogo.imagename" value=""/>
         <property key="programoptions.donoteraseauxmem" value="false"/>
         <property key="programoptions.eraseb4program" value="true"/>
@@ -1714,13 +1874,15 @@
                   value="${memories.instruction.ram.ranges}"/>
         <property key="memories.programmemory" value="true"/>
         <property key="memories.programmemory.ranges" value="1d000000-1d07ffff"/>
+        <property key="programmerToGoFilePath"
+                  value="C:/Users/Harold_Win7/Documents/Microchip/Projects/DSP_TU2/firmware/DSP_TU2.X/debug/DSP_TU2/DSP_TU2_ptg"/>
         <property key="programoptions.donoteraseauxmem" value="false"/>
         <property key="programoptions.eraseb4program" value="true"/>
         <property key="programoptions.pgmentry.voltage" value="low"/>
-        <property key="programoptions.pgmspeed" value="Med"/>
+        <property key="programoptions.pgmspeed" value="2"/>
         <property key="programoptions.preservedataflash" value="false"/>
         <property key="programoptions.preservedataflash.ranges"
-                  value="${memories.dataflash.default}"/>
+                  value="${programoptions.preservedataflash.ranges}"/>
         <property key="programoptions.preserveeeprom" value="false"/>
         <property key="programoptions.preserveeeprom.ranges" value=""/>
         <property key="programoptions.preserveprogram.ranges" value=""/>
